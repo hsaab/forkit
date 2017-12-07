@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "forkit2",
+    "description": "An empty new project",
+    "slug": "forkit2",
+    "privacy": "public",
+    "sdkVersion": "23.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/DesktopCopy2.png",
+    "splash": {
+      "image": "./assets/DesktopCopy3trans.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#192F4A"
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}

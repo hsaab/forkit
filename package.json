@@ -1,0 +1,17 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "dependencies": {
+    "expo": "^23.0.6",
+    "react": "^16.0.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-23.0.0.tar.gz",
+    "react-native-animated-linear-gradient": "^1.1.2",
+    "react-native-dash": "0.0.8",
+    "react-native-linear-gradient": "^2.3.0",
+    "react-native-router-flux": "^4.0.0-beta.24",
+    "react-native-star-rating": "^1.0.8",
+    "react-native-vector-icons": "^4.4.2",
+    "react-navigation": "^1.0.0-beta.21",
+    "redux": "^3.7.2"
+  }
+}
