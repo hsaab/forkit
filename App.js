@@ -32,8 +32,8 @@ export default class App extends React.Component {
       <Router>
         <Lightbox>
           <Scene key="root">
-            <Scene key="home" component={Home} initial={true} hideNavBar={true}/>
-            <Scene key="login" component={Login} hideNavBar={true}/>
+            {/* <Scene key="home" component={Home} initial={true} hideNavBar={true}/> */}
+            <Scene key="login" component={Login} initial={true} hideNavBar={true}/>
             <Scene key="register" component={Register} hideNavBar={true}/>
             <Scene tabs={true} animationEnabled={false} tabBarComponent={Tabbar}>
               <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>

@@ -4,8 +4,28 @@ import { Actions } from 'react-native-router-flux';
 import { LinearGradient } from 'expo';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import { Font } from 'expo';
-
+import axios from 'axios';
 export default class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: ''
+    }
+  }
+
+  login(ev) {
+    ev.preventDefault();
+
+    axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=email&conditions=email='${this.state.email} and password='${this.state.password}''`)
+    .then((resp) => {
+      console.log(resp.data);
+    })
+    .catch((err) => {
+      console.log('Login error is ', err);
+    })
+  }
 
   render() {
     return (
@@ -15,19 +35,19 @@ export default class Login extends React.Component {
           <View style={styles.inputForm}>
             <View style={styles.input}>
               <Image style={styles.userIcon} source={require("../assets/username.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Email'}/>
+              <TextInput style={styles.inputText} placeholder={'Email'} onChangeText={(text) => this.setState({email: text})}/>
             </View>
             <View style={styles.input}>
               <Image style={styles.passIcon} source={require("../assets/password.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Password'}/>
+              <TextInput style={styles.inputText} placeholder={'Password'} onChangeText={(text) => this.setState({password: text})}/>
             </View>
             <TouchableOpacity>
               <Text style={styles.forgetText}>Forget Your Password?</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonForm}>
-            <TouchableOpacity style={styles.loginButton}>
-              <Text style={styles.loginText}> SIGN IN </Text>
+            <TouchableOpacity style={styles.loginButton} onPress={(ev) => this.login(ev)}>
+              <Text style={styles.loginText}> LOGIN</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.fbButton}>
               <Image style={styles.fbIcon} source={require("../assets/fb.png")}/>
@@ -42,7 +62,6 @@ export default class Login extends React.Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',

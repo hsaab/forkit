@@ -1,11 +1,67 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { LinearGradient } from 'expo';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import { Font } from 'expo';
+import axios from 'axios';
+import bcrypt from 'react-native-bcrypt';
 
 export default class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      first: '',
+      last: '',
+      email: '',
+      password: ''
+    };
+  }
+
+  register(ev) {
+    ev.preventDefault();
+
+    // axios({
+    //   method: 'POST',
+    //   url: 'https://guarded-dawn-44803.herokuapp.com/db/insertrows',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   data: {
+    //     password: '$BIG_SHAQ102$',
+    //     tableName: 'users',
+    //     params: `{"firstname": "${this.state.first}", "lastname":"${this.state.last}","email":"${this.state.email}","password":"${this.state.password}"}`
+    //   }
+    // })
+    // .then(response => {
+    //   console.log(response.data);
+    // })
+    // .catch(e => {
+    //   console.log('ERROR', e);
+    // })
+
+    // axios.get(`https://guarded-dawn-44803.herokuapp.com/recover/register?firstname=${this.state.first}&lastname=${this.state.last}&email=${this.state.email}&password=${this.state.password}`)
+    // .then((resp) => console.log(resp))
+    // .catch((err) => console.log('Register Email Error', err));
+    axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=email&conditions=email='${this.state.email}'`)
+    .then(response => {
+      // console.log(response.data);
+      if (response.data.result.length > 0) {
+        Alert.alert('Registration', 'User already registered. Please try a different email!', {text: 'Ok', onPress: () => console.log('Ok')})
+      } else {
+        axios.get(`https://guarded-dawn-44803.herokuapp.com/recover/register?firstname=${this.state.first}&lastname=${this.state.last}&email=${this.state.email}&password=${this.state.password}`)
+          .then(function (response) {
+            console.log(response);
+            if (response.data.success === true) {
+              Alert.alert('Registration', 'Email Verification', {text: 'Ok', onPress: Actions.login()})
+            }
+          });
+      }
+    })
+    .catch(e => {
+      console.log('ERROR', e);
+    });
+  }
 
   render() {
     return (
@@ -15,23 +71,23 @@ export default class Login extends React.Component {
           <View style={styles.inputForm}>
             <View style={styles.input}>
               <Image style={styles.userIcon} source={require("../assets/username.png")}/>
-              <TextInput style={styles.inputText} placeholder={'First Name'}/>
+              <TextInput style={styles.inputText} placeholder={'First Name                    '} onChangeText={(text) => this.setState({first: text})}/>
             </View>
             <View style={styles.input}>
               <Image style={styles.userIcon} source={require("../assets/username.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Last Name'}/>
+              <TextInput style={styles.inputText} placeholder={'Last Name                     '} onChangeText={(text) => this.setState({last: text})}/>
             </View>
             <View style={styles.input}>
               <Image style={styles.userIcon} source={require("../assets/username.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Email'}/>
+              <TextInput style={styles.inputText} placeholder={'Email                         '} onChangeText={(text) => this.setState({email: text})}/>
             </View>
             <View style={styles.input}>
               <Image style={styles.passIcon} source={require("../assets/password.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Password'}/>
+              <TextInput style={styles.inputText} placeholder={'Password                      '} onChangeText={(text) => this.setState({password: text})}/>
             </View>
           </View>
           <View style={styles.buttonForm}>
-            <TouchableOpacity style={styles.loginButton} onPress={Actions.discover}>
+            <TouchableOpacity style={styles.loginButton} onPress={(ev) => this.register(ev)}>
               <Text style={styles.loginText}> CREATE ACCOUNT </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.fbButton} onPress={Actions.login}>
@@ -44,7 +100,6 @@ export default class Login extends React.Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
