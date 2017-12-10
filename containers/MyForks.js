@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 
-export default class MyForks extends React.Component {
-  render() {
+const MyForks = ({}) => {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -85,8 +85,21 @@ export default class MyForks extends React.Component {
         </View>
       </View>
     );
-  }
 }
+
+MyForks.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -159,3 +172,8 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MyForks);

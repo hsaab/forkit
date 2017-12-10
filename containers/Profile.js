@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 
-export default class Profile extends React.Component {
-  render() {
+const Profile = ({}) => {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -40,8 +40,21 @@ export default class Profile extends React.Component {
         </View>
       </View>
     );
-  }
 }
+
+Profile.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -92,3 +105,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Profile);

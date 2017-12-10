@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 
-export default class Home extends React.Component {
-  render() {
+const Home = ({}) => {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={Actions.login}>
@@ -12,8 +12,22 @@ export default class Home extends React.Component {
         </TouchableOpacity>
       </View>
     );
-  }
 }
+
+Home.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+};
+
 
 const styles = StyleSheet.create({
   container: {
@@ -27,3 +41,8 @@ const styles = StyleSheet.create({
     width: scale(250)
   }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Home);

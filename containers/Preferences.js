@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 
-export default class Preferences extends React.Component {
-  render() {
+const Preferences = ({}) => {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -46,8 +46,21 @@ export default class Preferences extends React.Component {
         </View>
       </View>
     );
-  }
 }
+
+Preferences.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -118,3 +131,8 @@ const styles = StyleSheet.create({
     margin: 5
   }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Preferences);

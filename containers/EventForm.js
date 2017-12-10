@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 
-export default class EventForm extends React.Component {
-  render() {
+const EventForm = ({}) => {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -15,8 +15,21 @@ export default class EventForm extends React.Component {
         </View>
       </View>
     );
-  }
 }
+
+EventForm.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -37,3 +50,8 @@ const styles = StyleSheet.create({
     width: scale(375)
   },
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(EventForm);

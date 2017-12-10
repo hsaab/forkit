@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 
-export default class FavoriteList extends React.Component {
-  render() {
+const FavoriteList = ({}) => {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -80,8 +80,21 @@ export default class FavoriteList extends React.Component {
         </ScrollView>
       </View>
     );
-  }
 }
+
+FavoriteList.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -137,3 +150,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FavoriteList);

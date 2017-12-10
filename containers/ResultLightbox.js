@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 
-export default class ResultLightbox extends React.Component {
-  render() {
+const ResultLightbox = ({}) => {
     return (
       <View style={styles.container}>
         <View style={styles.transportContainer}>
@@ -23,8 +23,21 @@ export default class ResultLightbox extends React.Component {
         </View>
       </View>
     );
-  }
 }
+
+ResultLightbox.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -63,3 +76,8 @@ const styles = StyleSheet.create({
     width: scale(100)
   }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ResultLightbox);
