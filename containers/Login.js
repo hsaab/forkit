@@ -25,13 +25,13 @@ class Login extends React.Component{
 
     if (email) {
       if (email.type === 'regular') {
-        axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=token&conditions=email='${email.email}'`)
+        axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=token,email,firstname,lastname,friends,forks,wishlist,os&conditions=email='${email.email}'`)
         .then(resp => {
           if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {
 
-            // userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
-            // this.props.userProfile(userObj);
-            // console.log(this.props.userInformation);
+            userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
+            this.props.userProfile(userObj);
+            console.log(this.props.userInformation);
 
             Actions.discover();
           }
@@ -39,9 +39,12 @@ class Login extends React.Component{
         .catch(e => console.log(e))
       }
       if (email.type === 'facebook') {
-        axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=token&conditions=email='${email.email}'`)
+        axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=token,email,firstname,lastname,friends,forks,wishlist,os&conditions=email='${email.email}'`)
         .then(resp => {
           if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {
+            userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
+            this.props.userProfile(userObj);
+            console.log(this.props.userInformation);
             Actions.discover();
           }
           // console.log(resp.data)
@@ -62,7 +65,7 @@ class Login extends React.Component{
     .then(resp => {
       if (resp.data.result.length > 0) {
         if (bcrypt.compareSync(this.state.password, resp.data.result[0].password)) {
-          userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
+          userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
           // console.log('userObj', userObj);
           this.props.userProfile(userObj);
           console.log(this.props.userInformation);
@@ -108,6 +111,7 @@ class Login extends React.Component{
   }
 
   async facebookLogin() {
+    var userObj = {};
     const {
       type,
       token,
@@ -151,13 +155,16 @@ class Login extends React.Component{
       // })
 
       // console.log(userData.id);
-      axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=email,password&conditions=fb_id='${userData.id}'`)
+      axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=email,password,firstname,lastname,friends,forks,wishlist,os&conditions=fb_id='${userData.id}'`)
       .then(resp => {
         if (resp.data.result.length > 0) {
           AsyncStorage.setItem('email', JSON.stringify({
             email: `fb${userData.email}`,
             type: 'facebook'
             }));
+          userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
+          this.props.userProfile(userObj);
+          console.log(this.props.userInformation);
           Actions.discover();
         } else {
           var salt = bcrypt.genSaltSync(10);
@@ -180,6 +187,9 @@ class Login extends React.Component{
               email: `fb${userData.email}`,
               type: 'facebook'
               }));
+              userObj = {firstname: userData.first_name, lastname: userData.last_name, email: userData.email, friends: '', forks: '', wishlist: '', os: ''};
+              this.props.userProfile(userObj);
+              console.log(this.props.userInformation);
             Actions.discover();
           })
         }
