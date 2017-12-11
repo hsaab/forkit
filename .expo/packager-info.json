@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": 19002,
-  "packagerPid": 69544,
+  "packagerPort": 19001,
+  "packagerPid": 640,
   "expoServerNgrokUrl": "https://ev-bri.vazish.forkit2.exp.direct",
   "packagerNgrokUrl": "https://packager.ev-bri.vazish.forkit2.exp.direct",
-  "ngrokPid": 69559
+  "ngrokPid": 656
 }

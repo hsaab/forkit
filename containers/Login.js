@@ -7,6 +7,7 @@ import { scale, verticalScale, moderateScale } from '../scaler.js';
 import { Font } from 'expo';
 import axios from 'axios';
 import bcrypt from 'react-native-bcrypt';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component{
   constructor(props) {
@@ -20,12 +21,18 @@ class Login extends React.Component{
   async componentDidMount() {
     let emailObj = await AsyncStorage.getItem('email');
     let email = JSON.parse(emailObj);
-    // console.log(email);
+    var userObj = {};
+
     if (email) {
       if (email.type === 'regular') {
         axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=token&conditions=email='${email.email}'`)
         .then(resp => {
           if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {
+
+            // userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
+            // this.props.userProfile(userObj);
+            // console.log(this.props.userInformation);
+
             Actions.discover();
           }
         })
@@ -37,7 +44,7 @@ class Login extends React.Component{
           if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {
             Actions.discover();
           }
-          console.log(resp.data)
+          // console.log(resp.data)
         })
         .catch(e => console.log(e))
       }
@@ -49,10 +56,17 @@ class Login extends React.Component{
   login(ev) {
     ev.preventDefault();
 
-    axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=email,password&conditions=email='${this.state.email}'`)
+    var userObj = {};
+
+    axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=email,password,firstname,lastname,friends,forks,wishlist,os&conditions=email='${this.state.email}'`)
     .then(resp => {
       if (resp.data.result.length > 0) {
         if (bcrypt.compareSync(this.state.password, resp.data.result[0].password)) {
+          userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
+          // console.log('userObj', userObj);
+          this.props.userProfile(userObj);
+          console.log(this.props.userInformation);
+
           var salt = bcrypt.genSaltSync(10);
           var token = bcrypt.hashSync(this.state.email, salt);
 
@@ -172,8 +186,6 @@ class Login extends React.Component{
       })
       .catch(e => console.log(e))
     }
-
-    // Store in async storage whether the type is facebook or regular
   }
 
   render() {
@@ -213,16 +225,19 @@ class Login extends React.Component{
 }
 
 Login.propTypes = {
+  userProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
+      userInformation: state.user
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      userProfile: (user) => dispatch({type: 'ADD_USER', info: user})
     };
 };
 
