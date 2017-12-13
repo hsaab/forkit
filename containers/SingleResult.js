@@ -8,9 +8,28 @@ import {MapView} from 'expo';
 import StarRating from 'react-native-star-rating';
 import Stars from 'react-native-stars';
 import Communications from 'react-native-communications';
-
+import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
+import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
+import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
 
 class SingleResult extends Component {
+  imageMatch(rating) {
+    switch(rating) {
+      case (4 || 4.1 || 4.2 || 4.3 || 4.4):
+        let fourImage = fourStars;
+        return fourImage;
+      case (4.5 || 4.6 || 4.7 || 4.8 || 4.9):
+        let fourHalfImage = fourHalfStars;
+        return fourHalfImage;
+      case (5):
+        let fiveImage = fiveStars;
+        return fiveImage;
+      default:
+        let image = fourStars;
+        return image;
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -19,19 +38,7 @@ class SingleResult extends Component {
           <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
           <View style={styles.nameContainer}>
             <View style={styles.star}>
-              {/* <StarRating
-                disabled={false}
-                maxStars={1}
-                rating={0}
-                starSize={40}
-                starColor={'#ddd3dc'}
-                emptyStarColor={'#ddd3dc'}
-              /> */}
-              <Stars
-                value={0}
-                count={1}
-                starSize={40}
-              />
+              
             </View>
             <View style={styles.name}>
               <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
@@ -43,18 +50,7 @@ class SingleResult extends Component {
               <TouchableOpacity onPress={() => Communications.phonecall(this.props.single.singleResult.display_phone, true)}>
                 <Text style={{fontWeight: 'bold', color: 'skyblue'}}>{this.props.single.singleResult.display_phone}</Text>
               </TouchableOpacity>
-              {/* <StarRating
-                disabled={true}
-                maxStars={5}
-                rating={this.props.single.singleResult.rating}
-                starSize={20}
-                starColor={'#ecf000'}
-                emptyStarColor={'#ecf000'}
-              /> */}
-              <Stars
-                value={this.props.single.singleResult.rating}
-                starSize={20}
-              />
+              <Image source={this.imageMatch(this.props.single.singleResult.rating)}/>
               <Text style={styles.textStyle}>{(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
             </View>
             <View style={styles.restaurantButtons}>
@@ -79,15 +75,15 @@ class SingleResult extends Component {
             >
               <MapView.Marker
                 coordinate={{
-                  latitude: this.props.single.singleResult.coordinates.latitude,
-                  longitude: this.props.single.singleResult.coordinates.longitude
+                  latitude: this.props.location.latitude,
+                  longitude: this.props.location.longitude
                 }}
                 pinColor={'#008000'}
                 />
               <MapView.Marker
                 coordinate={{
-                  latitude: this.props.location.latitude,
-                  longitude: this.props.location.longitude
+                  latitude: this.props.single.singleResult.coordinates.latitude,
+                  longitude: this.props.single.singleResult.coordinates.longitude
                 }}
                 />
             </MapView>

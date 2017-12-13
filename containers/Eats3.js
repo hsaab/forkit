@@ -7,27 +7,65 @@ import Navbar from '../components/Navbar.js';
 import Dash from 'react-native-dash';
 
 class Eats3 extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      secondsLeft: 1,
+      end: 0,
+      mins: 1/5,
+      interval: 0
+    }
+  }
+
   handleShort(ev) {
     ev.preventDefault();
     this.props.setDistance(1500);
+    clearInterval(this.state.interval);
     Actions.algo();
   }
 
   handleLong(ev) {
     ev.preventDefault();
     this.props.setDistance(5000);
+    clearInterval(this.state.interval);
     Actions.algo();
   }
 
-  handleGamble(ev) {
-    ev.preventDefault();
+  handleGamble() {
     let random = Math.random() * 2;
     if (random >= 1) {
       this.props.setDistance(5000);
     } else {
       this.props.setDistance(1500);
     }
+    clearInterval(this.state.interval);
     Actions.algo();
+  }
+
+  update() {
+      // YOUR CODE HERE
+      if(this.state.secondsLeft === 0) {
+        this.handleGamble()
+      }
+      this.setState({
+        secondsLeft: Math.floor((this.state.end - Date.now()) / 1000)
+      });
+    }
+
+  componentDidMount() {
+    this.setState({
+      end: new Date(Date.now() + this.state.mins * 60000)
+    });
+    this.interval = setInterval(this.update.bind(this), 100);
+    this.setState({
+      interval: this.interval
+    })
+  }
+
+  componentWillUnmount() {
+    // YOUR CODE HERE
+      clearInterval(this.update);
   }
 
   render() {
@@ -39,7 +77,7 @@ class Eats3 extends Component {
           <View style={styles.topTile}>
             <View style={styles.rowSubContainer}>
               <Dash dashGap={0} dashColor={'white'} style={{width:scale(35), height:verticalScale(1), right:scale(5) }}/>
-              <Text style={styles.timer}> 00:10 </Text>
+              <Text style={styles.timer}> {this.state.secondsLeft} </Text>
               <Dash dashGap={0} dashColor={'white'} style={{width:scale(35), height:verticalScale(1), left:scale(5) }}/>
             </View>
             <Text style={styles.topText}>How far away you wanna go?</Text>
@@ -58,7 +96,7 @@ class Eats3 extends Component {
               <Text style={styles.optionText}>1 to 3 miles</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={(ev) => this.handleGamble(ev)}>
+          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={() => this.handleGamble()}>
             <Text style={styles.gambleText}> Take a Gamble </Text>
             <Image style={styles.dollarSigns} source={require("../assets/red-dice-512.png")}/>
           </TouchableOpacity>

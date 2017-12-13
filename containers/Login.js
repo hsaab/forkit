@@ -212,7 +212,7 @@ class Login extends React.Component{
               <Image style={styles.passIcon} source={require("../assets/password.png")}/>
               <TextInput style={styles.inputText} placeholder={'Password'} onChangeText={(text) => this.setState({password: text})}/>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={Actions.forgot}>
               <Text style={styles.forgetText}>Forget Your Password?</Text>
             </TouchableOpacity>
           </View>

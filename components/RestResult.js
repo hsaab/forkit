@@ -5,7 +5,9 @@ import { scale, verticalScale, moderateScale } from '../scaler.js';
 import { connect } from 'react-redux';
 import Navbar from '../components/Navbar.js';
 import MinibarResults from '../components/MinibarResults.js';
-import StarRating from 'react-native-star-rating';
+import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
+import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
+import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
 
 class RestResult extends React.Component {
   constructor() {
@@ -21,11 +23,32 @@ class RestResult extends React.Component {
     }
   }
 
+  imageMatch(rating) {
+    switch(rating) {
+      case (4 || 4.1 || 4.2 || 4.3 || 4.4):
+        let fourImage = fourStars;
+        return fourImage;
+      case (4.5 || 4.6 || 4.7 || 4.8 || 4.9):
+        let fourHalfImage = fourHalfStars;
+        return fourHalfImage;
+      case (5):
+        let fiveImage = fiveStars;
+        return fiveImage;
+      default:
+        let image = fourStars;
+        return image;
+    }
+  }
+
   handleResults(ev) {
     ev.preventDefault();
     console.log(this.props.restaurant);
     this.props.getSingle(this.props.restaurant);
     Actions.singleresult();
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
@@ -64,6 +87,7 @@ class RestResult extends React.Component {
                   starColor={'#ecf000'}
                   emptyStarColor={'#ecf000'}
                 /> */}
+                <Image source={this.imageMatch(this.props.rating)}/>
               </View>
               <Text style={styles.textDetails}>Yelp Reviews: {this.props.reviews}</Text>
               <Text style={styles.textDetails}>Distance: {(this.props.distance*0.000621371).toPrecision(3)} miles</Text>
