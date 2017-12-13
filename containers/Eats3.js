@@ -6,7 +6,31 @@ import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 import Dash from 'react-native-dash';
 
-const Eats3 = ({}) => {
+class Eats3 extends Component {
+  handleShort(ev) {
+    ev.preventDefault();
+    this.props.setDistance(1500);
+    Actions.algo();
+  }
+
+  handleLong(ev) {
+    ev.preventDefault();
+    this.props.setDistance(5000);
+    Actions.algo();
+  }
+
+  handleGamble(ev) {
+    ev.preventDefault();
+    let random = Math.random() * 2;
+    if (random >= 1) {
+      this.props.setDistance(5000);
+    } else {
+      this.props.setDistance(1500);
+    }
+    Actions.algo();
+  }
+
+  render() {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -21,7 +45,7 @@ const Eats3 = ({}) => {
             <Text style={styles.topText}>How far away you wanna go?</Text>
           </View>
           <View style={styles.rowSubContainer}>
-            <TouchableOpacity style={styles.optionLeft}>
+            <TouchableOpacity style={styles.optionLeft} onPress={(ev) => this.handleShort(ev)}>
               <View style={styles.rowSubContainer}>
                 <Image style={styles.hiker} source={require("../assets/Hikerwhite.png")}/>
                 <Image style={styles.hiker} source={require("../assets/Hikerwhite.png")}/>
@@ -29,18 +53,19 @@ const Eats3 = ({}) => {
               </View>
               <Text style={styles.optionText}>Less than 1 mile</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionRight}>
+            <TouchableOpacity style={styles.optionRight} onPress={(ev) => this.handleLong(ev)}>
               <Image style={styles.car} source={require("../assets/carWhite.png")}/>
               <Text style={styles.optionText}>1 to 3 miles</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={Actions.algo}>
+          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={(ev) => this.handleGamble(ev)}>
             <Text style={styles.gambleText}> Take a Gamble </Text>
             <Image style={styles.dollarSigns} source={require("../assets/red-dice-512.png")}/>
           </TouchableOpacity>
         </View>
       </View>
     );
+  }
 }
 
 Eats3.propTypes = {
@@ -54,6 +79,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      setDistance: (distance) => dispatch({type: "DISTANCE_TYPE", distance: distance})
     };
 };
 

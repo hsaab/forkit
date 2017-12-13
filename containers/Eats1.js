@@ -5,8 +5,35 @@ import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 import Dash from 'react-native-dash';
+import PropTypes from 'prop-types';
 
-const Eats1 = ({}) => {
+class Eats1 extends Component {
+  handleLow(ev) {
+    ev.preventDefault();
+    this.props.handlePrice("1,2");
+    Actions.eats2();
+  }
+
+  handleHigh(ev) {
+    ev.preventDefault();
+    this.props.handlePrice("3,4");
+    Actions.eats2();
+  }
+
+  handleGamble(ev) {
+    ev.preventDefault();
+    let price = 0;
+    let random = Math.random() * 2;
+    if (random >= 1) {
+      price = "1,2";
+    } else {
+      price = "3,4";
+    }
+    this.props.handlePrice(price);
+    Actions.eats2();
+  }
+
+  render() {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -21,7 +48,7 @@ const Eats1 = ({}) => {
             <Text style={styles.topText}>How pricey are you going for?</Text>
           </View>
           <View style={styles.rowSubContainer}>
-            <TouchableOpacity style={styles.optionLeft}>
+            <TouchableOpacity style={styles.optionLeft} onPress={(ev) => this.handleLow(ev)}>
               <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
               <View style={styles.rowSubContainer}>
                 <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
@@ -29,7 +56,7 @@ const Eats1 = ({}) => {
               </View>
               <Text style={styles.optionText}>Low Key</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionRight}>
+            <TouchableOpacity style={styles.optionRight} onPress={(ev) => this.handleHigh(ev)}>
               <View style={styles.rowSubContainer}>
                 <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
                 <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
@@ -44,16 +71,18 @@ const Eats1 = ({}) => {
               <Text style={styles.optionText}>Ball Out</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={Actions.eats2}>
+          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={(ev) => this.handleGamble(ev)}>
             <Text style={styles.gambleText}> Take a Gamble </Text>
             <Image style={styles.dollarSigns} source={require("../assets/red-dice-512.png")}/>
           </TouchableOpacity>
         </View>
       </View>
     );
+  }
 }
 
 Eats1.propTypes = {
+  handlePrice: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
@@ -64,6 +93,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      handlePrice: (price) => dispatch({type: 'PRICE_CHECK', price: price})
     };
 };
 

@@ -28,6 +28,7 @@ import EventForm from './containers/EventForm.js';
 import StatusPage from './containers/StatusPage.js';
 import TestQuestion from './containers/TestQuestion.js';
 import MultiResult from './containers/MultiResult.js';
+import Yelp from './containers/Yelp.js';
 
 const store = createStore(rootReducer);
 
@@ -45,11 +46,12 @@ export default function App ({}) {
               <Scene key="eats2" component={Eats2} hideNavBar={true} hideTabBar={true}/>
               <Scene key="eats3" component={Eats3} hideNavBar={true} hideTabBar={true}/>
               <Scene key="algo" component={Algo} hideNavBar={true} hideTabBar={true}/>
+              <Scene key='yelp' component={Yelp} hideNavBar={true} hideTabBar={true}/>
               <Scene key="testquestion" component={TestQuestion} hideNavBar={true} hideTabBar={true}/>
-              <Scene tabs={true} animationEnabled={false} tabBarComponent={Tabbar}>
+              <Scene tabs={true} lazy={true} animationEnabled={false} tabBarComponent={Tabbar}>
                 <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>
-                <Scene key="listresults" component={ListResults} hideNavBar={true}/>
                 <Scene key="listmap" component={ListMap} hideNavBar={true}/>
+                <Scene key="listresults" component={ListResults} hideNavBar={true}/>
                 <Scene key="singleresult" component={SingleResult} hideNavBar={true}/>
                 <Scene key="profile" component={Profile} hideNavBar={true}/>
                 <Scene key="preferences" component={Preferences} hideNavBar={true}/>

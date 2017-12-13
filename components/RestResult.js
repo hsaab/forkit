@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
+import { connect } from 'react-redux';
 import Navbar from '../components/Navbar.js';
 import MinibarResults from '../components/MinibarResults.js';
 import StarRating from 'react-native-star-rating';
 
-export default class RestResult extends React.Component {
+class RestResult extends React.Component {
   constructor() {
     super()
   }
@@ -20,12 +21,19 @@ export default class RestResult extends React.Component {
     }
   }
 
+  handleResults(ev) {
+    ev.preventDefault();
+    console.log(this.props.restaurant);
+    this.props.getSingle(this.props.restaurant);
+    Actions.singleresult();
+  }
+
   render() {
     return (
       <TouchableOpacity style={this.props.border ? styles.listItem : styles.listItemNoBorder}
-        onPress={Actions.singleresult}>
+        onPress={(ev) => this.handleResults(ev)}>
         <View style={styles.restaurantPic} >
-          <Image style={styles.restaurantIcon} source={this.props.img}/>
+          <Image style={styles.restaurantIcon} source={{uri: this.props.img}}/>
         </View>
         <View style={styles.restaurantInfo}>
           <View style={styles.restaurantNameContainer}>
@@ -34,31 +42,31 @@ export default class RestResult extends React.Component {
             </View>
             <View style={styles.star}>
               <View>
-                <StarRating
+                {/* <StarRating
                   disabled={false}
                   maxStars={1}
                   rating={0}
                   starSize={40}
                   starColor={'#ddd3dc'}
                   emptyStarColor={'#ddd3dc'}
-                />
+                /> */}
               </View>
             </View>
           </View>
           <View style={styles.restaurantDetails}>
             <View style={styles.restaurantStats}>
               <View style={styles.starRating}>
-                <StarRating
+                {/* <StarRating
                   disabled={true}
                   maxStars={5}
                   rating={this.props.rating}
                   starSize={25}
                   starColor={'#ecf000'}
                   emptyStarColor={'#ecf000'}
-                />
+                /> */}
               </View>
-              <Text style={styles.textDetails}>{this.props.reviews}</Text>
-              <Text style={styles.textDetails}>{this.props.distance}</Text>
+              <Text style={styles.textDetails}>Yelp Reviews: {this.props.reviews}</Text>
+              <Text style={styles.textDetails}>Distance: {(this.props.distance*0.000621371).toPrecision(3)} miles</Text>
             </View>
             <TouchableOpacity style={styles.eatIcon}>
               <Image style={styles.menuIcon} source={require("../assets/ForkandKnifeTransparentGrey.png")}/>
@@ -69,6 +77,22 @@ export default class RestResult extends React.Component {
     );
   }
 }
+
+RestResult.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    // console.log(state);
+    return {
+      restaurants: state.results
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      getSingle: (result) => dispatch({type: 'SINGLE_RESULT', result: result})
+    };
+};
 
 const styles = StyleSheet.create({
   listItem: {
@@ -148,3 +172,8 @@ const styles = StyleSheet.create({
     borderRadius: 30
   }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RestResult);

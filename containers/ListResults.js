@@ -9,7 +9,34 @@ import StarRating from 'react-native-star-rating';
 import RestResult from '../components/RestResult.js';
 import restImage from "../assets/burger.jpg";
 
-const ListResults = ({}) => {
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+class ListResults extends Component {
+  handleGamble(ev) {
+    ev.preventDefault();
+    let shuffled = shuffle(this.props.restaurants.results);
+    this.props.getSingle(shuffled[0]);
+    Actions.singleresult();
+  }
+
+  render() {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -17,15 +44,15 @@ const ListResults = ({}) => {
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
           <View style={styles.listContainer}>
-            <RestResult name={'InnOut Burgers is the best burger ever'} rating={5} reviews={'1,000 reviews on Yelp'}
-              distance={'0.1 miles away from you'} img={restImage} border={true}/>
-            <RestResult name={'ShakeShack'} rating={4} reviews={'500 reviews on Yelp'}
-              distance={'0.3 miles away from you'} img={restImage} border={true}/>
-            <RestResult name={'Five Guys'} rating={3} reviews={'300 reviews on Yelp'}
-              distance={'0.4 miles away from you'} img={restImage} border={false}/>
+            <RestResult restaurant={this.props.restaurants.results[0]} name={this.props.restaurants.results[0].name} rating={this.props.restaurants.results[0].rating} reviews={this.props.restaurants.results[0].review_count}
+              distance={this.props.restaurants.results[0].distance} img={this.props.restaurants.results[0].image_url} border={true}/>
+            <RestResult restaurant={this.props.restaurants.results[1]} name={this.props.restaurants.results[1].name} rating={this.props.restaurants.results[1].rating} reviews={this.props.restaurants.results[1].review_count}
+              distance={this.props.restaurants.results[1].distance} img={this.props.restaurants.results[1].image_url} border={true}/>
+            <RestResult restaurant={this.props.restaurants.results[2]} name={this.props.restaurants.results[2].name} rating={this.props.restaurants.results[2].rating} reviews={this.props.restaurants.results[2].review_count}
+              distance={this.props.restaurants.results[2].distance} img={this.props.restaurants.results[2].image_url} border={false}/>
           </View>
           <View style={styles.bottomContainer}>
-            <TouchableOpacity style={styles.gamble} onPress={Actions.singleresult}>
+            <TouchableOpacity style={styles.gamble} onPress={(ev) => this.handleGamble(ev)}>
               <Text style={styles.gambleText}>Take a Gamble</Text>
               <Image style={styles.dice} source={require("../assets/red-dice-512.png")}/>
             </TouchableOpacity>
@@ -33,6 +60,7 @@ const ListResults = ({}) => {
         </View>
       </View>
     );
+  }
 }
 
 ListResults.propTypes = {
@@ -41,11 +69,13 @@ ListResults.propTypes = {
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
+      restaurants: state.results
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      getSingle: (result) => dispatch({type: 'SINGLE_RESULT', result: result})
     };
 };
 

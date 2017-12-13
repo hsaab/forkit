@@ -6,9 +6,12 @@ import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 import {MapView} from 'expo';
 import StarRating from 'react-native-star-rating';
+import Stars from 'react-native-stars';
+import Communications from 'react-native-communications';
 
 
-const SingleResult = ({}) => {
+class SingleResult extends Component {
+  render() {
     return (
       <View style={styles.container}>
         <Navbar hasBack={true}/>
@@ -16,36 +19,46 @@ const SingleResult = ({}) => {
           <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
           <View style={styles.nameContainer}>
             <View style={styles.star}>
-              <StarRating
+              {/* <StarRating
                 disabled={false}
                 maxStars={1}
                 rating={0}
                 starSize={40}
                 starColor={'#ddd3dc'}
                 emptyStarColor={'#ddd3dc'}
+              /> */}
+              <Stars
+                value={0}
+                count={1}
+                starSize={40}
               />
             </View>
             <View style={styles.name}>
-              <Text style={styles.nameText}>Name of the Restaurant testing again if its long</Text>
+              <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
             </View>
           </View>
           <View style={styles.detailsContainer}>
             <View style={styles.details}>
-              <Image style={styles.restaurantIcon} source={require("../assets/burger.jpg")}/>
-              <Text style={styles.textStyle}>123-456-7890</Text>
-              <StarRating
+              <Image style={styles.restaurantIcon} source={{uri: this.props.single.singleResult.image_url}}/>
+              <TouchableOpacity onPress={() => Communications.phonecall(this.props.single.singleResult.display_phone, true)}>
+                <Text style={{fontWeight: 'bold', color: 'skyblue'}}>{this.props.single.singleResult.display_phone}</Text>
+              </TouchableOpacity>
+              {/* <StarRating
                 disabled={true}
                 maxStars={5}
-                rating={4}
+                rating={this.props.single.singleResult.rating}
                 starSize={20}
                 starColor={'#ecf000'}
                 emptyStarColor={'#ecf000'}
+              /> */}
+              <Stars
+                value={this.props.single.singleResult.rating}
+                starSize={20}
               />
-              <Text style={styles.textStyle}>1,000 reviews on Yelp</Text>
-              <Text style={styles.textStyle}>100 miles from you</Text>
+              <Text style={styles.textStyle}>{(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
             </View>
             <View style={styles.restaurantButtons}>
-              <TouchableOpacity style={styles.yelp}>
+              <TouchableOpacity style={styles.yelp} onPress={Actions.yelp}>
                 <Image style={styles.yelpIcon} source={require("../assets/yelp.jpg")}/>
               </TouchableOpacity>
               <TouchableOpacity style={styles.openTable}>
@@ -57,8 +70,8 @@ const SingleResult = ({}) => {
             <MapView
               style={{ width: scale(300), height: verticalScale(150) }}
               region={{
-                latitude: 37.771728,
-                longitude: -122.409421,
+                latitude: this.props.location.latitude,
+                longitude: this.props.location.longitude,
                 latitudeDelta: .05,
                 longitudeDelta: .05,
 
@@ -66,15 +79,15 @@ const SingleResult = ({}) => {
             >
               <MapView.Marker
                 coordinate={{
-                  latitude: 37.771728,
-                  longitude: -122.409421
+                  latitude: this.props.single.singleResult.coordinates.latitude,
+                  longitude: this.props.single.singleResult.coordinates.longitude
                 }}
                 pinColor={'#008000'}
                 />
               <MapView.Marker
                 coordinate={{
-                  latitude: 37.760602,
-                  longitude: -122.419421
+                  latitude: this.props.location.latitude,
+                  longitude: this.props.location.longitude
                 }}
                 />
             </MapView>
@@ -87,6 +100,7 @@ const SingleResult = ({}) => {
         </View>
       </View>
     );
+  }
 }
 
 SingleResult.propTypes = {
@@ -95,6 +109,8 @@ SingleResult.propTypes = {
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
+      location: state.area,
+      single: state.results
     };
 };
 

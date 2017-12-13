@@ -15,6 +15,7 @@ const LocationReducer = (state = initialState, action) => {
     case 'YOU_HERE':
       // console.log(action);
       const locationInfo = Object.assign({}, action.location);
+      console.log('Location Reducer ', locationInfo);
       return locationInfo;
     default:
       return state

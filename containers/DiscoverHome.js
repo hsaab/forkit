@@ -24,7 +24,7 @@ class DiscoverHome extends Component {
         console.log(resp.data);
         let cuisines = {cuisines: resp.data};
         this.props.initialYelp(cuisines);
-        console.log(this.props.searchArea);
+        // console.log(this.props.searchArea);
         Actions.eats1();
       })
       .catch((err) => console.log('Initial yelp error', err));
@@ -61,7 +61,7 @@ const mapStateToProps = (state) => {
     // console.log(state);
     return {
       locationInfo: state.area,
-      searchArea: state.yelp
+      // searchArea: state.yelp
     };
 };
 

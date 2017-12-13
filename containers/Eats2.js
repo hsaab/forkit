@@ -5,8 +5,109 @@ import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 import Dash from 'react-native-dash';
+import PropTypes from 'prop-types';
 
-const Eats2 = ({}) => {
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+class Eats2 extends Component {
+  handleFirst(ev) {
+    ev.preventDefault();
+    if (this.props.cuisineState.cuisines[0] === 'indian') {
+      this.props.setFoodChoice('indpak');
+    } else if (this.props.cuisineState.cuisines[0] === 'american') {
+      var value = Math.random();
+      if (value < 0.5) {
+        this.props.setFoodChoice('tradamerican')
+      } else {
+        this.props.setFoodChoice('newamerican');
+      }
+    } else {
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
+    }
+    Actions.eats3();
+  }
+
+  handleSecond(ev) {
+    ev.preventDefault();
+    if (this.props.cuisineState.cuisines[0] === 'indian') {
+      this.props.setFoodChoice('indpak');
+    } else if (this.props.cuisineState.cuisines[0] === 'american') {
+      var value = Math.random();
+      if (value < 0.5) {
+        this.props.setFoodChoice('tradamerican')
+      } else {
+        this.props.setFoodChoice('newamerican');
+      }
+    } else {
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
+    }
+    Actions.eats3();
+  }
+
+  handleThird(ev) {
+    ev.preventDefault();
+    if (this.props.cuisineState.cuisines[0] === 'indian') {
+      this.props.setFoodChoice('indpak');
+    } else if (this.props.cuisineState.cuisines[0] === 'american') {
+      var value = Math.random();
+      if (value < 0.5) {
+        this.props.setFoodChoice('tradamerican')
+      } else {
+        this.props.setFoodChoice('newamerican');
+      }
+    } else {
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
+    }
+    Actions.eats3();
+  }
+
+  handleFourth(ev) {
+    ev.preventDefault();
+    if (this.props.cuisineState.cuisines[0] === 'indian') {
+      this.props.setFoodChoice('indpak');
+    } else if (this.props.cuisineState.cuisines[0] === 'american') {
+      var value = Math.random();
+      if (value < 0.5) {
+        this.props.setFoodChoice('tradamerican')
+      } else {
+        this.props.setFoodChoice('newamerican');
+      }
+    } else {
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
+    }
+    Actions.eats3();
+  }
+
+  handleGamble(ev) {
+    ev.preventDefault();
+    let choice = this.props.cuisineState.cuisines;
+    shuffle(choice);
+    if (choice[0] === 'indian') {
+      this.props.setFoodChoice('indpak');
+    } else {
+      this.props.setFoodChoice(choice[0]);
+    }
+    Actions.eats3();
+  }
+
+  render() {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -22,33 +123,34 @@ const Eats2 = ({}) => {
           </View>
           <View style={styles.colSubContainer}>
             <View style={styles.rowSubContainer}>
-              <TouchableOpacity style={styles.optionLeft}>
+              <TouchableOpacity style={styles.optionLeft} onPress={(ev) => this.handleFirst(ev)}>
                 <Image style={styles.mexican} source={require("../assets/taco.png")}/>
-                <Text style={styles.optionText}>Mexican</Text>
+                <Text style={styles.optionText}>{this.props.cuisineState.cuisines[0]}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.optionRight}>
+              <TouchableOpacity style={styles.optionRight} onPress={(ev) => this.handleSecond(ev)}>
                 <Image style={styles.japanese} source={require("../assets/japanese.png")}/>
-                <Text style={styles.optionText}>Japanese</Text>
+                <Text style={styles.optionText}>{this.props.cuisineState.cuisines[1]}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.rowSubContainer}>
-              <TouchableOpacity style={styles.optionLeft}>
+              <TouchableOpacity style={styles.optionLeft} onPress={(ev) => this.handleThird(ev)}>
                 <Image style={styles.american} source={require("../assets/american.png")}/>
-                <Text style={styles.optionText}>American</Text>
+                <Text style={styles.optionText}>{this.props.cuisineState.cuisines[2]}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.optionRight}>
+              <TouchableOpacity style={styles.optionRight} onPress={(ev) => this.handleFourth(ev)}>
                 <Image style={styles.italian} source={require("../assets/italian.png")}/>
-                <Text style={styles.optionText}>Italian</Text>
+                <Text style={styles.optionText}>{this.props.cuisineState.cuisines[3]}</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={Actions.eats3}>
+          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={(ev) => this.handleGamble(ev)}>
             <Text style={styles.gambleText}> Take a Gamble </Text>
             <Image style={styles.dollarSigns} source={require("../assets/red-dice-512.png")}/>
           </TouchableOpacity>
         </View>
       </View>
     );
+  }
 }
 
 Eats2.propTypes = {
@@ -57,11 +159,13 @@ Eats2.propTypes = {
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
+      cuisineState: state.yelp
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      setFoodChoice: (ethnic) => dispatch({type: 'FOOD_CHOICE', ethnic: ethnic})
     };
 };
 
