@@ -33,7 +33,7 @@ class Eats2 extends Component {
     this.state = {
       secondsLeft: 1,
       end: 0,
-      mins: 1/5,
+      mins: 1/3.8,
       interval: 0
     }
   }

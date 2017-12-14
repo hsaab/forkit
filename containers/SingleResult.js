@@ -128,8 +128,8 @@ class SingleResult extends Component {
                  />
                <MapView.Marker
                  coordinate={{
-                   latitude: this.props.single.singleResult.coordinates.latitude,
-                   longitude: this.props.single.singleResult.coordinates.longitude
+                   latitude: this.props.location.latitude,
+                   longitude: this.props.location.longitude
                  }}
                  />
 
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   restaurantIcon: {
     height: verticalScale(150),
     width: scale(150),
-    borderRadius: 75,
+    borderRadius: 60,
     opacity: 0.7
   },
   yelpIcon: {
