@@ -1,72 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Animated, Easing, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Animated, Easing } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import PropTypes from 'prop-types';
 
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-class Algo extends React.Component {
+export default class Algo extends React.Component {
   constructor() {
     super()
     this.animatedValue = new Animated.Value(0)
   }
 
-  /*
-  Cuisines looked at:
-  -- mexican <->
-  -- american gives italian for some reason -> should give tradamerican or newamerican
-  -- japanese
-  -- chinese
-  -- thai
-  -- indian
-  -- italian
-  -- greek
-  -- french
-  -- spanish
-  -- mediterannean
-  Should be working now
-  */
   componentDidMount() {
-    this.animate();
-    var url = `https://guarded-dawn-44803.herokuapp.com/yelp/restaurants/?price=${this.props.finalState.price}&distance=${this.props.finalState.distance}&cuisine=${this.props.finalState.ethnic}&latitude=${this.props.location.latitude}&longitude=${this.props.location.longitude}`
-    console.log(url);
-    axios.get(url)
-    .then((result) => {
-      let shuffled = shuffle(result.data);
-      if (shuffled.length < 3) {
-        // Alert.alert('Oops', 'We did not find enough results. Please try again with different parameters', {text: 'Ok', onPress: Actions.discover()})
-        Alert.alert('Oops', 'We did not find enough results. Please try again with different parameters', {text: 'Ok', onPress: Actions.eats1()})
-      } else {
-        let three = [shuffled[0], shuffled[1], shuffled[2]];
-        this.props.listResults(three);
-        console.log(three);
-        Actions.listresults();
-      }
-    })
-    .catch((err) => {
-      console.log('Algo error', err);
-    })
+    this.animate()
   }
 
   animate() {
@@ -109,24 +54,6 @@ class Algo extends React.Component {
   }
 }
 
-Algo.propTypes = {
-  listResults: PropTypes.func
-};
-
-const mapStateToProps = (state) => {
-    // console.log(state);
-    return {
-      location: state.area,
-      finalState: state.yelp
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-      listResults: (result) => dispatch({type: 'RESULTS', results: result})
-    };
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -150,8 +77,3 @@ const styles = StyleSheet.create({
     width: scale(300)
   },
 });
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Algo);
