@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 class Eats1 extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       secondsLeft: 1,
       end: 0,
@@ -41,20 +40,20 @@ class Eats1 extends Component {
     } else {
       price = "3,4";
     }
-    this.props.handlePrice(price);
-    clearInterval(this.state.interval);
-    Actions.eats2();
+  this.props.handlePrice(price);
+  clearInterval(this.state.interval);
+  Actions.eats2();
   }
 
   update() {
-      // YOUR CODE HERE
-      if(this.state.secondsLeft === 0) {
-        this.handleGamble()
-      }
-      this.setState({
-        secondsLeft: Math.floor((this.state.end - Date.now()) / 1000)
-      });
+    // YOUR CODE HERE
+    if(this.state.secondsLeft === 0) {
+      this.handleGamble()
     }
+    this.setState({
+      secondsLeft: Math.floor((this.state.end - Date.now()) / 1000)
+    });
+  }
 
   componentDidMount() {
     this.setState({
@@ -68,7 +67,7 @@ class Eats1 extends Component {
 
   componentWillUnmount() {
     // YOUR CODE HERE
-      clearInterval(this.update);
+    clearInterval(this.update);
   }
 
   render() {

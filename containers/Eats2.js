@@ -53,14 +53,15 @@ class Eats2 extends Component {
       this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
     }
     clearInterval(this.state.interval);
-    Actions.eats3();
-  }
+      Actions.eats3();
+    }
+
 
   handleSecond(ev) {
     ev.preventDefault();
-    if (this.props.cuisineState.cuisines[0] === 'indian') {
+    if (this.props.cuisineState.cuisines[1] === 'indian') {
       this.props.setFoodChoice('indpak');
-    } else if (this.props.cuisineState.cuisines[0] === 'american') {
+    } else if (this.props.cuisineState.cuisines[1] === 'american') {
       var value = Math.random();
       if (value < 0.5) {
         this.props.setFoodChoice('tradamerican')
@@ -68,7 +69,7 @@ class Eats2 extends Component {
         this.props.setFoodChoice('newamerican');
       }
     } else {
-      this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[1]);
     }
     clearInterval(this.state.interval);
     Actions.eats3();
@@ -76,9 +77,9 @@ class Eats2 extends Component {
 
   handleThird(ev) {
     ev.preventDefault();
-    if (this.props.cuisineState.cuisines[0] === 'indian') {
+    if (this.props.cuisineState.cuisines[2] === 'indian') {
       this.props.setFoodChoice('indpak');
-    } else if (this.props.cuisineState.cuisines[0] === 'american') {
+    } else if (this.props.cuisineState.cuisines[2] === 'american') {
       var value = Math.random();
       if (value < 0.5) {
         this.props.setFoodChoice('tradamerican')
@@ -86,7 +87,7 @@ class Eats2 extends Component {
         this.props.setFoodChoice('newamerican');
       }
     } else {
-      this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[2]);
     }
     clearInterval(this.state.interval);
     Actions.eats3();
@@ -94,9 +95,9 @@ class Eats2 extends Component {
 
   handleFourth(ev) {
     ev.preventDefault();
-    if (this.props.cuisineState.cuisines[0] === 'indian') {
+    if (this.props.cuisineState.cuisines[3] === 'indian') {
       this.props.setFoodChoice('indpak');
-    } else if (this.props.cuisineState.cuisines[0] === 'american') {
+    } else if (this.props.cuisineState.cuisines[3] === 'american') {
       var value = Math.random();
       if (value < 0.5) {
         this.props.setFoodChoice('tradamerican')
@@ -104,7 +105,7 @@ class Eats2 extends Component {
         this.props.setFoodChoice('newamerican');
       }
     } else {
-      this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[3]);
     }
     clearInterval(this.state.interval);
     Actions.eats3();
@@ -123,14 +124,14 @@ class Eats2 extends Component {
   }
 
   update() {
-      // YOUR CODE HERE
-      if(this.state.secondsLeft === 0) {
-        this.handleGamble()
-      }
-      this.setState({
-        secondsLeft: Math.floor((this.state.end - Date.now()) / 1000)
-      });
+    // YOUR CODE HERE
+    if(this.state.secondsLeft === 0) {
+      this.handleGamble()
     }
+    this.setState({
+      secondsLeft: Math.floor((this.state.end - Date.now()) / 1000)
+    });
+  }
 
   componentDidMount() {
     this.setState({
@@ -141,10 +142,29 @@ class Eats2 extends Component {
       interval: this.interval
     })
   }
-
   componentWillUnmount() {
-    // YOUR CODE HERE
-      clearInterval(this.update);
+    clearInterval(this.update);
+  }
+
+
+  imageMatch(cuisineType) {
+    switch(cuisineType) {
+      case 'mexican':
+        var mexImage = require('../assets/taco.png');
+        return mexImage;
+      case 'japanese':
+        var jap = require('../assets/japanese.png');
+        return jap;
+      case 'american':
+        var american = require('../assets/american.png');
+        return american;
+      case 'italian':
+        var italian = require('../assets/italian.png');
+        return italian;
+      default:
+        var mexImage = require('../assets/taco.png');
+        return mexImage;
+    }
   }
 
   render() {
@@ -164,21 +184,21 @@ class Eats2 extends Component {
           <View style={styles.colSubContainer}>
             <View style={styles.rowSubContainer}>
               <TouchableOpacity style={styles.optionLeft} onPress={(ev) => this.handleFirst(ev)}>
-                <Image style={styles.mexican} source={require("../assets/taco.png")}/>
+                <Image style={styles.mexican} source={this.imageMatch(this.props.cuisineState.cuisines[0])}/>
                 <Text style={styles.optionText}>{this.props.cuisineState.cuisines[0]}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.optionRight} onPress={(ev) => this.handleSecond(ev)}>
-                <Image style={styles.japanese} source={require("../assets/japanese.png")}/>
+                <Image style={styles.japanese} source={this.imageMatch(this.props.cuisineState.cuisines[1])}/>
                 <Text style={styles.optionText}>{this.props.cuisineState.cuisines[1]}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.rowSubContainer}>
               <TouchableOpacity style={styles.optionLeft} onPress={(ev) => this.handleThird(ev)}>
-                <Image style={styles.american} source={require("../assets/american.png")}/>
+                <Image style={styles.american} source={this.imageMatch(this.props.cuisineState.cuisines[2])}/>
                 <Text style={styles.optionText}>{this.props.cuisineState.cuisines[2]}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.optionRight} onPress={(ev) => this.handleFourth(ev)}>
-                <Image style={styles.italian} source={require("../assets/italian.png")}/>
+                <Image style={styles.italian} source={this.imageMatch(this.props.cuisineState.cuisines[3])}/>
                 <Text style={styles.optionText}>{this.props.cuisineState.cuisines[3]}</Text>
               </TouchableOpacity>
             </View>

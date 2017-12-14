@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
@@ -8,9 +8,13 @@ import {MapView} from 'expo';
 import StarRating from 'react-native-star-rating';
 import Stars from 'react-native-stars';
 import Communications from 'react-native-communications';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
 import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
 import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
+
+
 
 class SingleResult extends Component {
   imageMatch(rating) {
@@ -24,10 +28,53 @@ class SingleResult extends Component {
       case (5):
         let fiveImage = fiveStars;
         return fiveImage;
-      default:
+       default:
         let image = fourStars;
         return image;
+      }
     }
+
+
+  handleOpenTable() {
+    var address = {street: this.props.single.singleResult.location.address1, city: this.props.single.singleResult.location.city, zip: this.props.single.singleResult.location.zip_code, state: this.props.single.singleResult.location.state}
+    // var address = {street: '438 Geary St', city: 'San Francisco', zip: '94102', state: 'CA'};
+    // console.log('ADDRESSSSSSSSS', address)
+    var url = `http://opentable.herokuapp.com/api/restaurants?address=${address.street}&zip=${address.zip}&state=${address.state}&city=${address.city}`;
+    axios.get(url)
+    .then(response => {
+      // console.log(response.data)
+      // if (response.data.restaurants.length > 0) {
+      //   var restaurants = response.data.restaurants;
+      //   for (var i = 0; i < restaurants.length; i++) {
+      //     var restaurantName = restaurants[i].split(' ');
+      //     for (var j = 0; j < restaurantName.length; j++) {
+      //       if (this.props.single.results[0].name.indexOf(restaurantName[i] > -1)) {
+      //         this.props.openTable(restaurantName[i].mobile_reserve_url)
+      //         Actions.opentable();
+      //       }
+      //     }
+      //   }
+      if (response.data.restaurants.length > 0) {
+        var restaurants = response.data.restaurants;
+        var yelpName = this.props.single.singleResult;
+        for (var i = 0; i < restaurants.length; i++) {
+          var restaurantName = restaurants[i].name;
+          var resSplit = restaurantName.split(' ');
+          for (var j = 0; j < resSplit.length; j++) {
+            if (restaurantName.indexOf(resSplit[i]) > -1) {
+              this.props.openTable(restaurants[i].mobile_reserve_url);
+              Actions.openTable();
+              break;
+            }
+          }
+        }
+      } else {
+        Alert.alert('Oops', 'No OpenTable available for this restaurant. Please press on Yelp for more information', {text: 'Ok'})
+      }
+    })
+    .catch(e => {
+      console.log(e)
+    })
   }
 
   render() {
@@ -38,7 +85,6 @@ class SingleResult extends Component {
           <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
           <View style={styles.nameContainer}>
             <View style={styles.star}>
-              
             </View>
             <View style={styles.name}>
               <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
@@ -57,7 +103,7 @@ class SingleResult extends Component {
               <TouchableOpacity style={styles.yelp} onPress={Actions.yelp}>
                 <Image style={styles.yelpIcon} source={require("../assets/yelp.jpg")}/>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.openTable}>
+              <TouchableOpacity style={styles.openTable} onPress={() => this.handleOpenTable()}>
                 <Image style={styles.openTableIcon} source={require("../assets/openTable.png")}/>
               </TouchableOpacity>
             </View>
@@ -74,18 +120,19 @@ class SingleResult extends Component {
               }}
             >
               <MapView.Marker
-                coordinate={{
-                  latitude: this.props.location.latitude,
-                  longitude: this.props.location.longitude
-                }}
-                pinColor={'#008000'}
-                />
-              <MapView.Marker
-                coordinate={{
-                  latitude: this.props.single.singleResult.coordinates.latitude,
-                  longitude: this.props.single.singleResult.coordinates.longitude
-                }}
-                />
+                 coordinate={{
+                   latitude: this.props.single.singleResult.coordinates.latitude,
+                   longitude: this.props.single.singleResult.coordinates.longitude
+                 }}
+                 pinColor={'#008000'}
+                 />
+               <MapView.Marker
+                 coordinate={{
+                   latitude: this.props.single.singleResult.coordinates.latitude,
+                   longitude: this.props.single.singleResult.coordinates.longitude
+                 }}
+                 />
+
             </MapView>
           </View>
           <View style={styles.forkContainer}>
@@ -100,10 +147,10 @@ class SingleResult extends Component {
 }
 
 SingleResult.propTypes = {
+  openTable: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
       location: state.area,
       single: state.results
@@ -112,6 +159,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      openTable: (url) => dispatch({type: 'OPENTABLE_URL', url: url})
     };
 };
 
@@ -200,18 +248,18 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   restaurantIcon: {
-    height: verticalScale(80),
-    width: scale(80),
-    borderRadius: 40,
+    height: verticalScale(150),
+    width: scale(150),
+    borderRadius: 75,
     opacity: 0.7
   },
   yelpIcon: {
-    height: verticalScale(65),
+    height: verticalScale(70),
     width: scale(150),
     borderRadius: 20
   },
   openTableIcon: {
-    height: verticalScale(65),
+    height: verticalScale(70),
     width: scale(150),
     borderRadius: 20
   },

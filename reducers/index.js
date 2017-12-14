@@ -4,6 +4,8 @@ import UserReducer from './UserReducer';
 import LocationReducer from './LocationReducer';
 import YelpReducer from './YelpReducer';
 import ResultReducer from './ResultReducer';
+import OpenTableReducer from './OpenTableReducer';
+import menuReducer from './menuReducer';
 
 const rootReducer = combineReducers({
     test: testReducer,
@@ -11,6 +13,8 @@ const rootReducer = combineReducers({
     area: LocationReducer,
     yelp: YelpReducer,
     results: ResultReducer,
+    openTable: OpenTableReducer,
+    menu: menuReducer
 });
 
 

@@ -29,7 +29,10 @@ import StatusPage from './containers/StatusPage.js';
 import TestQuestion from './containers/TestQuestion.js';
 import MultiResult from './containers/MultiResult.js';
 import Yelp from './containers/Yelp.js';
+import OpenTable from './containers/openTable.js';
+import menu from './containers/menu.js';
 import ForgotPassword from './containers/ForgotPassword.js'
+
 
 const store = createStore(rootReducer);
 
@@ -48,6 +51,8 @@ export default function App ({}) {
               <Scene key="eats3" component={Eats3} hideNavBar={true} hideTabBar={true}/>
               <Scene key="algo" component={Algo} hideNavBar={true} hideTabBar={true}/>
               <Scene key='yelp' component={Yelp} hideNavBar={true} hideTabBar={true}/>
+              <Scene key='openTable' component={OpenTable} hideNavBar={true} hideTabBar={true}/>
+              <Scene key="menu" component={menu} hideNavBar={true} hideTabBar={true}/>
               <Scene key="testquestion" component={TestQuestion} hideNavBar={true} hideTabBar={true}/>
               <Scene key='forgot' component={ForgotPassword} hideNavBar={true} hideTabBar={true}/>
               <Scene tabs={true} lazy={true} animationEnabled={false} tabBarComponent={Tabbar}>

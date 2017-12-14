@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, WebView, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import { connect } from 'react-redux';
 import Navbar from '../components/Navbar.js';
 import MinibarResults from '../components/MinibarResults.js';
+import axios from 'axios';
+import Modal from 'react-native-modal';
+import PropTypes from 'prop-types';
 import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
 import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
 import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
 
 class RestResult extends React.Component {
-  constructor() {
-    super()
-  }
-
   nameCheck(name) {
     if(name.length <= 18) {
       return name;
@@ -38,17 +37,29 @@ class RestResult extends React.Component {
         let image = fourStars;
         return image;
     }
-  }
+   }
 
   handleResults(ev) {
     ev.preventDefault();
-    console.log(this.props.restaurant);
     this.props.getSingle(this.props.restaurant);
     Actions.singleresult();
   }
 
-  componentDidMount() {
-
+  handleMenu(name) {
+    var url = `https://guarded-dawn-44803.herokuapp.com/yelp/scraping?name=${name}`
+    axios.get(url)
+    .then(response => {
+      // response.data.url
+      this.props.menu(response.data.url);
+      if (response.data.url) {
+        Actions.menu()
+      } else {
+        Alert.alert('Oops', 'We could not find a menu for this restaurant. Please try clicking on Yelp on the next page!', {text: 'Ok'})
+      }
+    })
+    .catch(e => {
+      console.log(e);
+    })
   }
 
   render() {
@@ -63,38 +74,16 @@ class RestResult extends React.Component {
             <View style={styles.restaurantName}>
               <Text style={styles.nameText}>{this.nameCheck(this.props.name)}</Text>
             </View>
-            <View style={styles.star}>
-              <View>
-                {/* <StarRating
-                  disabled={false}
-                  maxStars={1}
-                  rating={0}
-                  starSize={40}
-                  starColor={'#ddd3dc'}
-                  emptyStarColor={'#ddd3dc'}
-                /> */}
-              </View>
-            </View>
           </View>
           <View style={styles.restaurantDetails}>
             <View style={styles.restaurantStats}>
-              <View style={styles.starRating}>
-                {/* <StarRating
-                  disabled={true}
-                  maxStars={5}
-                  rating={this.props.rating}
-                  starSize={25}
-                  starColor={'#ecf000'}
-                  emptyStarColor={'#ecf000'}
-                /> */}
-                <Image source={this.imageMatch(this.props.rating)}/>
-              </View>
+              <Image source={this.imageMatch(this.props.rating)}/>
               <Text style={styles.textDetails}>Yelp Reviews: {this.props.reviews}</Text>
               <Text style={styles.textDetails}>Distance: {(this.props.distance*0.000621371).toPrecision(3)} miles</Text>
             </View>
-            <TouchableOpacity style={styles.eatIcon}>
+            {/* <TouchableOpacity style={styles.eatIcon} onPress={() => this.handleMenu(this.props.name)}>
               <Image style={styles.menuIcon} source={require("../assets/ForkandKnifeTransparentGrey.png")}/>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </TouchableOpacity>
@@ -103,10 +92,10 @@ class RestResult extends React.Component {
 }
 
 RestResult.propTypes = {
+  menu: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
       restaurants: state.results
     };
@@ -114,7 +103,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      getSingle: (result) => dispatch({type: 'SINGLE_RESULT', result: result})
+      getSingle: (result) => dispatch({type: 'SINGLE_RESULT', result: result}),
+      menu: (url) => dispatch({type: 'MENU_URL', url: url})
     };
 };
 

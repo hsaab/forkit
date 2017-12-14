@@ -31,7 +31,7 @@ class Login extends React.Component{
 
             userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
             this.props.userProfile(userObj);
-            console.log(this.props.userInformation);
+            // console.log(this.props.userInformation);
 
             Actions.discover();
           }
@@ -44,7 +44,7 @@ class Login extends React.Component{
           if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {
             userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
             this.props.userProfile(userObj);
-            console.log(this.props.userInformation);
+            // console.log(this.props.userInformation);
             Actions.discover();
           }
           // console.log(resp.data)
@@ -206,11 +206,11 @@ class Login extends React.Component{
           <View style={styles.inputForm}>
             <View style={styles.input}>
               <Image style={styles.userIcon} source={require("../assets/username.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Email'} onChangeText={(text) => this.setState({email: text})}/>
+              <TextInput style={styles.inputText} autoCapitalize={"none"} placeholder={'Email                                   '} onChangeText={(text) => this.setState({email: text})}/>
             </View>
             <View style={styles.input}>
               <Image style={styles.passIcon} source={require("../assets/password.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Password'} onChangeText={(text) => this.setState({password: text})}/>
+              <TextInput style={styles.inputText} secureTextEntry={true} placeholder={'Password                                '} onChangeText={(text) => this.setState({password: text})}/>
             </View>
             <TouchableOpacity onPress={Actions.forgot}>
               <Text style={styles.forgetText}>Forget Your Password?</Text>

@@ -8,7 +8,7 @@ import MinibarMap from '../components/MinibarMap.js';
 import {MapView} from 'expo';
 
 class ListMap extends Component {
-  
+
   render() {
     return (
       <View style={styles.container}>

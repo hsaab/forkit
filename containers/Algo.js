@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Animated, Easing } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Animated, Easing, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
@@ -32,15 +32,37 @@ class Algo extends React.Component {
     this.animatedValue = new Animated.Value(0)
   }
 
+  /*
+  Cuisines looked at:
+  -- mexican <->
+  -- american gives italian for some reason -> should give tradamerican or newamerican
+  -- japanese
+  -- chinese
+  -- thai
+  -- indian
+  -- italian
+  -- greek
+  -- french
+  -- spanish
+  -- mediterannean
+  Should be working now
+  */
   componentDidMount() {
-    this.animate()
-    axios.get(`https://guarded-dawn-44803.herokuapp.com/yelp/restaurants/?price=${this.props.finalState.price}&distance=${this.props.finalState.distance}&cuisine=${this.props.finalState.ethnic}&latitude=${this.props.location.latitude}&longitude=${this.props.location.longitude}`)
+    this.animate();
+    var url = `https://guarded-dawn-44803.herokuapp.com/yelp/restaurants/?price=${this.props.finalState.price}&distance=${this.props.finalState.distance}&cuisine=${this.props.finalState.ethnic}&latitude=${this.props.location.latitude}&longitude=${this.props.location.longitude}`
+    console.log(url);
+    axios.get(url)
     .then((result) => {
       let shuffled = shuffle(result.data);
-      let three = [shuffled[0], shuffled[1], shuffled[2]];
-      this.props.listResults(three);
-      console.log(three);
-      Actions.listresults();
+      if (shuffled.length < 3) {
+        // Alert.alert('Oops', 'We did not find enough results. Please try again with different parameters', {text: 'Ok', onPress: Actions.discover()})
+        Alert.alert('Oops', 'We did not find enough results. Please try again with different parameters', {text: 'Ok', onPress: Actions.eats1()})
+      } else {
+        let three = [shuffled[0], shuffled[1], shuffled[2]];
+        this.props.listResults(three);
+        console.log(three);
+        Actions.listresults();
+      }
     })
     .catch((err) => {
       console.log('Algo error', err);

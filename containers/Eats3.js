@@ -9,7 +9,6 @@ import Dash from 'react-native-dash';
 class Eats3 extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       secondsLeft: 1,
       end: 0,
@@ -17,6 +16,7 @@ class Eats3 extends Component {
       interval: 0
     }
   }
+
 
   handleShort(ev) {
     ev.preventDefault();
@@ -44,14 +44,14 @@ class Eats3 extends Component {
   }
 
   update() {
-      // YOUR CODE HERE
-      if(this.state.secondsLeft === 0) {
-        this.handleGamble()
-      }
+    // YOUR CODE HERE
+    if(this.state.secondsLeft === 0) {
+      this.handleGamble()
+    }
       this.setState({
         secondsLeft: Math.floor((this.state.end - Date.now()) / 1000)
       });
-    }
+  }
 
   componentDidMount() {
     this.setState({
@@ -63,10 +63,11 @@ class Eats3 extends Component {
     })
   }
 
-  componentWillUnmount() {
-    // YOUR CODE HERE
-      clearInterval(this.update);
-  }
+ componentWillUnmount() {
+   clearInterval(this.update);
+ }
+
+
 
   render() {
     return (

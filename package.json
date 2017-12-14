@@ -12,6 +12,7 @@
     "react-native-dash": "0.0.8",
     "react-native-google-maps-directions": "^1.1.2",
     "react-native-linear-gradient": "^2.3.0",
+    "react-native-modal": "^4.1.1",
     "react-native-router-flux": "^4.0.0-beta.24",
     "react-native-star-rating": "^1.0.8",
     "react-native-stars": "^1.1.2",
