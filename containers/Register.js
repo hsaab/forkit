@@ -1,68 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import { Font } from 'expo';
-import axios from 'axios';
 
-class Register extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      first: '',
-      last: '',
-      email: '',
-      password: ''
-    };
-  }
-
-  register(ev) {
-  ev.preventDefault();
-
-  // axios({
-  //   method: 'POST',
-  //   url: 'https://guarded-dawn-44803.herokuapp.com/db/insertrows',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   data: {
-  //     password: '$BIG_SHAQ102$',
-  //     tableName: 'users',
-  //     params: `{"firstname": "${this.state.first}", "lastname":"${this.state.last}","email":"${this.state.email}","password":"${this.state.password}"}`
-  //   }
-  // })
-  // .then(response => {
-  //   console.log(response.data);
-  // })
-  // .catch(e => {
-  //   console.log('ERROR', e);
-  // })
-
-  // axios.get(`https://guarded-dawn-44803.herokuapp.com/recover/register?firstname=${this.state.first}&lastname=${this.state.last}&email=${this.state.email}&password=${this.state.password}`)
-  // .then((resp) => console.log(resp))
-  // .catch((err) => console.log('Register Email Error', err));
-  axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=email&conditions=email='${this.state.email}'`)
-  .then(response => {
-      if (response.data.result.length > 0) {
-        Alert.alert('Error', 'User already registered! You can reset you password if you have forgotten it', {text: 'Ok', onPress: Actions.login()})
-      } else {
-        axios.get(`https://guarded-dawn-44803.herokuapp.com/recover/register?firstname=${this.state.first}&lastname=${this.state.last}&email=${this.state.email}&password=${this.state.password}`)
-          .then(function (response) {
-            console.log(response);
-            if (response.data.success === true) {
-              Alert.alert('Registration', 'We sent you an email! Please verify your account', {text: 'Ok', onPress: Actions.login()})
-            }
-          });
-      }
-    })
-    .catch(e => {
-      console.log('ERROR', e);
-    });
-  }
-
-  render(){
+const Register = ({}) => {
     return (
       <LinearGradient colors={['#303F4C', '#3B4955', '#AFAFAF']} style={styles.background} location={[0.3, 0.4, 1]}>
         <View style={styles.container}>
@@ -70,26 +14,26 @@ class Register extends React.Component{
           <View style={styles.inputForm}>
             <View style={styles.input}>
               <Image style={styles.userIcon} source={require("../assets/username.png")}/>
-              <TextInput style={styles.inputText} placeholder={'First Name'} onChangeText={(text) => this.setState({first: text})}/>
+              <TextInput style={styles.inputText} placeholder={'First Name'}/>
             </View>
             <View style={styles.input}>
               <Image style={styles.userIcon} source={require("../assets/username.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Last Name'} onChangeText={(text) => this.setState({last: text})}/>
+              <TextInput style={styles.inputText} placeholder={'Last Name'}/>
             </View>
             <View style={styles.input}>
               <Image style={styles.userIcon} source={require("../assets/username.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Email'} onChangeText={(text) => this.setState({email: text})}/>
+              <TextInput style={styles.inputText} placeholder={'Email'}/>
             </View>
             <View style={styles.input}>
               <Image style={styles.passIcon} source={require("../assets/password.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Password'} onChangeText={(text) => this.setState({password: text})}/>
+              <TextInput style={styles.inputText} placeholder={'Password'}/>
             </View>
           </View>
           <View style={styles.buttonForm}>
-            <TouchableOpacity style={styles.loginButton} onPress={(ev) => {this.register(ev)}}>
+            <TouchableOpacity style={styles.loginButton} onPress={Actions.discover}>
               <Text style={styles.loginText}> CREATE ACCOUNT </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.fbButton}>
+            <TouchableOpacity style={styles.fbButton} onPress={Actions.login}>
               <Image style={styles.fbIcon} source={require("../assets/fb.png")}/>
               <Text style={styles.fbText}> CREATE WITH FACEBOOK </Text>
             </TouchableOpacity>
@@ -97,14 +41,13 @@ class Register extends React.Component{
         </View>
       </LinearGradient>
     );
-  }
 }
 
 Register.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state);
+    console.log(state);
     return {
     };
 };

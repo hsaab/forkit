@@ -1,138 +1,94 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 import {MapView} from 'expo';
 import StarRating from 'react-native-star-rating';
-import Stars from 'react-native-stars';
-import Communications from 'react-native-communications';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
-import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
-import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
 
 
-
-class SingleResult extends Component {
-  imageMatch(rating) {
-    switch(rating) {
-      case (4 || 4.1 || 4.2 || 4.3 || 4.4):
-        let fourImage = fourStars;
-        return fourImage;
-      case (4.5 || 4.6 || 4.7 || 4.8 || 4.9):
-        let fourHalfImage = fourHalfStars;
-        return fourHalfImage;
-      case (5):
-        let fiveImage = fiveStars;
-        return fiveImage;
-       default:
-        let image = fourStars;
-        return image;
-      }
-    }
-
-
-  handleOpenTable() {
-    var address = {street: this.props.single.singleResult.location.address1, city: this.props.single.singleResult.location.city, zip: this.props.single.singleResult.location.zip_code, state: this.props.single.singleResult.location.state}
-    // var address = {street: '438 Geary St', city: 'San Francisco', zip: '94102', state: 'CA'};
-    // console.log('ADDRESSSSSSSSS', address)
-    var url = `http://opentable.herokuapp.com/api/restaurants?address=${address.street}&zip=${address.zip}&state=${address.state}&city=${address.city}`;
-    axios.get(url)
-    .then(response => {
-      // console.log(response.data)
-      // if (response.data.restaurants.length > 0) {
-      //   var restaurants = response.data.restaurants;
-      //   for (var i = 0; i < restaurants.length; i++) {
-      //     var restaurantName = restaurants[i].split(' ');
-      //     for (var j = 0; j < restaurantName.length; j++) {
-      //       if (this.props.single.results[0].name.indexOf(restaurantName[i] > -1)) {
-      //         this.props.openTable(restaurantName[i].mobile_reserve_url)
-      //         Actions.opentable();
-      //       }
-      //     }
-      //   }
-      if (response.data.restaurants.length > 0) {
-        var restaurants = response.data.restaurants;
-        var yelpName = this.props.single.singleResult;
-        for (var i = 0; i < restaurants.length; i++) {
-          var restaurantName = restaurants[i].name;
-          var resSplit = restaurantName.split(' ');
-          for (var j = 0; j < resSplit.length; j++) {
-            if (restaurantName.indexOf(resSplit[i]) > -1) {
-              this.props.openTable(restaurants[i].reserve_url);
-              Actions.openTable();
-              break;
-            }
-          }
-        }
-      } else {
-        Alert.alert('Oops', 'No OpenTable available for this restaurant. Please press on Yelp for more information', {text: 'Ok'})
-      }
-    })
-    .catch(e => {
-      console.log(e)
-    })
-  }
-
-  render() {
+const SingleResult = ({}) => {
     return (
       <View style={styles.container}>
         <Navbar hasBack={true}/>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
           <View style={styles.nameContainer}>
-            <View style={styles.star}>
-            </View>
             <View style={styles.name}>
-              <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
+              <Text style={styles.nameText}>Shakeshack</Text>
+            </View>
+            <View style={styles.star}>
+              <StarRating
+                disabled={false}
+                maxStars={1}
+                rating={0}
+                starSize={40}
+                starColor={'#ddd3dc'}
+                emptyStarColor={'#ddd3dc'}
+              />
             </View>
           </View>
           <View style={styles.detailsContainer}>
             <View style={styles.details}>
-              <Image style={styles.restaurantIcon} source={{uri: this.props.single.singleResult.image_url}}/>
-              <TouchableOpacity onPress={() => Communications.phonecall(this.props.single.singleResult.display_phone, true)}>
-                <Text style={{fontWeight: 'bold', color: 'skyblue'}}>{this.props.single.singleResult.display_phone}</Text>
-              </TouchableOpacity>
-              <Image source={this.imageMatch(this.props.single.singleResult.rating)}/>
-              <Text style={styles.textStyle}>{(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
+              <View style={styles.restaurantPic}>
+                <Image style={styles.restaurantIcon} source={require("../assets/burger.jpg")}/>
+              </View>
+              <View style={styles.restaurantStats}>
+                <Text style={styles.textStyle}>American, Burgers</Text>
+                <View style={styles.rating}>
+                  <StarRating
+                    disabled={true}
+                    maxStars={5}
+                    rating={4}
+                    starSize={20}
+                    starColor={'#ecf000'}
+                    emptyStarColor={'#ecf000'}
+                  />
+                </View>
+                <Text style={styles.textStyle}>1,000 reviews on Yelp</Text>
+                <Text style={styles.textStyle}>1.0 miles from you</Text>
+              </View>
             </View>
-            <View style={styles.restaurantButtons}>
-              <TouchableOpacity style={styles.yelp} onPress={Actions.yelp}>
+            <View style={styles.actionBar}>
+              <TouchableOpacity style={styles.call}>
+                <Image style={styles.phoneIcon} source={require("../assets/phone.png")}/>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.yelp}>
                 <Image style={styles.yelpIcon} source={require("../assets/yelp.jpg")}/>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.openTable} onPress={() => this.handleOpenTable()}>
+              <TouchableOpacity style={styles.openTable}>
                 <Image style={styles.openTableIcon} source={require("../assets/openTable.png")}/>
               </TouchableOpacity>
+            </View>
+            <View style={styles.address}>
+              <Text>450 S 9th St San Francisco, CA 94103</Text>
             </View>
           </View>
           <View style={styles.mapContainer}>
             <MapView
-              style={{ width: scale(300), height: verticalScale(150) }}
+              style={{ width: scale(375), height: verticalScale(205) }}
               region={{
-                latitude: this.props.location.latitude,
-                longitude: this.props.location.longitude,
+                latitude: 37.771728,
+                longitude: -122.409421,
                 latitudeDelta: .05,
                 longitudeDelta: .05,
 
               }}
             >
               <MapView.Marker
-                 coordinate={{
-                   latitude: this.props.single.singleResult.coordinates.latitude,
-                   longitude: this.props.single.singleResult.coordinates.longitude
-                 }}
-                 pinColor={'#008000'}
-                 />
-               <MapView.Marker
-                 coordinate={{
-                   latitude: this.props.location.latitude,
-                   longitude: this.props.location.longitude
-                 }}
-                 />
-
+                coordinate={{
+                  latitude: 37.771728,
+                  longitude: -122.409421
+                }}
+                pinColor={'#008000'}
+                />
+              <MapView.Marker
+                coordinate={{
+                  latitude: 37.760602,
+                  longitude: -122.419421
+                }}
+                />
             </MapView>
           </View>
           <View style={styles.forkContainer}>
@@ -143,23 +99,18 @@ class SingleResult extends Component {
         </View>
       </View>
     );
-  }
 }
 
 SingleResult.propTypes = {
-  openTable: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
     return {
-      location: state.area,
-      single: state.results
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      openTable: (url) => dispatch({type: 'OPENTABLE_URL', url: url})
     };
 };
 
@@ -184,20 +135,16 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     flex: 1,
-    borderBottomColor: "#ddd3dc",
-    borderBottomWidth: moderateScale(0.5),
     width: scale(375),
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
   },
   detailsContainer: {
     flex: 3,
-    borderBottomColor: "#ddd3dc",
-    borderBottomWidth: moderateScale(0.5),
     width: scale(375),
-    flexDirection: 'row'
   },
   mapContainer: {
-    flex: 2,
+    flex: 3,
     width: scale(375),
     justifyContent: 'center',
     alignItems: 'center'
@@ -213,29 +160,39 @@ const styles = StyleSheet.create({
   },
   name: {
     flex: 4,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginLeft: scale(5)
   },
   details: {
-    flex: 1,
+    flex: 6,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  restaurantButtons: {
-    flex: 1
   },
   yelp: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: moderateScale(5),
+    backgroundColor: '#d32323',
+    borderRadius: moderateScale(4),
+    margin: moderateScale(2)
   },
   openTable: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
-    margin: moderateScale(5),
-    position: 'relative'
+    backgroundColor: 'white',
+    borderRadius: moderateScale(4),
+    margin: moderateScale(2)
+  },
+  call: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: moderateScale(4),
+    margin: moderateScale(2)
   },
   textStyle: {
     fontSize: moderateScale(18),
@@ -243,38 +200,65 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   nameText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(35),
     fontFamily: 'Futura',
-    color: 'white'
+    color: 'white',
+    left: scale(20),
+    top: verticalScale(10)
   },
   restaurantIcon: {
-    height: verticalScale(150),
-    width: scale(150),
-    borderRadius: 60,
+    height: verticalScale(100),
+    width: scale(100),
+    borderRadius: moderateScale(50),
     opacity: 0.7
   },
   yelpIcon: {
-    height: verticalScale(70),
-    width: scale(150),
-    borderRadius: 20
+    height: verticalScale(50),
+    width: scale(120),
   },
   openTableIcon: {
-    height: verticalScale(70),
-    width: scale(150),
-    borderRadius: 20
+    height: verticalScale(45),
+    width: scale(120),
+  },
+  phoneIcon: {
+    height: verticalScale(50),
+    width: scale(37)
   },
   forkit: {
     flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#00042E",
-    borderRadius: moderateScale(40),
-    margin: scale(10),
+    borderRadius: scale(35),
+    margin: moderateScale(5),
   },
   logoText: {
     height: verticalScale(90),
     width: scale(275),
     bottom: verticalScale(5)
+  },
+  actionBar: {
+    flex: 3,
+    flexDirection: 'row',
+  },
+  address: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ddd3dc',
+  },
+  restaurantPic: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  restaurantStats: {
+    flex: 2,
+    paddingRight: scale(20),
+    justifyContent: 'space-around'
+  },
+  rating: {
+    width: scale(150)
   }
 });
 

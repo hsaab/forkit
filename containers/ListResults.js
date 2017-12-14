@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
@@ -9,34 +9,7 @@ import StarRating from 'react-native-star-rating';
 import RestResult from '../components/RestResult.js';
 import restImage from "../assets/burger.jpg";
 
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-class ListResults extends Component {
-  handleGamble(ev) {
-    ev.preventDefault();
-    let shuffled = shuffle(this.props.restaurants.results);
-    this.props.getSingle(shuffled[0]);
-    Actions.singleresult();
-  }
-
-  render() {
+const ListResults = ({}) => {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -44,15 +17,15 @@ class ListResults extends Component {
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
           <View style={styles.listContainer}>
-            <RestResult restaurant={this.props.restaurants.results[0]} name={this.props.restaurants.results[0].name} rating={this.props.restaurants.results[0].rating} reviews={this.props.restaurants.results[0].review_count}
-              distance={this.props.restaurants.results[0].distance} img={this.props.restaurants.results[0].image_url} border={true}/>
-            <RestResult restaurant={this.props.restaurants.results[1]} name={this.props.restaurants.results[1].name} rating={this.props.restaurants.results[1].rating} reviews={this.props.restaurants.results[1].review_count}
-              distance={this.props.restaurants.results[1].distance} img={this.props.restaurants.results[1].image_url} border={true}/>
-            <RestResult restaurant={this.props.restaurants.results[2]} name={this.props.restaurants.results[2].name} rating={this.props.restaurants.results[2].rating} reviews={this.props.restaurants.results[2].review_count}
-              distance={this.props.restaurants.results[2].distance} img={this.props.restaurants.results[2].image_url} border={false}/>
+            <RestResult name={'InnOut Burgers is the best burger ever'} rating={5} reviews={'1,000 reviews on Yelp'}
+              distance={'0.1 miles away from you'} img={restImage} border={true}/>
+            <RestResult name={'ShakeShack'} rating={4} reviews={'500 reviews on Yelp'}
+              distance={'0.3 miles away from you'} img={restImage} border={true}/>
+            <RestResult name={'Five Guys'} rating={3} reviews={'300 reviews on Yelp'}
+              distance={'0.4 miles away from you'} img={restImage} border={false}/>
           </View>
           <View style={styles.bottomContainer}>
-            <TouchableOpacity style={styles.gamble} onPress={(ev) => this.handleGamble(ev)}>
+            <TouchableOpacity style={styles.gamble} onPress={Actions.singleresult}>
               <Text style={styles.gambleText}>Take a Gamble</Text>
               <Image style={styles.dice} source={require("../assets/red-dice-512.png")}/>
             </TouchableOpacity>
@@ -60,22 +33,19 @@ class ListResults extends Component {
         </View>
       </View>
     );
-  }
 }
 
 ListResults.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state);
+    console.log(state);
     return {
-      restaurants: state.results
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      getSingle: (result) => dispatch({type: 'SINGLE_RESULT', result: result})
     };
 };
 
@@ -105,13 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row'
   },
-  listItem: {
-    borderBottomColor: "#00042E",
-    borderBottomWidth: moderateScale(2),
-    width: scale(375),
-    flex: 1,
-    flexDirection: 'row'
-  },
   textStyle: {
     fontFamily: 'Futura',
     color: 'white',
@@ -120,13 +83,13 @@ const styles = StyleSheet.create({
   restaurantIcon: {
     height: verticalScale(80),
     width: scale(80),
-    borderRadius: 40,
+    borderRadius: scale(40),
     opacity: 0.7
   },
   menuIcon: {
     height: verticalScale(60),
     width: scale(60),
-    borderRadius: 30
+    borderRadius: scale(30)
   },
   dice: {
     height: verticalScale(35),
@@ -139,8 +102,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#00042E",
-    borderRadius: scale(40),
+    borderRadius: scale(35),
     margin: moderateScale(5),
+    width: scale(300),
     bottom: verticalScale(3)
   },
   gambleText: {

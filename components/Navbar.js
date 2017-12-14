@@ -8,7 +8,6 @@ export default class Navbar extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.hasBack ? <TouchableOpacity style={styles.back} onPress={Actions.listresults}><Text style={styles.textStyle}>-Back-</Text></TouchableOpacity> : null}
-        {this.props.hasBackSingle ? <TouchableOpacity style={styles.back} onPress={Actions.singleresult}><Text style={styles.textStyle}>-Back-</Text></TouchableOpacity> : null}
         <Image style={styles.logo} source={require("../assets/DesktopCopy2Black.png")}/>
       </View>
     );

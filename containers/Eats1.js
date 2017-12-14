@@ -5,71 +5,8 @@ import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 import Dash from 'react-native-dash';
-import PropTypes from 'prop-types';
 
-class Eats1 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      secondsLeft: 1,
-      end: 0,
-      mins: 1/3.8,
-      interval: 0
-    }
-  }
-
-  handleLow(ev) {
-    ev.preventDefault();
-    this.props.handlePrice("1,2");
-    clearInterval(this.state.interval);
-    Actions.eats2();
-  }
-
-  handleHigh(ev) {
-    ev.preventDefault();
-    this.props.handlePrice("3,4");
-    clearInterval(this.state.interval);
-    Actions.eats2();
-  }
-
-  handleGamble() {
-    let price = 0;
-    let random = Math.random() * 2;
-    if (random >= 1) {
-      price = "1,2";
-    } else {
-      price = "3,4";
-    }
-  this.props.handlePrice(price);
-  clearInterval(this.state.interval);
-  Actions.eats2();
-  }
-
-  update() {
-    // YOUR CODE HERE
-    if(this.state.secondsLeft === 0) {
-      this.handleGamble()
-    }
-    this.setState({
-      secondsLeft: Math.floor((this.state.end - Date.now()) / 1000)
-    });
-  }
-
-  componentDidMount() {
-    this.setState({
-      end: new Date(Date.now() + this.state.mins * 60000)
-    });
-    this.interval = setInterval(this.update.bind(this), 100);
-    this.setState({
-      interval: this.interval
-    })
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.update);
-  }
-
-  render() {
+const Eats1 = ({}) => {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -78,58 +15,59 @@ class Eats1 extends Component {
           <View style={styles.topTile}>
             <View style={styles.rowSubContainer}>
               <Dash dashGap={0} dashColor={'white'} style={{width:scale(35), height:verticalScale(1), right:scale(5) }}/>
-              <Text style={styles.timer}> {this.state.secondsLeft} </Text>
+              <Text style={styles.timer}> 00:10 </Text>
               <Dash dashGap={0} dashColor={'white'} style={{width:scale(35), height:verticalScale(1), left:scale(5) }}/>
             </View>
             <Text style={styles.topText}>How pricey are you going for?</Text>
           </View>
-          <View style={styles.rowSubContainer}>
-            <TouchableOpacity style={styles.optionLeft} onPress={(ev) => this.handleLow(ev)}>
-              <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-              <View style={styles.rowSubContainer}>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-              </View>
+          <View style={styles.colSubContainer}>
+            <TouchableOpacity style={styles.option}>
               <Text style={styles.optionText}>Low Key</Text>
+              <View style={styles.dollarCols}>
+                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                <View style={styles.rowSubContainer}>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                </View>
+              </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionRight} onPress={(ev) => this.handleHigh(ev)}>
-              <View style={styles.rowSubContainer}>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-              </View>
-              <View style={styles.rowSubContainer}>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-              </View>
+            <TouchableOpacity style={styles.option}>
               <Text style={styles.optionText}>Ball Out</Text>
+              <View style={styles.dollarCols}>
+                <View style={styles.rowSubContainer}>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                </View>
+                <View style={styles.rowSubContainer}>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                </View>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.option, styles.rowSubContainer]} onPress={Actions.eats2}>
+              <Text style={styles.gambleText}> Take a Gamble </Text>
+              <Image style={styles.dice} source={require("../assets/red-dice-512.png")}/>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={() => this.handleGamble()}>
-            <Text style={styles.gambleText}> Take a Gamble </Text>
-            <Image style={styles.dollarSigns} source={require("../assets/red-dice-512.png")}/>
-          </TouchableOpacity>
         </View>
       </View>
     );
-  }
 }
 
 Eats1.propTypes = {
-  handlePrice: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state);
+    console.log(state);
     return {
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      handlePrice: (price) => dispatch({type: 'PRICE_CHECK', price: price})
     };
 };
 
@@ -137,6 +75,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   background: {
     justifyContent: 'flex-start',
@@ -168,57 +108,52 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  colSubContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: scale(375),
+  },
   timer: {
     fontSize: moderateScale(45),
     color: 'white',
     fontFamily: 'Futura'
   },
-  optionLeft: {
-    borderTopWidth: moderateScale(2),
-    borderTopColor: 'white',
-    borderBottomWidth: moderateScale(1),
-    borderBottomColor: 'white',
-    borderRightWidth: moderateScale(1),
-    borderRightColor: 'white',
-    height: verticalScale(210),
-    width: scale(375/2),
+  option: {
+    borderWidth: moderateScale(3),
+    borderColor: 'white',
+    backgroundColor: 'rgba(255,255,255,.20)',
+    height: verticalScale(90),
+    width: scale(340),
     justifyContent: 'center',
     alignItems: 'center',
-
-  },
-  optionRight: {
-    borderTopWidth: moderateScale(2),
-    borderTopColor: 'white',
-    borderBottomWidth: moderateScale(1),
-    borderBottomColor: 'white',
-    borderLeftWidth: moderateScale(1),
-    borderLeftColor: 'white',
-    height: verticalScale(210),
-    width: scale(375/2),
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: scale(50),
+    margin: moderateScale(8)
   },
   optionText: {
     fontFamily: 'Futura',
     color: 'white',
-    fontSize: moderateScale(35)
+    fontSize: moderateScale(30),
+    margin: scale(10)
   },
   dollarSigns: {
-    height: verticalScale(35),
-    width: scale(35)
+    height: verticalScale(20),
+    width: scale(20)
   },
-  optionBottom: {
-    borderTopWidth: moderateScale(1),
-    borderTopColor: 'white',
-    height: verticalScale(667-70-250-210),
-    width: scale(375),
-    justifyContent: 'center',
+  dollarCols: {
+    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   gambleText: {
     fontFamily: 'Futura',
     color: 'white',
-    fontSize: moderateScale(38)
+    fontSize: moderateScale(30)
+  },
+  dice: {
+    height: verticalScale(35),
+    width: scale(35)
   }
 });
 
