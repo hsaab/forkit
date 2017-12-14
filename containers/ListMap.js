@@ -7,7 +7,9 @@ import Navbar from '../components/Navbar.js';
 import MinibarMap from '../components/MinibarMap.js';
 import {MapView} from 'expo';
 
-const ListMap = ({}) => {
+class ListMap extends Component {
+
+  render() {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -17,35 +19,35 @@ const ListMap = ({}) => {
             <MapView
               style={styles.backgroundColor}
               region={{
-                latitude: 37.771728,
-                longitude: -122.409421,
+                latitude: this.props.location.latitude,
+                longitude: this.props.location.longitude,
                 latitudeDelta: .05,
                 longitudeDelta: .05,
               }}
               >
                 <MapView.Marker
                   coordinate={{
-                    latitude: 37.771728,
-                    longitude: -122.409421
+                    latitude: this.props.location.latitude,
+                    longitude: this.props.location.longitude
                   }}
                   pinColor={'#008000'}
                 />
                 <MapView.Marker
                   coordinate={{
-                    latitude: 37.760602,
-                    longitude: -122.419421
+                    latitude: this.props.restaurants.results[1].coordinates.latitude,
+                    longitude: this.props.restaurants.results[1].coordinates.longitude
                   }}
                 />
                 <MapView.Marker
                   coordinate={{
-                    latitude: 37.783344,
-                    longitude: -122.419115
+                    latitude: this.props.restaurants.results[2].coordinates.latitude,
+                    longitude: this.props.restaurants.results[2].coordinates.longitude
                   }}
                 />
                 <MapView.Marker
                   coordinate={{
-                    latitude: 37.781202,
-                    longitude: -122.411284
+                    latitude: this.props.restaurants.results[0].coordinates.latitude,
+                    longitude: this.props.restaurants.results[0].coordinates.longitude
                   }}
                 />
               </MapView>
@@ -53,14 +55,17 @@ const ListMap = ({}) => {
         </View>
       </View>
     );
+  }
 }
 
 ListMap.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    // console.log(state);
     return {
+      location: state.area,
+      restaurants: state.results
     };
 };
 

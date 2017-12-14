@@ -5,7 +5,12 @@ import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 
-const FriendList = ({}) => {
+class FriendList extends Component {
+  componentDidMount() {
+    console.log('Hello from friend list');
+  }
+
+  render() {
     return (
       <View style={styles.container}>
         <Navbar/>
@@ -84,13 +89,14 @@ const FriendList = ({}) => {
         </View>
       </View>
     );
+  }
 }
 
 FriendList.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    // console.log(state);
     return {
     };
 };

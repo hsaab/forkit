@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Provider, connect } from 'react-redux';
-import configureStore from './store/configureStore.js';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import rootReducer from './reducers/index';
 import { StyleSheet, Text, View } from 'react-native';
-import { Actions, Router, Scene, Lightbox, ActionConst } from 'react-native-router-flux';
+import { Router, Scene, Lightbox, ActionConst } from 'react-native-router-flux';
 import Home from './containers/Home.js';
 import Login from './containers/Login.js';
 import Register from './containers/Register.js';
@@ -28,53 +28,63 @@ import EventForm from './containers/EventForm.js';
 import StatusPage from './containers/StatusPage.js';
 import TestQuestion from './containers/TestQuestion.js';
 import MultiResult from './containers/MultiResult.js';
-import InviteFriends from './containers/InviteFriends.js';
-import MyEvents from './containers/MyEvents.js';
-import MyEvents2 from './containers/MyEvents2.js';
+import Yelp from './containers/Yelp.js';
+import OpenTable from './containers/openTable.js';
+import menu from './containers/menu.js';
+import ForgotPassword from './containers/ForgotPassword.js'
 
-const store = configureStore();
 
-const Scenes = Actions.create(
-  <Lightbox>
-    <Scene key="root">
-      {/* <Scene key="home" component={Home} initial={true} hideNavBar={true}/> */}
-      <Scene key="login" component={Login} initial={true} hideNavBar={true}/>
-      <Scene key="register" component={Register} hideNavBar={true}/>
-      <Scene key="root2" tabs={true} animationEnabled={false} tabBarComponent={Tabbar}>
-        <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>
-        <Scene key="eats1" component={Eats1} hideNavBar={true} hideTabBar={true}/>
-        <Scene key="eats2" component={Eats2} hideNavBar={true} hideTabBar={true}/>
-        <Scene key="eats3" component={Eats3} hideNavBar={true} hideTabBar={true}/>
-        <Scene key="algo" component={Algo} hideNavBar={true} hideTabBar={true}/>
-        <Scene key="testquestion" component={TestQuestion} hideNavBar={true} hideTabBar={true}/>
-        <Scene key="listresults" component={ListResults} hideNavBar={true} lazy={true}/>
-        <Scene key="listmap" component={ListMap} hideNavBar={true}/>
-        <Scene key="singleresult" component={SingleResult} hideNavBar={true}/>
-        <Scene key="profile" component={Profile} hideNavBar={true}/>
-        <Scene key="preferences" component={Preferences} hideNavBar={true}/>
-        <Scene key="favoritelist" component={FavoriteList} hideNavBar={true}/>
-        <Scene key="myforks" component={MyForks} hideNavBar={true}/>
-        <Scene key="friendlist" component={FriendList} hideNavBar={true}/>
-        <Scene key="personaldata" component={PersonalData} hideNavBar={true}/>
-        <Scene key="search" component={Search} hideNavBar={true}/>
-        <Scene key="eventform" component={EventForm} hideNavBar={true}/>
-        <Scene key="invitefriends" component={InviteFriends} hideNavBar={true}/>
-        <Scene key="statuspage" component={StatusPage} hideNavBar={true}/>
-        <Scene key="multiresult" component={MultiResult} hideNavBar={true}/>
-        <Scene key="myevents" component={MyEvents} hideNavBar={true}/>
-        <Scene key="myevents2" component={MyEvents2} hideNavBar={true}/>
-      </Scene>
-    </Scene>
-    <Scene key="resultlightbox" component={ResultLightbox} hideNavBar={true}/>
-  </Lightbox>
-);
+const store = createStore(rootReducer);
 
-export default class App extends Component {
-  render() {
+export default function App ({}) {
+    // console.log(store)
     return (
       <Provider store={store}>
-        <Router scenes={Scenes}/>
+        <Router>
+          <Lightbox>
+            <Scene key="root">
+              {/* <Scene key="home" component={Home} initial={true} hideNavBar={true}/> */}
+              <Scene key="login" component={Login} initial={true} hideNavBar={true}/>
+              <Scene key="register" component={Register} hideNavBar={true}/>
+              <Scene key="eats1" component={Eats1} hideNavBar={true} hideTabBar={true}/>
+              <Scene key="eats2" component={Eats2} hideNavBar={true} hideTabBar={true}/>
+              <Scene key="eats3" component={Eats3} hideNavBar={true} hideTabBar={true}/>
+              <Scene key="algo" component={Algo} hideNavBar={true} hideTabBar={true}/>
+              <Scene key='yelp' component={Yelp} hideNavBar={true} hideTabBar={true}/>
+              <Scene key='openTable' component={OpenTable} hideNavBar={true} hideTabBar={true}/>
+              <Scene key="menu" component={menu} hideNavBar={true} hideTabBar={true}/>
+              <Scene key="testquestion" component={TestQuestion} hideNavBar={true} hideTabBar={true}/>
+              <Scene key='forgot' component={ForgotPassword} hideNavBar={true} hideTabBar={true}/>
+              <Scene tabs={true} lazy={true} animationEnabled={false} tabBarComponent={Tabbar}>
+                <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>
+                <Scene key="listmap" component={ListMap} hideNavBar={true}/>
+                <Scene key="listresults" component={ListResults} hideNavBar={true}/>
+                <Scene key="singleresult" component={SingleResult} hideNavBar={true}/>
+                <Scene key="profile" component={Profile} hideNavBar={true}/>
+                <Scene key="preferences" component={Preferences} hideNavBar={true}/>
+                <Scene key="favoritelist" component={FavoriteList} hideNavBar={true}/>
+                <Scene key="myforks" component={MyForks} hideNavBar={true}/>
+                <Scene key="friendlist" component={FriendList} hideNavBar={true}/>
+                <Scene key="personaldata" component={PersonalData} hideNavBar={true}/>
+                <Scene key="search" component={Search} hideNavBar={true}/>
+                <Scene key="eventform" component={EventForm} hideNavBar={true}/>
+                <Scene key="statuspage" component={StatusPage} hideNavBar={true}/>
+                <Scene key="multiresult" component={MultiResult} hideNavBar={true}/>
+              </Scene>
+            </Scene>
+            <Scene key="resultlightbox" component={ResultLightbox} hideNavBar={true}/>
+          </Lightbox>
+        </Router>
       </Provider>
-    )
-  }
+    );
+
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

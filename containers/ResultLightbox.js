@@ -1,20 +1,43 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Linking } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
+import getDirections from 'react-native-google-maps-directions';
 
-const ResultLightbox = ({}) => {
+class ResultLightbox extends Component {
+  handleGetDirections = () => {
+      const data = {
+         source: {
+          latitude: this.props.location.latitude, // our location latitude
+          longitude: this.props.location.longitude // our location longitude
+        },
+        destination: {
+          latitude: this.props.destination.singleResult.coordinates.latitude, // latitude of restaurant
+          longitude: this.props.destination.singleResult.coordinates.longitude // longitude of restaurants
+        },
+        params: [
+          {
+            key: "dirflg",
+            value: "w"
+          }
+        ]
+      }
+
+      getDirections(data)
+    }
+
+  render() {
     return (
       <View style={styles.container}>
         <View style={styles.transportContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={this.handleGetDirections}>
             <Image style={styles.icon} source={require("../assets/google-maps.png")}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={ ()=>{ Linking.openURL(`https://m.uber.com/ul/?action=setPickup&client_id=MiKDUcSdVp1h38ZYjiK98BpmRSx7jB1w&product_id=26546650-e557-4a7b-86e7-6a3942445247&pickup[latitude]=${this.props.location.latitude}&pickup[longitude]=${this.props.location.longitude}&dropoff[latitude]=${this.props.destination.singleResult.coordinates.latitude}&dropoff[longitude]=${this.props.destination.singleResult.coordinates.longitude}`)}}>
             <Image style={styles.icon} source={require("../assets/uber.png")}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={ ()=>{ Linking.openURL(`https://lyft.com/ride?id=lyft_line&pickup[latitude]=${this.props.location.latitude}&pickup[longitude]=${this.props.location.longitude}&partner=BfID2Tz9GlS5&destination[latitude]=${this.props.destination.singleResult.coordinates.latitude}&destination[longitude]=${this.props.destination.singleResult.coordinates.longitude}`)}}>
             <Image style={styles.icon} source={require("../assets/lyft.png")}/>
           </TouchableOpacity>
         </View>
@@ -23,14 +46,17 @@ const ResultLightbox = ({}) => {
         </View>
       </View>
     );
+  }
 }
 
 ResultLightbox.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    // console.log(state);
     return {
+      destination: state.results,
+      location: state.area
     };
 };
 
