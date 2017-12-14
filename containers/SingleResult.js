@@ -62,7 +62,7 @@ class SingleResult extends Component {
           var resSplit = restaurantName.split(' ');
           for (var j = 0; j < resSplit.length; j++) {
             if (restaurantName.indexOf(resSplit[i]) > -1) {
-              this.props.openTable(restaurants[i].mobile_reserve_url);
+              this.props.openTable(restaurants[i].reserve_url);
               Actions.openTable();
               break;
             }
