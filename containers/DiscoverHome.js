@@ -39,12 +39,20 @@ class DiscoverHome extends Component {
         <Navbar/>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/Discover.png")}/>
-          <Text style={styles.eatText}>Eats</Text>
-          <TouchableOpacity style={styles.playButton} onPress={(ev) => this.singlePlayerButton(ev)}>
-            <Text style={styles.playText}> Single Player </Text>
+          <View style={styles.discoverHead}>
+            <Text style={styles.discoverText}>Eats</Text>
+          </View>
+          <TouchableOpacity style={styles.playButton} onPress={Actions.myevents}>
+            <Text style={styles.playText}>My Events</Text>
+            <Image style={styles.statusIcon} source={require("../assets/eventstatusWhite.png")}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.playButtonBottom} onPress={Actions.eventform}>
-            <Text style={styles.playText}> Multiplayer </Text>
+          <TouchableOpacity style={styles.playButton} onPress={Actions.eventform} >
+            <Text style={styles.playText}>Multiplayer</Text>
+            <Image style={styles.multiIcon} source={require("../assets/groupWhite.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.playButton} onPress={(ev) => this.singlePlayerButton(ev)}>
+            <Text style={styles.playText}> Singleplayer</Text>
+            <Image style={styles.singleIcon} source={require("../assets/single.png")}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -82,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     height: verticalScale(667-70-50),
-    width: scale(375),
+    width: scale(375)
   },
   backgroundColor: {
     top: verticalScale(0),
@@ -90,33 +98,45 @@ const styles = StyleSheet.create({
     height: verticalScale(667-70-50),
     width: scale(375)
   },
-  eatText: {
-    fontSize: scale(60),
+  discoverHead: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  discoverText: {
+    fontSize: moderateScale(80),
     fontFamily: 'Futura',
     color: 'white',
-    bottom: verticalScale(10)
   },
   playButton: {
-    height: verticalScale(35),
-    width: scale(175),
+    width: scale(315),
     backgroundColor: 'rgba(255,255,255,.40)',
-    justifyContent: 'center',
-    borderRadius: 20,
-  },
-  playButtonBottom: {
-    height: verticalScale(35),
-    width: scale(175),
-    backgroundColor: 'rgba(255,255,255,.40)',
-    justifyContent: 'center',
-    borderRadius: 20,
-    top: verticalScale(15)
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: scale(40),
+    flex: 0.5,
+    marginBottom: verticalScale(50),
   },
   playText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(25),
     fontFamily: 'Futura',
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    left: scale(20)
   },
+  statusIcon: {
+    height: verticalScale(100),
+    width: scale(85),
+  },
+  multiIcon: {
+    height: verticalScale(100),
+    width: scale(100),
+  },
+  singleIcon: {
+    height: verticalScale(60),
+    width: scale(40),
+    right: scale(30),
+    top: verticalScale(10)
+  }
 });
 
 export default connect(

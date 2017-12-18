@@ -67,8 +67,6 @@ class Eats3 extends Component {
    clearInterval(this.update);
  }
 
-
-
   render() {
     return (
       <View style={styles.container}>
@@ -83,24 +81,24 @@ class Eats3 extends Component {
             </View>
             <Text style={styles.topText}>How far away you wanna go?</Text>
           </View>
-          <View style={styles.rowSubContainer}>
-            <TouchableOpacity style={styles.optionLeft} onPress={(ev) => this.handleShort(ev)}>
+          <View style={styles.colSubContainer}>
+            <TouchableOpacity style={styles.option} onPress={(ev) => this.handleShort(ev)}>
+              <Text style={styles.optionText}>Less than 1 mile</Text>
               <View style={styles.rowSubContainer}>
                 <Image style={styles.hiker} source={require("../assets/Hikerwhite.png")}/>
                 <Image style={styles.hiker} source={require("../assets/Hikerwhite.png")}/>
                 <Image style={styles.hiker} source={require("../assets/Hikerwhite.png")}/>
               </View>
-              <Text style={styles.optionText}>Less than 1 mile</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionRight} onPress={(ev) => this.handleLong(ev)}>
-              <Image style={styles.car} source={require("../assets/carWhite.png")}/>
+            <TouchableOpacity style={styles.option} onPress={(ev) => this.handleLong(ev)}>
               <Text style={styles.optionText}>1 to 3 miles</Text>
+              <Image style={styles.car} source={require("../assets/carWhite.png")}/>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.option, styles.rowSubContainer]} onPress={() => this.handleGamble()}>
+              <Text style={styles.gambleText}> Take a Gamble </Text>
+              <Image style={styles.dice} source={require("../assets/red-dice-512.png")}/>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={[styles.optionBottom, styles.rowSubContainer]} onPress={() => this.handleGamble()}>
-            <Text style={styles.gambleText}> Take a Gamble </Text>
-            <Image style={styles.dollarSigns} source={require("../assets/red-dice-512.png")}/>
-          </TouchableOpacity>
         </View>
       </View>
     );
@@ -111,7 +109,6 @@ Eats3.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
     };
 };
@@ -126,6 +123,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   background: {
     justifyContent: 'flex-start',
@@ -157,68 +156,56 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  colSubContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: scale(375),
+  },
   timer: {
     fontSize: moderateScale(45),
     color: 'white',
     fontFamily: 'Futura'
   },
-  optionLeft: {
-    borderTopWidth: moderateScale(2),
-    borderTopColor: 'white',
-    borderBottomWidth: moderateScale(1),
-    borderBottomColor: 'white',
-    borderRightWidth: moderateScale(1),
-    borderRightColor: 'white',
-    height: verticalScale(210),
-    width: scale(375/2),
-    justifyContent: 'center',
-    alignItems: 'center',
-
+  hiker: {
+    height: verticalScale(40),
+    width: scale(20)
   },
-  optionRight: {
-    borderTopWidth: moderateScale(2),
-    borderTopColor: 'white',
-    borderBottomWidth: moderateScale(1),
-    borderBottomColor: 'white',
-    borderLeftWidth: moderateScale(1),
-    borderLeftColor: 'white',
-    height: verticalScale(210),
-    width: scale(375/2),
+  car: {
+    height: verticalScale(40),
+    width: scale(60)
+  },
+  timer: {
+    fontSize: moderateScale(45),
+    color: 'white',
+    fontFamily: 'Futura'
+  },
+  option: {
+    borderWidth: moderateScale(3),
+    borderColor: 'white',
+    backgroundColor: 'rgba(255,255,255,.20)',
+    height: verticalScale(90),
+    width: scale(340),
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: scale(50),
+    margin: moderateScale(8)
   },
   optionText: {
     fontFamily: 'Futura',
     color: 'white',
-    textAlign: 'center',
-    fontSize: moderateScale(35),
-    marginLeft: moderateScale(10),
-    marginRight: moderateScale(10)
-  },
-  hiker: {
-    height: verticalScale(70),
-    width: scale(50)
-  },
-  car: {
-    height: verticalScale(75),
-    width: scale(100)
-  },
-  dollarSigns: {
-    height: verticalScale(35),
-    width: scale(35)
-  },
-  optionBottom: {
-    borderTopWidth: moderateScale(1),
-    borderTopColor: 'white',
-    height: verticalScale(667-70-250-210),
-    width: scale(375),
-    justifyContent: 'center',
-    alignItems: 'center',
+    fontSize: moderateScale(30),
+    margin: scale(15)
   },
   gambleText: {
     fontFamily: 'Futura',
     color: 'white',
-    fontSize: moderateScale(38)
+    fontSize: moderateScale(30)
+  },
+  dice: {
+    height: verticalScale(35),
+    width: scale(35)
   }
 });
 

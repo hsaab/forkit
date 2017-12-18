@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput, Alert, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import { Font } from 'expo';
 import axios from 'axios';
+import bcrypt from 'react-native-bcrypt';
 
 class Register extends React.Component{
   constructor(props) {
@@ -19,47 +20,21 @@ class Register extends React.Component{
   }
 
   register(ev) {
-  ev.preventDefault();
+    ev.preventDefault();
+    var salt = bcrypt.genSaltSync(10);
+    var isPresent = (this.state.first && this.state.last && this.state.email.indexOf('@') > -1 && this.state.password)
+    if (isPresent){
+      AsyncStorage.setItem('person', JSON.stringify({
+        email: this.state.email,
+        first: this.state.first,
+        last: this.state.last,
+        password: bcrypt.hashSync(this.state.password, salt)
+        }));
 
-  // axios({
-  //   method: 'POST',
-  //   url: 'https://guarded-dawn-44803.herokuapp.com/db/insertrows',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   data: {
-  //     password: '$BIG_SHAQ102$',
-  //     tableName: 'users',
-  //     params: `{"firstname": "${this.state.first}", "lastname":"${this.state.last}","email":"${this.state.email}","password":"${this.state.password}"}`
-  //   }
-  // })
-  // .then(response => {
-  //   console.log(response.data);
-  // })
-  // .catch(e => {
-  //   console.log('ERROR', e);
-  // })
-
-  // axios.get(`https://guarded-dawn-44803.herokuapp.com/recover/register?firstname=${this.state.first}&lastname=${this.state.last}&email=${this.state.email}&password=${this.state.password}`)
-  // .then((resp) => console.log(resp))
-  // .catch((err) => console.log('Register Email Error', err));
-  axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=email&conditions=email='${this.state.email}'`)
-  .then(response => {
-      if (response.data.result.length > 0) {
-        Alert.alert('Error', 'User already registered! You can reset you password if you have forgotten it', {text: 'Ok', onPress: Actions.login()})
-      } else {
-        axios.get(`https://guarded-dawn-44803.herokuapp.com/recover/register?firstname=${this.state.first}&lastname=${this.state.last}&email=${this.state.email}&password=${this.state.password}`)
-          .then(function (response) {
-            console.log(response);
-            if (response.data.success === true) {
-              Alert.alert('Registration', 'We sent you an email! Please verify your account', {text: 'Ok', onPress: Actions.login()})
-            }
-          });
-      }
-    })
-    .catch(e => {
-      console.log('ERROR', e);
-    });
+      Actions.vnumber()
+    } else {
+      Alert.alert('Oops', 'Some fields are not filled or email is not right!', {text: 'Ok'})
+    }
   }
 
   render(){
@@ -82,7 +57,7 @@ class Register extends React.Component{
             </View>
             <View style={styles.input}>
               <Image style={styles.passIcon} source={require("../assets/password.png")}/>
-              <TextInput style={styles.inputText} placeholder={'Password'} onChangeText={(text) => this.setState({password: text})}/>
+              <TextInput style={styles.inputText} placeholder={'Password'} secureTextEntry={true} onChangeText={(text) => this.setState({password: text})}/>
             </View>
           </View>
           <View style={styles.buttonForm}>
