@@ -18,22 +18,23 @@ class Login extends React.Component{
     };
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
     let emailObj = await AsyncStorage.getItem('email');
     let email = JSON.parse(emailObj);
     var userObj = {};
-
+    // console.log(email);
     if (email) {
       if (email.type === 'regular') {
-        axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=token,email,firstname,lastname,friends,forks,wishlist,os&conditions=email='${email.email}'`)
+        axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=token,email,firstname,lastname,friends,forks,wishlist,os,number&conditions=email='${email.email}'`)
         .then(resp => {
-          if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {
+          if (resp.data) {
+            if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {
 
-            userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
-            this.props.userProfile(userObj);
-            // console.log(this.props.userInformation);
-
-            Actions.discover();
+              userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os, number: resp.data.result[0].number};
+              this.props.userProfile(userObj);
+              console.log("USER OBJECT", userObj)
+              Actions.discover();
+            }
           }
         })
         .catch(e => console.log(e))
@@ -164,7 +165,7 @@ class Login extends React.Component{
             }));
           userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os};
           this.props.userProfile(userObj);
-          console.log(this.props.userInformation);
+          // console.log(this.props.userInformation);
           Actions.discover();
         } else {
           var salt = bcrypt.genSaltSync(10);

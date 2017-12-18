@@ -84,8 +84,6 @@ class SingleResult extends Component {
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
           <View style={styles.nameContainer}>
-            <View style={styles.star}>
-            </View>
             <View style={styles.name}>
               <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
             </View>
@@ -97,7 +95,7 @@ class SingleResult extends Component {
                 <Text style={{fontWeight: 'bold', color: 'skyblue'}}>{this.props.single.singleResult.display_phone}</Text>
               </TouchableOpacity>
               <Image source={this.imageMatch(this.props.single.singleResult.rating)}/>
-              <Text style={styles.textStyle}>{(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
+              <Text style={styles.textStyle}> {(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
             </View>
             <View style={styles.restaurantButtons}>
               <TouchableOpacity style={styles.yelp} onPress={Actions.yelp}>
