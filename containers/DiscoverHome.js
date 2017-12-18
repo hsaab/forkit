@@ -36,23 +36,39 @@ class DiscoverHome extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Navbar/>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/Discover.png")}/>
+          <TouchableOpacity>
+            <View style={styles.addContainer}>
+              <Image style={styles.addIcon} source={require("../assets/addFriends.png")}/>
+            </View>
+          </TouchableOpacity>
           <View style={styles.discoverHead}>
             <Text style={styles.discoverText}>Eats</Text>
           </View>
           <TouchableOpacity style={styles.playButton} onPress={Actions.myevents}>
-            <Text style={styles.playText}>My Events</Text>
-            <Image style={styles.statusIcon} source={require("../assets/eventstatusWhite.png")}/>
+            <View style={styles.imageContainer}>
+              <Image style={styles.statusIcon} source={require("../assets/eventstatusWhite.png")}/>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.playText}>My Events</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.playButton} onPress={Actions.eventform} >
-            <Text style={styles.playText}>Multiplayer</Text>
-            <Image style={styles.multiIcon} source={require("../assets/groupWhite.png")}/>
+            <View style={styles.imageContainer}>
+              <Image style={styles.multiIcon} source={require("../assets/groupWhite.png")}/>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.playText}>Multiplayer</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.playButton} onPress={(ev) => this.singlePlayerButton(ev)}>
-            <Text style={styles.playText}> Singleplayer</Text>
-            <Image style={styles.singleIcon} source={require("../assets/single.png")}/>
+            <View style={styles.imageContainer}>
+              <Image style={styles.singleIcon} source={require("../assets/single.png")}/>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.playText}>Singleplayer</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -89,53 +105,71 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70-50),
+    height: verticalScale(667-50),
     width: scale(375)
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-70-50),
+    height: verticalScale(667-50),
     width: scale(375)
-  },
-  discoverHead: {
-    flex: 1,
-    justifyContent: 'center',
   },
   discoverText: {
     fontSize: moderateScale(80),
     fontFamily: 'Futura',
     color: 'white',
+    margin: 10
   },
   playButton: {
-    width: scale(315),
+    width: scale(327),
+    height: verticalScale(100),
     backgroundColor: 'rgba(255,255,255,.40)',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderRadius: scale(40),
-    flex: 0.5,
-    marginBottom: verticalScale(50),
+    justifyContent: 'space-around',
+    borderRadius: scale(327/2),
+    marginBottom: verticalScale(20),
+  },
+  imageContainer: {
+    width: scale(100),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textContainer: {
+    width: scale(327-100),
+    justifyContent: 'center',
+    alignItems: 'flex-start'
   },
   playText: {
-    fontSize: moderateScale(25),
+    fontSize: moderateScale(30),
     fontFamily: 'Futura',
     color: 'white',
-    alignSelf: 'center',
-    left: scale(20)
+  },
+  addContainer: {
+    width: scale(375),
+    height: verticalScale(50),
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    right: scale(10)
+  },
+  addIcon: {
+    height: verticalScale(80),
+    width: scale(85),
+    overflow: 'visible'
   },
   statusIcon: {
-    height: verticalScale(100),
-    width: scale(85),
+    height: verticalScale(80),
+    width: scale(80),
+    overflow: 'visible'
   },
   multiIcon: {
-    height: verticalScale(100),
-    width: scale(100),
+    height: verticalScale(70),
+    width: scale(85),
+    overflow: 'visible'
   },
   singleIcon: {
     height: verticalScale(60),
-    width: scale(40),
-    right: scale(30),
-    top: verticalScale(10)
+    width: scale(50),
+    overflow: 'visible'
   }
 });
 

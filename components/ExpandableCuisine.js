@@ -1,16 +1,19 @@
 import React,{Component} from 'react'
-import {StyleSheet,Text,View,Image,TouchableOpacity,Animated} from 'react-native'; //Step 1
+import { StyleSheet, Text, View, Image, TouchableOpacity, Animated, Picker } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
+import cuisineIcon from '../assets/cuisineMGrey.png';
+import downIcon from '../assets/fasttrackMGreyDown.png';
+import SelectorCuisine from '../components/SelectorCuisine.js';
 
 class ExpandableCuisine extends Component{
     constructor(props){
         super(props);
-        this.state = {       //Step 3
+        this.state = {
             title: "test",
             expanded: false,
-            animation: new Animated.Value(84)
+            animation: new Animated.Value(96.5)
         };
     }
 
@@ -19,82 +22,67 @@ class ExpandableCuisine extends Component{
       finalValue = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
       this.setState({
-          expanded : !this.state.expanded  //Step 2
+          expanded: !this.state.expanded
       });
 
-      this.state.animation.setValue(initialValue);  //Step 3
-      Animated.spring(     //Step 4
+      this.state.animation.setValue(initialValue);
+      Animated.spring(
           this.state.animation,
           {
               toValue: finalValue
           }
-      ).start();  //Step 5
+      ).start();
     }
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight: event.nativeEvent.layout.height
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight: event.nativeEvent.layout.height
         });
     }
 
     render(){
-        //Step 5
-        // console.log('expandable state', this.state)
         return (
+          <View style={styles.masterContainer}>
             <Animated.View style={[styles.container, {height: this.state.animation}]} >
                 <TouchableOpacity style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)} onPress={this.toggle.bind(this)}>
-                  <View
-                      style={styles.button}
-                      underlayColor="#f1f1f1">
-                      <Image
-                          style={styles.buttonImage}
-                          source={require('../assets/cuisineMGrey.png')}
-                      ></Image>
+                  <View style={styles.button} underlayColor="#f1f1f1">
+                    <Image style={styles.buttonImage} source={cuisineIcon} />
                   </View>
-                    <View style={styles.title}>
-                      <Text style={styles.titleText}>Cuisine</Text>
-                    </View>
-                    <View
-                        style={styles.button}
-                        underlayColor="#f1f1f1">
-                        <Image
-                            style={styles.checkImage}
-                            source={require('../assets/checkMGrey.png')}
-                        ></Image>
-                    </View>
+                  <View style={styles.title}>
+                    <Text style={styles.titleText}>Cuisine</Text>
+                  </View>
+                  <View style={styles.button} underlayColor="#f1f1f1">
+                    <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')} />
+                  </View>
+                  <Image style={styles.downIcon} source={downIcon} />
                 </TouchableOpacity>
-
                 <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-                    <Text>
-                      HELLO JUST TESTING WHAT THIS DOES AND TO SEE IF IT SHOWS UP AND EVERYTHING
-                      LETS MAKE IT A LITTLE LONGER SO ITS BETTER TO SEE ALL THE EXPANDING AND COLLAPSING AND WHATNOT
-                      WHAT IS MINHEIGHT AND MAX HEIGHT. DOES IT EVEN MATTER??? BLOCK OF TEXT JUST TO SEE
-                    </Text>
+                  <SelectorCuisine/>
                 </View>
-
             </Animated.View>
+          </View>
         );
     }
 }
 export default ExpandableCuisine;
 
 var styles = StyleSheet.create({
-    container: {
-      borderColor: '#fff',
-      borderBottomWidth: scale(1),
-      overflow:'hidden',
+    masterContainer: {
+      width: scale(375),
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: verticalScale(3),
+      marginBottom: verticalScale(3),
     },
-    titleContainer: {
-      flexDirection: 'row',
-      borderColor: '#A2A2A2',
-      borderBottomWidth: moderateScale(0.7),
-      height: verticalScale(84)
+    container: {
+      overflow:'hidden',
+      width: scale(358),
     },
     title: {
       flex: 1,
@@ -102,6 +90,13 @@ var styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'flex-start'
     },
+    titleContainer: {
+      flexDirection: 'row',
+      height: verticalScale(96.5),
+      width: scale(375),
+      backgroundColor: 'rgba(255,255,255,.5)',
+      alignItems: 'center',
+      },
     titleText: {
       color:'#646464',
       fontWeight:'300',
@@ -118,10 +113,19 @@ var styles = StyleSheet.create({
     },
     checkImage: {
       width: 35,
-      height: 35
+      height: 35,
+      right: scale(5)
     },
     body: {
-      padding: 10,
-      paddingTop: 0,
+      width: scale(375),
+      height: verticalScale(350),
+      borderBottomWidth: 0.5,
+      borderColor: 'gray',
+      backgroundColor: 'rgba(255,255,255,.2)',
+    },
+    downIcon: {
+      width: scale(20),
+      height: verticalScale(20),
+      right: verticalScale(28)
     }
 });

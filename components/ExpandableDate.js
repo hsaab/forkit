@@ -1,8 +1,12 @@
-import React,{Component} from 'react'
-import {StyleSheet,Text,View,Image,TouchableOpacity,Animated} from 'react-native'; //Step 1
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Animated } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
+import moment from 'moment';
+import downIcon from '../assets/fasttrackMGreyDown.png';
+import CalendarForm from '../components/CalendarForm.js';
+import calendarIcon from '../assets/calendarMGrey.png';
 
 class ExpandableDate extends Component{
     constructor(props){
@@ -10,7 +14,7 @@ class ExpandableDate extends Component{
         this.state = {
             title: "test",
             expanded: false,
-            animation: new Animated.Value(84)
+            animation: new Animated.Value(96.5)
         };
     }
 
@@ -33,72 +37,69 @@ class ExpandableDate extends Component{
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight: event.nativeEvent.layout.height
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight: event.nativeEvent.layout.height
         });
     }
 
     render(){
-        return (
-            <Animated.View style={[styles.container, {height: this.state.animation}]} >
-                <TouchableOpacity style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)} onPress={this.toggle.bind(this)}>
-                  <View
-                      style={styles.button}
-                      underlayColor="#f1f1f1">
-                      <Image
-                          style={styles.buttonImage}
-                          source={require('../assets/calendarMGrey.png')}
-                      ></Image>
-                  </View>
-                    <View style={styles.title}>
-                      <Text style={styles.titleText}>Date</Text>
-                    </View>
-                    <View
-                        style={styles.button}
-                        underlayColor="#f1f1f1">
-                        <Image
-                            style={styles.checkImage}
-                            source={require('../assets/checkMGrey.png')}
-                        ></Image>
-                    </View>
-                </TouchableOpacity>
-
-                <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-                    <Text>
-                      HELLO JUST TESTING WHAT THIS DOES AND TO SEE IF IT SHOWS UP AND EVERYTHING
-                      LETS MAKE IT A LITTLE LONGER SO ITS BETTER TO SEE ALL THE EXPANDING AND COLLAPSING AND WHATNOT
-                      WHAT IS MINHEIGHT AND MAX HEIGHT. DOES IT EVEN MATTER??? BLOCK OF TEXT JUST TO SEE
-                    </Text>
+      const start = moment().format("YYYY-MM-DD");
+      const end = moment().add(14,'days').format("YYYY-MM-DD");
+      console.log(start, end)
+      return (
+        <View style={styles.masterContainer}>
+          <Animated.View style={[styles.container, {height: this.state.animation}]} >
+              <TouchableOpacity style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)} onPress={this.toggle.bind(this)}>
+                <View style={styles.button} underlayColor="#f1f1f1">
+                  <Image style={styles.buttonImage} source={calendarIcon} />
                 </View>
-
-            </Animated.View>
-        );
+                <View style={styles.title}>
+                  <Text style={styles.titleText}>Date</Text>
+                </View>
+                <View style={styles.button} underlayColor="#f1f1f1">
+                  <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')} />
+                </View>
+                <Image style={styles.downIcon} source={downIcon} />
+              </TouchableOpacity>
+              <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
+                <CalendarForm/>
+              </View>
+          </Animated.View>
+        </View>
+      );
     }
 }
 export default ExpandableDate;
 
 var styles = StyleSheet.create({
-    container: {
-      borderColor: '#fff',
-      borderBottomWidth: scale(1),
-      overflow:'hidden',
+    masterContainer: {
+      width: scale(375),
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: verticalScale(3),
+      marginBottom: verticalScale(3),
     },
-    titleContainer: {
-      flexDirection: 'row',
-      borderColor: '#A2A2A2',
-      borderBottomWidth: moderateScale(0.7),
-      height: verticalScale(84)
+    container: {
+      overflow:'hidden',
+      width: scale(358),
     },
     title: {
       flex: 1,
       padding: 10,
       justifyContent: 'center',
       alignItems: 'flex-start'
+    },
+    titleContainer: {
+      flexDirection: 'row',
+      height: verticalScale(96.5),
+      width: scale(375),
+      backgroundColor: 'rgba(255,255,255,.5)',
+      alignItems: 'center',
     },
     titleText: {
       color:'#646464',
@@ -111,15 +112,25 @@ var styles = StyleSheet.create({
       alignItems: 'center'
     },
     buttonImage: {
-      width: 35,
-      height: 35
+      width: scale(35),
+      height: verticalScale(35)
     },
     checkImage: {
-      width: 35,
-      height: 35
+      width: scale(35),
+      height: verticalScale(35),
+      right: scale(5)
     },
     body: {
-      padding: 10,
-      paddingTop: 0,
+      height: verticalScale(375),
+      width: scale(375),
+      borderBottomWidth: 0.5,
+      borderColor: 'gray',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    downIcon: {
+      width: scale(20),
+      height: verticalScale(20),
+      right: verticalScale(28)
     }
 });

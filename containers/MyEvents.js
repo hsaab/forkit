@@ -12,30 +12,28 @@ import ProfPic from '../assets/profile.png';
 class MyEvents extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Navbar/>
-        <View style={styles.background}>
-          <MyEventBar title={'Ongoing'} aLink={Actions.myevents} bLink={Actions.myevents2}/>
-          <Calendar/>
-          <View style={styles.masterBar}>
-            <Text style={styles.masterBarText}>All Upcoming</Text>
+      <View style={styles.background}>
+        <MyEventBar title={'Ongoing'} aLink={Actions.myevents} bLink={Actions.myevents2}/>
+        <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
+        <Calendar/>
+        <ScrollView>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>Upcoming</Text>
           </View>
           <View style={styles.listContainer}>
-            <ScrollView>
-              <View style={styles.otherBar}>
-                <Text style={styles.otherBarText}>This Week</Text>
-              </View>
-              <EventItem host={ProfPic}/>
-              <EventItem />
-              <EventItem />
-              <View style={styles.otherBar}>
-                <Text style={styles.otherBarText}>Next Week</Text>
-              </View>
-              <EventItem />
-              <EventItem />
-            </ScrollView>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionText}>This Week</Text>
+            </View>
+            <EventItem host={ProfPic}/>
+            <EventItem />
+            <EventItem />
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionText}>Next Week</Text>
+            </View>
+            <EventItem />
+            <EventItem />
           </View>
-        </View>
+        </ScrollView>
       </View>
     );
   }
@@ -55,45 +53,45 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'transparent'
-  },
   background: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F8F8F8',
-    height: verticalScale(667-70-50),
-    width: scale(375),
+    backgroundColor: 'transparent',
+    height: verticalScale(667-50),
+    width: scale(375)
   },
-  masterBar: {
-    backgroundColor: '#646464',
-    width: scale(375),
-    flex: 0.4,
-    justifyContent: 'center'
+  backgroundColor: {
+    top: verticalScale(75),
+    position: 'absolute',
+    height: verticalScale(667-50-75),
+    width: scale(375)
   },
-  masterBarText: {
-    fontFamily: 'Futura',
-    color: 'white',
+  titleContainer: {
+    width: scale(375),
+    height: verticalScale(25),
+    justifyContent: 'center',
     left: scale(10),
-    fontSize: moderateScale(13)
   },
-  otherBar: {
-    backgroundColor: '#BFBFBF',
-    width: scale(375),
-    flex: 0.4,
-    justifyContent: 'center'
-  },
-  otherBarText: {
+  titleText: {
     fontFamily: 'Futura',
-    color: 'white',
-    left: scale(10),
-    fontSize: moderateScale(13)
+    color: '#646464',
+    fontSize: moderateScale(28)
+  },
+  sectionContainer: {
+    width: scale(310),
+    marginTop: verticalScale(15),
+    justifyContent: 'flex-end',
+    borderBottomWidth: 1,
+    borderBottomColor: '#95989A',
+    left: scale(13),
+  },
+  sectionText: {
+    fontFamily: 'Futura',
+    color: '#8D8D8D',
+    fontSize: moderateScale(18)
   },
   listContainer: {
     flex: 5,
-    borderColor: 'white',
-    borderBottomWidth: 1,
     width: scale(375)
   },
 });

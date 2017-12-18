@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Animated, TextInput } 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
-import titleIcon from '../assets/titleMGrey.png'
+import downIcon from '../assets/fasttrackMGreyDown.png';
+import titleIcon from '../assets/titleMGrey.png';
+import TitleInput from '../components/TitleInput.js';
 
 class ExpandableTitle extends Component{
     constructor(props){
@@ -11,7 +13,7 @@ class ExpandableTitle extends Component{
         this.state = {
             title: "",
             expanded: false,
-            animation: new Animated.Value(84)
+            animation: new Animated.Value(96.5)
         };
     }
 
@@ -34,67 +36,61 @@ class ExpandableTitle extends Component{
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight: event.nativeEvent.layout.height
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight: event.nativeEvent.layout.height
         });
     }
 
     render(){
-      const textValidator = this.state.title.length > 1 && typeof(this.state.title) !== 'undefined'
+      const textValidator = this.state.title.length >= 1
       return (
+        <View style={styles.masterContainer}>
           <Animated.View style={[styles.container, {height: this.state.animation}]} >
               <TouchableOpacity style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)} onPress={this.toggle.bind(this)}>
-                <View
-                    style={styles.button}
-                    underlayColor="#f1f1f1">
-                    <Image
-                        style={styles.buttonImage}
-                        source={titleIcon}
-                    ></Image>
+                <View style={styles.button} underlayColor="#f1f1f1">
+                  <Image style={styles.buttonImage} source={titleIcon} />
                 </View>
-                  <View style={styles.title}>
-                    <Text style={styles.titleText}>Title</Text>
-                  </View>
-                  <View style={styles.button} underlayColor="#f1f1f1">
-                    {textValidator ? <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')} /> : null}
-                  </View>
+                <View style={styles.title}>
+                  <Text style={styles.titleText}>Title</Text>
+                </View>
+                <View style={styles.button} underlayColor="#f1f1f1">
+                  {textValidator ? <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')} /> : null}
+                </View>
+                <Image style={styles.downIcon} source={downIcon} />
               </TouchableOpacity>
-
               <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-                <View style={styles.rowContainer}>
-                  <Image style={styles.miniImage} source={titleIcon} />
-                  <TextInput
-                    style={styles.textInput}
-                    onChangeText={(text) => this.setState({text})}
-                    value={this.state.text}
-                    allowFontScaling={true}
-                    placeholder={'Enter title'}
-                    />
-                </View>
+                <TitleInput/>
               </View>
-
           </Animated.View>
+        </View>
       );
     }
 }
 export default ExpandableTitle;
 
 var styles = StyleSheet.create({
+    masterContainer: {
+      width: scale(375),
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: verticalScale(3),
+      marginBottom: verticalScale(3),
+    },
     container: {
-      borderColor: '#fff',
-      borderBottomWidth: scale(1),
       overflow:'hidden',
+      width: scale(358),
     },
     titleContainer: {
       flexDirection: 'row',
-      borderColor: '#A2A2A2',
-      borderBottomWidth: moderateScale(0.7),
-      height: verticalScale(84)
+      height: verticalScale(96.5),
+      width: scale(375),
+      backgroundColor: 'rgba(255,255,255,.5)',
+      alignItems: 'center',
     },
     title: {
       flex: 1,
@@ -121,30 +117,22 @@ var styles = StyleSheet.create({
       height: verticalScale(35)
     },
     body: {
-      padding: 10,
-      paddingTop: 0,
       height: verticalScale(75),
       width: scale(375),
-      backgroundColor: 'white',
+      backgroundColor: 'rgba(255,255,255,.2)',
       justifyContent: 'center',
-      alignItems: 'flex-end',
-    },
-    textInput: {
-      width: scale(300),
-      fontSize: moderateScale(30),
-      fontFamily: 'Futura',
-      fontWeight: '300',
-      borderBottomColor: 'grey',
-      borderBottomWidth: 2,
-      color: '#646464'
+      alignItems: 'center',
+      borderTopWidth: 0.5,
+      borderBottomWidth: 0.5,
+      borderColor: 'gray',
     },
     rowContainer: {
       flexDirection: 'row',
       alignItems: 'center',
     },
-    miniImage: {
-      width: scale(28),
+    downIcon: {
+      width: scale(20),
       height: verticalScale(20),
-      right: scale(15)
+      right: verticalScale(28)
     }
 });

@@ -4,6 +4,7 @@ import configureStore from './store/configureStore.js';
 import rootReducer from './reducers/index';
 import { StyleSheet, Text, View } from 'react-native';
 import { Router, Scene, Lightbox, ActionConst, Actions } from 'react-native-router-flux';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import Home from './containers/Home.js';
 import Login from './containers/Login.js';
 import Register from './containers/Register.js';
@@ -38,6 +39,7 @@ import MyEvents2 from './containers/MyEvents2.js';
 import verifyNumber from './containers/verifyNumber.js';
 
 
+EStyleSheet.build();
 
 const store = configureStore();
 

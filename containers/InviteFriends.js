@@ -3,9 +3,10 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput,
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import Navbar from '../components/Navbar.js';
 import FriendItem from '../components/FriendItem.js';
-import MyEventBar from '../components/MyEventBar.js';
+import FormBar from '../components/FormBar.js';
 
 class InviteFriends extends React.Component {
   constructor(props) {
@@ -21,21 +22,33 @@ class InviteFriends extends React.Component {
         {title: "G", data: ["gouda", "gyro"]},
         {title: "H", data: ["hot dog", "hero"]},
         {title: "I", data: ["ice cream"]},
-      ]
+      ],
+      FoF: true
     }
+  }
+
+  fofToggle(){
+    const opposite = !this.state.FoF;
+    this.setState({
+      FoF: opposite
+    })
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Navbar/>
+        <FormBar title={"Friends"} aLink={() => Actions.eventform()} bLink={() => Actions.invitefriends()}/>
         <View style={styles.background}>
-          <MyEventBar title={"Friends"} aLink={() => Actions.eventform()} bLink={() => Actions.invitefriends()}/>
+          <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
           <View style={styles.createContainer}>
-            <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity style={styles.optionContainer} onPress={() => {this.fofToggle()}}>
+              <Image style={styles.group} source={require("../assets/groupMGrey.png")}/>
+              {this.state.FoF ? <Text>+1s ON </Text> : <Text>+1s OFF </Text>}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.optionContainer}>
               <Text>Friends O Friends</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={Actions.statuspage} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity onPress={Actions.statuspage} style={styles.optionContainer}>
               <Text>Create Button</Text>
             </TouchableOpacity>
           </View>
@@ -68,7 +81,6 @@ InviteFriends.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
     };
 };
@@ -78,7 +90,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -88,12 +100,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     height: verticalScale(667-70-50),
-    width: scale(375),
+    width: '100%',
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-70-50),
+    height: verticalScale(667-50),
     width: scale(375)
   },
   headerContainer: {
@@ -122,7 +134,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 40,
     padding: 20,
-    width: 250
+    width: scale(250)
+  },
+  optionContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '33%'
+  },
+  group: {
+    height: verticalScale(45),
+    width: scale(45),
+    overflow: 'visible'
   }
 });
 

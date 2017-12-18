@@ -6,6 +6,8 @@ import YelpReducer from './YelpReducer';
 import ResultReducer from './ResultReducer';
 import OpenTableReducer from './OpenTableReducer';
 import menuReducer from './menuReducer';
+import FormReducer from './FormReducer';
+import FriendReducer from './FriendReducer';
 
 const rootReducer = combineReducers({
     test: testReducer,
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
     yelp: YelpReducer,
     results: ResultReducer,
     openTable: OpenTableReducer,
-    menu: menuReducer
+    menu: menuReducer,
+    form: FormReducer,
+    friend: FriendReducer
 });
 
 

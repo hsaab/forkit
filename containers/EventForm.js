@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity,ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import Navbar from '../components/Navbar.js';
-import MyEventBar from '../components/MyEventBar.js';
+import FormBar from '../components/FormBar.js';
 import ExpandableTitle from '../components/ExpandableTitle.js';
 import ExpandableDate from '../components/ExpandableDate.js';
 import ExpandableMeal from '../components/ExpandableMeal.js';
@@ -14,10 +15,10 @@ import ExpandableCuisine from '../components/ExpandableCuisine.js';
 const EventForm = ({}) => {
     return (
       <View style={styles.container}>
-        <Navbar/>
         <View style={styles.background}>
-          <MyEventBar title={"Facts"} aLink={() => Actions.eventform()} bLink={() => Actions.invitefriends()}/>
-          <View style={styles.optionsContainer}>
+          <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
+          <FormBar title={"Facts"} aLink={() => Actions.eventform()} bLink={() => Actions.invitefriends()}/>
+          <View style={styles.scroll}>
             <ScrollView>
               <ExpandableTitle/>
               <ExpandableDate/>
@@ -26,9 +27,6 @@ const EventForm = ({}) => {
               <ExpandableCuisine/>
             </ScrollView>
           </View>
-          <TouchableOpacity style={styles.nextContainer}>
-            <TouchableOpacity onPress={Actions.invitefriends}><Text style={styles.nextText}>NEXT</Text></TouchableOpacity>
-          </TouchableOpacity>
         </View>
       </View>
     );
@@ -47,44 +45,22 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'transparent',
-  },
+const styles = EStyleSheet.create({
   background: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F8F8F8',
-    height: verticalScale(667-70-50),
-    width: scale(375),
+    backgroundColor: 'transparent',
+    height: verticalScale(667-75-50),
+    width: '100%',
   },
-  headerContainer: {
-    flex: 1,
-    borderColor: '#fff',
-    borderBottomWidth: scale(1),
-    width: scale(375),
-    flexDirection: 'row'
+  backgroundColor: {
+    position: 'absolute',
+    top: 0,
+    height: verticalScale(667),
+    width: scale(375)
   },
-  optionsContainer: {
-    flex: 6
+  scroll: {
+    height: verticalScale(667-75-50),
+    width: scale(375)
   },
-  nextContainer: {
-    flex: 1,
-    borderColor: '#fff',
-    borderTopWidth: scale(1),
-    width: scale(375),
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    backgroundColor: 'silver',
-    opacity: 0.9,
-    paddingLeft: scale(30)
-  },
-  nextText: {
-    color: 'white',
-    fontFamily: 'Futura',
-    fontSize: moderateScale(30)
-  }
 });
 
 export default connect(

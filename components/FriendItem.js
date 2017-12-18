@@ -3,7 +3,6 @@ import {StyleSheet,Text,View,Image,TouchableOpacity,TextInput} from 'react-nativ
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
-import StarRating from 'react-native-star-rating';
 
 class FriendItem extends Component{
     constructor(props){
@@ -12,31 +11,43 @@ class FriendItem extends Component{
         };
     }
 
+    invite(ev) {
+      ev.preventDefault();
+      this.props.inviteFriend(this.props.title);
+    }
 
     render(){
         return (
+          <TouchableOpacity onPress={(ev) => this.invite(ev)}>
             <View style={styles.container} >
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <Image source={require('../assets/DesktopCopy2Black.png')} style={{height: 30, width: 30}}/>
               </View>
-              <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>{this.props.title}</Text>
-              </View>
+                <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
+                  <Text>{this.props.title}</Text>
+                </View>
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <StarRating
-                  disabled={false}
-                  maxStars={1}
-                  rating={0}
-                  starSize={40}
-                  starColor={'#ddd3dc'}
-                  emptyStarColor={'#ddd3dc'}
-                />
               </View>
             </View>
+          </TouchableOpacity>
         );
     }
 }
-export default FriendItem;
+
+FriendItem.propTypes = {
+};
+
+const mapStateToProps = (state) => {
+    // console.log(state);
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      inviteFriend: (friend) => dispatch({type: 'INVITE_FRIEND', friend: friend})
+    };
+};
 
 var styles = StyleSheet.create({
   container: {
@@ -49,3 +60,8 @@ var styles = StyleSheet.create({
 
   }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FriendItem);
