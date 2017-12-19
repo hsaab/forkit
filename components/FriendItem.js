@@ -8,28 +8,63 @@ class FriendItem extends Component{
     constructor(props){
         super(props);
         this.state = {
+          showSelected: false
         };
     }
 
-    invite(ev) {
-      ev.preventDefault();
-      this.props.inviteFriend(this.props.title);
+    invite() {
+      this.setState({
+        selected: true
+      })
+      this.props.inviteFriend({name: this.props.title, number: this.props.number, id: this.props.id});
+    }
+
+    uninvite() {
+      this.setState({
+        selected: false
+      })
+      this.props.uninviteFriend({name: this.props.title, number: this.props.number, id: this.props.id});
+    }
+
+    selected() {
+      return (
+        <TouchableOpacity onPress={() => this.uninvite()}>
+          <View style={styles.container} >
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Image source={require('../assets/DesktopCopy2Black.png')} style={{height: 30, width: 30}}/>
+            </View>
+              <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
+                <Text>{this.props.title}</Text>
+              </View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            </View>
+          </View>
+        </TouchableOpacity>
+      )
+    }
+
+    unSelected() {
+      return (
+        <TouchableOpacity onPress={() => this.invite()}>
+          <View style={styles.container} >
+            {/* <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Image source={require('../assets/DesktopCopy2Black.png')} style={{height: 30, width: 30}}/>
+            </View> */}
+              <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
+                <Text>{this.props.title}</Text>
+              </View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            </View>
+          </View>
+        </TouchableOpacity>
+      )
     }
 
     render(){
         return (
-          <TouchableOpacity onPress={(ev) => this.invite(ev)}>
-            <View style={styles.container} >
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Image source={require('../assets/DesktopCopy2Black.png')} style={{height: 30, width: 30}}/>
-              </View>
-                <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text>{this.props.title}</Text>
-                </View>
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              </View>
-            </View>
-          </TouchableOpacity>
+          <View>
+            {this.state.selected ? this.selected() : this.unSelected()}
+        </View>
         );
     }
 }
@@ -38,14 +73,14 @@ FriendItem.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      inviteFriend: (friend) => dispatch({type: 'INVITE_FRIEND', friend: friend})
+      inviteFriend: (friend) => dispatch({type: 'INVITE_FRIEND', friend: friend}),
+      uninviteFriend: (friend) => dispatch({type: 'UNINVITE_FRIEND', friend: friend})
     };
 };
 

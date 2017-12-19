@@ -7,21 +7,17 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import Navbar from '../components/Navbar.js';
 import FriendItem from '../components/FriendItem.js';
 import FormBar from '../components/FormBar.js';
+import axios from 'axios';
 
 class InviteFriends extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [
-        {title: "A", data: ["apple", "artichoke"]},
-        {title: "B", data: ["banana", "bacon"]},
-        {title: "C", data: ["cookie", "cheese", "chocolate", "curry", "cake"]},
-        {title: "D", data: ["doritos"]},
-        {title: "E", data: ["eggs"]},
-        {title: "F", data: ["falafel", "fudge"]},
-        {title: "G", data: ["gouda", "gyro"]},
-        {title: "H", data: ["hot dog", "hero"]},
-        {title: "I", data: ["ice cream"]},
+        {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23}]},
+        {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21}]},
+        {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20}]},
+        {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22}]},
       ],
       FoF: true
     }
@@ -31,6 +27,49 @@ class InviteFriends extends React.Component {
     const opposite = !this.state.FoF;
     this.setState({
       FoF: opposite
+    })
+  }
+
+  handleCreate() {
+    var dates = [];
+    for (var i = 0; i < this.props.eventData.dates.length; i++) {
+      dates.push(this.props.eventData.dates[i].dateString)
+    }
+
+    var participants_id = [];
+    for (var j = 0; j < this.props.friends.friends.length; j++) {
+      participants_id.push(this.props.friends.friends[j].id)
+    }
+
+    var cuisinesChosen = [];
+    for (var k = 0; k < this.props.eventData.cuisines.length; k++) {
+      cuisinesChosen.push(this.props.eventData.cuisines[k].label)
+    }
+
+
+    var group_event = {id: Date.now().toString(), title: this.props.eventData.title, dates: dates.toString(), meal_type: this.props.eventData.meal, location: {latitude: this.props.eventData.coords.lat, longitude: this.props.eventData.coords.long}, radius: this.props.eventData.distance, host_id: this.props.user.id, participants_id: participants_id.toString(), restaurant_chosen: false, cuisines: cuisinesChosen.toString()}
+
+    // console.log('EVENT DATA IS HERE', this.props.eventData);
+    // console.log('FRIENDS DATA IS HERE', this.props.friends)
+    console.log('GROUP EVENT', group_event);
+
+    axios({
+      method: 'POST',
+      url: 'http://localhost:3000/db/101_super_duper_secret_101',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        password: '$BIG_SHAQ101$',
+        type: 'search',
+        query: `insert into group_event(id, title, dates, meal_type, location, radius, host_id, participants_id, restaurant_chosen, cuisines) values ('${group_event.id}', '${group_event.title}', '${group_event.dates}', '${group_event.meal_type}', '${JSON.stringify(group_event.location)}','${group_event.radius}', ${group_event.host_id},'${group_event.participants_id}', true, '${group_event.cuisines}')`
+      }
+    })
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(e => {
+      console.log(e);
     })
   }
 
@@ -48,7 +87,7 @@ class InviteFriends extends React.Component {
             <TouchableOpacity style={styles.optionContainer}>
               <Text>Friends O Friends</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={Actions.statuspage} style={styles.optionContainer}>
+            <TouchableOpacity onPress={() => this.handleCreate()} style={styles.optionContainer}>
               <Text>Create Button</Text>
             </TouchableOpacity>
           </View>
@@ -66,7 +105,7 @@ class InviteFriends extends React.Component {
             <FriendItem/>
             <FriendItem/> */}
             <SectionList
-              renderItem={({item}) => <FriendItem title={item}/>}
+              renderItem={({item}) => <FriendItem title={item.name} number={item.number} id={item.id}/>}
               renderSectionHeader={({section}) => <Text>{section.title}</Text>}
               sections={this.state.data}
             />
@@ -82,6 +121,9 @@ InviteFriends.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+      eventData: state.form,
+      friends: state.friend,
+      user: state.user
     };
 };
 

@@ -25,12 +25,12 @@ class Login extends React.Component{
     // console.log(email);
     if (email) {
       if (email.type === 'regular') {
-        axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=token,email,firstname,lastname,friends,forks,wishlist,os,number&conditions=email='${email.email}'`)
+        axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=users&fields=id,token,email,firstname,lastname,friends,forks,wishlist,os,number&conditions=email='${email.email}'`)
         .then(resp => {
           if (resp.data) {
             if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {
 
-              userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os, number: resp.data.result[0].number};
+              userObj = {firstname: resp.data.result[0].firstname, lastname: resp.data.result[0].lastname, email: resp.data.result[0].email, friends: resp.data.result[0].friends, forks: resp.data.result[0].forks, wishlist: resp.data.result[0].wishlist, os: resp.data.result[0].os, number: resp.data.result[0].number, id: resp.data.result[0].id};
               this.props.userProfile(userObj);
               console.log("USER OBJECT", userObj)
               Actions.discover();

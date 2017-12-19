@@ -10,7 +10,6 @@ let initialState = {
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_USER':
-      // console.log(action);
       const userInfo = Object.assign({}, action.info);
       return userInfo
     default:
