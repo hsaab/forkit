@@ -6,12 +6,12 @@ import { LinearGradient } from 'expo';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
-class Selector extends React.Component {
+export default class Selector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meal: 'Lunch',
-      select: 1
+      meal: '',
+      select: false
   }
 }
 
@@ -21,26 +21,23 @@ onClick(value){
       meal: 'Brunch',
       select: 0
     });
-    // this.props.selectMeal(this.state.meal);
   }
   if(value === 1){
     this.setState({
       meal: 'Lunch',
       select: 1
     });
-    // this.props.selectMeal(this.state.meal);
   }
   if(value === 2){
     this.setState({
       meal: 'Dinner',
       select: 2
     });
-    // this.props.selectMeal(this.state.meal);
   }
 }
 
 render() {
-  this.props.selectMeal(this.state.meal);
+  this.props.fn(this.state.meal);
   const radio_props = [
   {label: 'Brunch', value: 0 },
   {label: 'Lunch', value: 1 },
@@ -79,21 +76,6 @@ render() {
   }
 }
 
-Selector.propTypes = {
-};
-
-const mapStateToProps = (state) => {
-    // console.log(state);
-    return {
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-      selectMeal: (meal) => dispatch({type: 'CHOOSE_MEAL', meal: meal})
-    };
-};
-
 const styles = StyleSheet.create({
   container: {
     width: scale(360),
@@ -107,10 +89,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     right: scale(5)
-
-  },
-  buttonContainer: {
-
   },
   labelStyle: {
     fontSize: 20,
@@ -119,8 +97,3 @@ const styles = StyleSheet.create({
     top: verticalScale(8)
   }
 });
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Selector);

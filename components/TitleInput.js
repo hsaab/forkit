@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import titleIcon from '../assets/titleMGrey.png'
 
-class TitleInput extends Component{
+export default class TitleInput extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -17,11 +17,10 @@ class TitleInput extends Component{
       this.setState({
         title: text
       });
-      // this.props.titleChange(this.state.title);
+      this.props.fn(text);
     }
 
     render(){
-      this.props.titleChange(this.state.title);
       const textValidator = this.state.title.length >= 1
       return (
         <View style={styles.rowContainer}>
@@ -37,21 +36,6 @@ class TitleInput extends Component{
     }
 }
 
-TitleInput.propTypes = {
-};
-
-const mapStateToProps = (state) => {
-    // console.log(state);
-    return {
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-      titleChange: (title) => dispatch({type: 'TITLE_CHANGE', title: title})
-    };
-};
-
 var styles = StyleSheet.create({
     rowContainer: {
       flexDirection: 'row',
@@ -65,8 +49,3 @@ var styles = StyleSheet.create({
       color: '#646464'
     }
 });
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TitleInput);

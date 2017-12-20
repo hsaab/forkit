@@ -50,21 +50,23 @@ class MyEvents2 extends React.Component {
 
   render() {
     return (
-      <View style={styles.background}>
-        {/* <MyEventBar title={'Planned'} aLink={Actions.myevents} bLink={Actions.myevents2}/> */}
-        <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
-        <Calendar/>
-        <ScrollView>
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>Upcoming</Text>
-          </View>
-          <View style={styles.listContainer}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionText}>This Week</Text>
+      <View>
+        <MyEventBar title={"Planned"} aLink={() => Actions.myevents()} bLink={() => Actions.myevents2()} cLink={() => Actions.myevents3()}/>
+        <View style={styles.background}>
+          <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
+          <Calendar/>
+          <ScrollView>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>Upcoming</Text>
             </View>
-            {this.state.results.map((result, index) => <EventItem key={index} data={result} ost={ProfPic}/>)}
-          </View>
-        </ScrollView>
+            <View style={styles.listContainer}>
+              <View style={styles.sectionContainer}>
+                <Text style={styles.sectionText}>This Week</Text>
+              </View>
+              {this.state.results.map((result, index) => <EventItem key={index} data={result} ost={ProfPic}/>)}
+            </View>
+          </ScrollView>
+        </View>
       </View>
     );
   }
@@ -86,13 +88,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-50),
+    height: verticalScale(667-50-75),
     width: scale(375)
   },
   backgroundColor: {
-    top: verticalScale(75),
     position: 'absolute',
-    height: verticalScale(667-50-75),
+    top: 0,
+    height: verticalScale(667),
     width: scale(375)
   },
   titleContainer: {

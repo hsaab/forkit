@@ -64,29 +64,33 @@ class RestResult extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity style={this.props.border ? styles.listItem : styles.listItemNoBorder}
-        onPress={(ev) => this.handleResults(ev)}>
-        <View style={styles.restaurantPic} >
-          <Image style={styles.restaurantIcon} source={{uri: this.props.img}}/>
-        </View>
-        <View style={styles.restaurantInfo}>
-          <View style={styles.restaurantNameContainer}>
-            <View style={styles.restaurantName}>
-              <Text style={styles.nameText}>{this.nameCheck(this.props.name)}</Text>
+      <View style={styles.container}>
+        <TouchableOpacity style={this.props.border ? styles.listItem : styles.listItemNoBorder}
+          onPress={(ev) => this.handleResults(ev)}>
+          <View style={styles.restaurantPic} >
+            <Image style={styles.restaurantIcon} source={{uri: this.props.img}}/>
+          </View>
+          <View style={styles.restaurantInfo}>
+            <View style={styles.restaurantNameContainer}>
+              <View style={styles.restaurantName}>
+                <Text style={styles.nameText}>{this.nameCheck(this.props.name)}</Text>
+              </View>
+            </View>
+            <View style={styles.restaurantDetails}>
+              <View style={styles.restaurantStats}>
+                <View style={styles.starRating}>
+                  <Image style={styles.starMe} source={this.imageMatch(this.props.rating)}/>
+                </View>
+                <Text style={styles.textDetails}>Yelp Reviews: {this.props.reviews}</Text>
+                <Text style={styles.textDetails}>Distance: {(this.props.distance*0.000621371).toPrecision(3)} miles</Text>
+              </View>
+              {/* <TouchableOpacity style={styles.eatIcon} onPress={() => this.handleMenu(this.props.name)}>
+                <Image style={styles.menuIcon} source={require("../assets/ForkandKnifeTransparentGrey.png")}/>
+              </TouchableOpacity> */}
             </View>
           </View>
-          <View style={styles.restaurantDetails}>
-            <View style={styles.restaurantStats}>
-              <Image source={this.imageMatch(this.props.rating)}/>
-              <Text style={styles.textDetails}>Yelp Reviews: {this.props.reviews}</Text>
-              <Text style={styles.textDetails}>Distance: {(this.props.distance*0.000621371).toPrecision(3)} miles</Text>
-            </View>
-            {/* <TouchableOpacity style={styles.eatIcon} onPress={() => this.handleMenu(this.props.name)}>
-              <Image style={styles.menuIcon} source={require("../assets/ForkandKnifeTransparentGrey.png")}/>
-            </TouchableOpacity> */}
-          </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
@@ -109,10 +113,22 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const styles = StyleSheet.create({
-  listItem: {
-    borderBottomColor: "#ddd3dc",
-    borderBottomWidth: moderateScale(0.5),
+  container: {
+    height: verticalScale(145),
+    backgroundColor: 'transparent',
     width: scale(375),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: verticalScale(4),
+    marginBottom: verticalScale(4),
+  },
+  listItem: {
+    backgroundColor: 'rgba(255,255,255,.31)',
+    width: scale(358),
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    shadowColor: 'grey',
+    shadowOffset: { height: verticalScale(4), width: 0 },
     flex: 1,
     flexDirection: 'row'
   },
@@ -125,7 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: scale(10),
+    paddingLeft: scale(15),
     opacity: 0.7,
   },
   restaurantIcon: {
@@ -133,7 +149,7 @@ const styles = StyleSheet.create({
     width: scale(90),
     borderRadius: scale(90/2),
     borderColor: 'black',
-    borderWidth: 0.2
+    borderWidth: scale(0.2)
   },
   restaurantInfo: {
     flex: 3,
@@ -149,7 +165,7 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontFamily: 'Futura',
-    color: 'white',
+    color: '#646464',
     fontSize: moderateScale(20)
   },
   star: {
@@ -172,7 +188,7 @@ const styles = StyleSheet.create({
   },
   textDetails: {
     fontFamily: 'Futura',
-    color: 'white',
+    color: '#8D8D8D',
     fontSize: moderateScale(16)
   },
   eatIcon: {
@@ -183,7 +199,12 @@ const styles = StyleSheet.create({
   menuIcon: {
     height: verticalScale(50),
     width: scale(50),
-    borderRadius: 30
+    borderRadius: scale(30)
+  },
+  starMe: {
+    width: scale(120),
+    height: verticalScale(20),
+    overflow: 'visible'
   }
 });
 

@@ -46,7 +46,6 @@ class MyEvents extends React.Component {
             });
           })
         }
-
       }
     })
     .catch(e => {
@@ -56,22 +55,23 @@ class MyEvents extends React.Component {
 
   render() {
     return (
-      <View style={styles.background}>
-        {/* <MyEventBar title={'Ongoing'} aLink={Actions.myevents} bLink={Actions.myevents2}/> */}
-        <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
-        <Calendar/>
-        <ScrollView>
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>Upcoming</Text>
-          </View>
-          <View style={styles.listContainer}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionText}>This Week</Text>
+      <View>
+        <MyEventBar title={"Ongoing"} aLink={() => Actions.myevents()} bLink={() => Actions.myevents2()} cLink={() => Actions.myevents3()}/>
+        <View style={styles.background}>
+          <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
+          <Calendar/>
+          <ScrollView>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>Upcoming</Text>
             </View>
-            {this.state.results.map((result, index) => <EventItem key={index} data={result} ost={ProfPic}/>)}
-          </View>
-        </ScrollView>
-        <Tabbar/>
+            <View style={styles.listContainer}>
+              <View style={styles.sectionContainer}>
+                <Text style={styles.sectionText}>This Week</Text>
+              </View>
+              {this.state.results.map((result, index) => <EventItem key={index} data={result} ost={ProfPic}/>)}
+            </View>
+          </ScrollView>
+        </View>
       </View>
     );
   }

@@ -12,7 +12,6 @@ class ExpandableDate extends Component{
     constructor(props){
         super(props);
         this.state = {
-            title: "test",
             expanded: false,
             animation: new Animated.Value(96.5)
         };
@@ -50,7 +49,7 @@ class ExpandableDate extends Component{
     render(){
       const start = moment().format("YYYY-MM-DD");
       const end = moment().add(14,'days').format("YYYY-MM-DD");
-      console.log(start, end)
+      const validator = this.props.dates.length >= 1;
       return (
         <View style={styles.masterContainer}>
           <Animated.View style={[styles.container, {height: this.state.animation}]} >
@@ -62,19 +61,30 @@ class ExpandableDate extends Component{
                   <Text style={styles.titleText}>Date</Text>
                 </View>
                 <View style={styles.button} underlayColor="#f1f1f1">
-                  <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')} />
+                  {validator ? <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')}/> : null}
                 </View>
                 <Image style={styles.downIcon} source={downIcon} />
               </TouchableOpacity>
               <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-                <CalendarForm/>
+                <CalendarForm fn={this.props.setDates}/>
               </View>
           </Animated.View>
         </View>
       );
     }
 }
-export default ExpandableDate;
+
+const mapStateToProps = (state) => {
+    return {
+      dates: state.form.dates
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      setDates: (dates) => dispatch({type: 'SET_DATES', dates: dates})
+    };
+};
 
 var styles = StyleSheet.create({
     masterContainer: {
@@ -121,7 +131,7 @@ var styles = StyleSheet.create({
       right: scale(5)
     },
     body: {
-      height: verticalScale(375),
+      height: verticalScale(360),
       width: scale(375),
       borderBottomWidth: 0.5,
       borderColor: 'gray',
@@ -134,3 +144,8 @@ var styles = StyleSheet.create({
       right: verticalScale(28)
     }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ExpandableDate);

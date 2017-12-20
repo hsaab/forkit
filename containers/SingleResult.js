@@ -14,8 +14,6 @@ import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
 import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
 import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
 
-
-
 class SingleResult extends Component {
   imageMatch(rating) {
     switch(rating) {
@@ -80,24 +78,27 @@ class SingleResult extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Navbar hasBack={true}/>
         <View style={styles.background}>
-          <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
+          <Image style={styles.backgroundColor} source={{uri: this.props.single.singleResult.image_url}}/>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={Actions.listresults}><Text style={styles.backText}>-Back-</Text></TouchableOpacity>
+          </View>
           <View style={styles.nameContainer}>
-            <View style={styles.name}>
-              <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
-            </View>
+            <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
           </View>
           <View style={styles.detailsContainer}>
-            <View style={styles.details}>
-              <Image style={styles.restaurantIcon} source={{uri: this.props.single.singleResult.image_url}}/>
-              <TouchableOpacity onPress={() => Communications.phonecall(this.props.single.singleResult.display_phone, true)}>
-                <Text style={{fontWeight: 'bold', color: 'skyblue'}}>{this.props.single.singleResult.display_phone}</Text>
-              </TouchableOpacity>
-              <Image source={this.imageMatch(this.props.single.singleResult.rating)}/>
-              <Text style={styles.textStyle}> {(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
+            <View style={styles.left}>
+              <Text style={styles.textStyle}>American, Burgers PL</Text>
+              <Image style={styles.starMe} source={this.imageMatch(this.props.single.singleResult.rating)}/>
+                <Text style={styles.textStyle}>1,000 reviews PL</Text>
+                <Text style={styles.textStyle}> {(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
             </View>
-            <View style={styles.restaurantButtons}>
+          </View>
+          <View style={styles.actionBar}>
+            <View style={styles.leftAction}>
+              <TouchableOpacity style={styles.call} onPress={() => Communications.phonecall(this.props.single.singleResult.display_phone, true)}>
+                <Text style={styles.phoneIcon}>{this.props.single.singleResult.display_phone}</Text>
+              </TouchableOpacity>
               <TouchableOpacity style={styles.yelp} onPress={Actions.yelp}>
                 <Image style={styles.yelpIcon} source={require("../assets/yelp.jpg")}/>
               </TouchableOpacity>
@@ -105,18 +106,24 @@ class SingleResult extends Component {
                 <Image style={styles.openTableIcon} source={require("../assets/openTable.png")}/>
               </TouchableOpacity>
             </View>
+            <View style={styles.rightAction}>
+              <View style={styles.star}>
+                <Text>STAR</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.address}>
+            <Text style={styles.addressText}>{this.props.single.singleResult.location.address1}, {this.props.single.singleResult.location.city}, {this.props.single.singleResult.location.state}, {this.props.single.singleResult.location.zip_code}</Text>
           </View>
           <View style={styles.mapContainer}>
             <MapView
-              style={{ width: scale(300), height: verticalScale(150) }}
+              style={{ width: scale(375), height: verticalScale(246) }}
               region={{
                 latitude: this.props.location.latitude,
                 longitude: this.props.location.longitude,
                 latitudeDelta: .05,
                 longitudeDelta: .05,
-
-              }}
-            >
+              }}>
               <MapView.Marker
                  coordinate={{
                    latitude: this.props.single.singleResult.coordinates.latitude,
@@ -164,115 +171,177 @@ const mapDispatchToProps = (dispatch) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 1)'
+    backgroundColor: 'transparent'
   },
   background: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70-50),
+    height: verticalScale(667-50),
     width: scale(375)
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    opacity: 0.8,
-    height: verticalScale(667-70-50),
-    width: scale(375)
-  },
-  nameContainer: {
-    flex: 1,
-    borderBottomColor: "#ddd3dc",
-    borderBottomWidth: moderateScale(0.5),
+    height: verticalScale(667/2),
     width: scale(375),
-    flexDirection: 'row'
+    opacity: 0.3
+  },
+  header: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+    width: scale(375),
+    padding: scale(12)
   },
   detailsContainer: {
     flex: 3,
-    borderBottomColor: "#ddd3dc",
-    borderBottomWidth: moderateScale(0.5),
-    width: scale(375),
+    width: scale(375/2),
     flexDirection: 'row'
   },
   mapContainer: {
-    flex: 2,
+    flex: 7,
     width: scale(375),
     justifyContent: 'center',
     alignItems: 'center'
   },
-  forkContainer: {
+  nameContainer: {
     flex: 1,
+    width: scale(375),
+    paddingLeft: scale(15),
+    alignItems: 'flex-start'
+  },
+  forkContainer: {
+    flex: 2,
     width: scale(375)
   },
   star: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  name: {
-    flex: 4,
-    justifyContent: 'center'
+  left: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
+    paddingLeft: scale(15),
+  },
+  right: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
+  },
+  leftAction: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  rightAction: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: scale(10)
   },
   details: {
-    flex: 1,
+    flex: 6,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
   },
-  restaurantButtons: {
-    flex: 1
-  },
   yelp: {
-    flex: 1,
+    width: scale(50),
+    height: verticalScale(50),
     alignItems: 'center',
     justifyContent: 'center',
-    margin: moderateScale(5),
+    backgroundColor: '#d32323',
+    borderRadius: moderateScale(25),
+    margin: moderateScale(2)
   },
   openTable: {
-    flex: 1,
+    width: scale(50),
+    height: verticalScale(50),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
-    margin: moderateScale(5),
-    position: 'relative'
+    backgroundColor: 'white',
+    borderRadius: moderateScale(25),
+    margin: moderateScale(2)
+  },
+  call: {
+    width: scale(50),
+    height: verticalScale(50),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: moderateScale(25),
+    margin: moderateScale(2)
   },
   textStyle: {
     fontSize: moderateScale(18),
     fontFamily: 'Futura',
-    color: 'white'
+    color: '#646464'
+  },
+  backText: {
+    fontFamily: 'Futura',
+    color: '#646464',
+    fontSize: moderateScale(18)
   },
   nameText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(30),
     fontFamily: 'Futura',
-    color: 'white'
-  },
-  restaurantIcon: {
-    height: verticalScale(150),
-    width: scale(150),
-    borderRadius: 60,
-    opacity: 0.7
+    color: '#646464',
   },
   yelpIcon: {
-    height: verticalScale(70),
-    width: scale(150),
-    borderRadius: 20
+    height: verticalScale(16),
+    width: scale(40),
   },
   openTableIcon: {
-    height: verticalScale(70),
-    width: scale(150),
-    borderRadius: 20
+    height: verticalScale(20),
+    width: scale(45),
+  },
+  phoneIcon: {
+    height: verticalScale(25),
+    width: scale(19)
   },
   forkit: {
     flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#00042E",
-    borderRadius: moderateScale(40),
-    margin: scale(10),
   },
   logoText: {
     height: verticalScale(90),
     width: scale(275),
     bottom: verticalScale(5)
+  },
+  actionBar: {
+    flex: 2,
+    width: scale(375),
+    flexDirection: 'row',
+  },
+  address: {
+    flex: 1,
+    width: scale(375),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ddd3dc',
+  },
+  addressText: {
+    fontFamily: 'Futura',
+    color: '#646464'
+  },
+  restaurantStats: {
+    flex: 2,
+    paddingRight: scale(20),
+    justifyContent: 'space-around'
+  },
+  rating: {
+    width: scale(150)
+  },
+  starMe: {
+    width: scale(120),
+    height: verticalScale(20),
+    overflow: 'visible'
   }
 });
 
