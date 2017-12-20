@@ -10,7 +10,7 @@ import SelectorDistance from '../components/SelectorDistance.js';
 
 Geocoder.setApiKey(GOOG_API_KEY);
 
-class MyMap extends React.Component {
+export default class MyMap extends React.Component {
   constructor(props) {
   super(props)
   this.state = {
@@ -58,16 +58,16 @@ onRegChange(region){
     latDelta: region.latitudeDelta,
     longDelta: region.longitudeDelta
   })
+  let coords = {
+    lat: this.state.lat,
+    long: this.state.long,
+    latDelta: .5,
+    longDelta: .5
+  }
+  this.props.fn(coords);
 }
 
   render() {
-    let coords = {
-      lat: this.state.lat,
-      long: this.state.long,
-      latDelta: .5,
-      longDelta: .5
-    }
-    this.props.setLocation(coords);
     return (
       <View style={styles.container}>
         <MapView
@@ -112,22 +112,6 @@ onRegChange(region){
     );
   }
 }
-
-MyMap.propTypes = {
-};
-
-const mapStateToProps = (state) => {
-    // console.log(state);
-    return {
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-      setLocation: (coords) => dispatch({type: 'SET_LOCATION', coords: coords})
-    };
-};
-
 
 const styles = StyleSheet.create({
   container: {
@@ -191,8 +175,3 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(18)
   },
 });
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MyMap);

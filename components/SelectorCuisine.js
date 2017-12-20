@@ -6,7 +6,7 @@ import SelectMultiple from 'react-native-select-multiple'
 
 const fruits = ['American', 'Italian', 'Mexican', 'Japanese', 'Lebanese']
 
-class SelectorCuisine extends Component {
+export default class SelectorCuisine extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,11 +22,11 @@ class SelectorCuisine extends Component {
         return each.label;
       })
       this.setState({ selectedFruits: selected })
+      this.props.fn(selected)
     }
   }
 
   render() {
-    this.props.setCuisine(this.state.selectedFruits);
     return (
       <View>
        <View style={styles.sectionContainer}>
@@ -44,20 +44,6 @@ class SelectorCuisine extends Component {
     );
   }
 }
-
-SelectorCuisine.propTypes = {
-};
-
-const mapStateToProps = (state) => {
-    return {
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-      setCuisine: (cuisine) => dispatch({type: 'SET_CUISINE', cuisine: cuisine})
-    };
-};
 
 var styles = StyleSheet.create({
     labelText: {
@@ -89,8 +75,3 @@ var styles = StyleSheet.create({
       textDecorationLine: 'underline'
     },
 });
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SelectorCuisine);

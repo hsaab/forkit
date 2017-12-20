@@ -8,6 +8,14 @@ import Navbar from '../components/Navbar.js';
 import FriendItem from '../components/FriendItem.js';
 import FormBar from '../components/FormBar.js';
 import axios from 'axios';
+import _ from 'underscore';
+
+const allData = [
+  {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23}]},
+  {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21}]},
+  {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20}]},
+  {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22}]},
+]
 
 class InviteFriends extends React.Component {
   constructor(props) {
@@ -29,6 +37,20 @@ class InviteFriends extends React.Component {
     this.setState({
       FoF: opposite
     })
+  }
+
+  search(searchVal){
+    let finalDisplay = _.reduce(allData, (initial, obj) => {
+      let newList = obj.data.filter((item) => {
+        return item.name.includes(searchVal)});
+      if (newList.length > 0) {
+        initial.push(Object.assign({}, obj, {data: newList}));
+      }
+      return initial;
+    }, []);
+    this.setState({
+      data: finalDisplay
+    });
   }
 
   handleCreate() {
@@ -112,14 +134,8 @@ class InviteFriends extends React.Component {
   }
 }
 
-InviteFriends.propTypes = {
-};
-
 const mapStateToProps = (state) => {
     return {
-      eventData: state.form,
-      friends: state.friend,
-      user: state.user
     };
 };
 

@@ -52,22 +52,16 @@ export default class MyEventBar extends React.Component {
 
 
   render() {
-    const aTextOn = this.props.title === "Ongoing" ? styles.selectedText : styles.unselectedText;
-    const bTextOn = this.props.title === "Planned" ? styles.selectedText : styles.unselectedText;
-    const cContOn = this.props.title === "Notif" ? styles.nSelected : styles.nUnselected
-    const aContOn = this.props.title === "Ongoing" ? styles.subContainerSelected : styles.subContainer;
-    const bContOn = this.props.title === "Planned" ? styles.subContainerSelected : styles.subContainer;
-
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.props.cLink} style={cContOn}>
+        <TouchableOpacity onPress={() => this.selectNotif(Actions.myevents3)} style={this.state.notifCont}>
           <Text style={styles.nText}>N</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={aContOn} onPress={this.props.aLink}>
-          <Text style={aTextOn}>Ongoing</Text>
+        <TouchableOpacity style={this.state.ongoingCont}onPress={() => this.selectOngoing(Actions.myevents)}>
+          <Text style={this.state.ongoing}>Ongoing</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.props.bLink} style={bContOn}>
-          <Text style={bTextOn}>Planned</Text>
+        <TouchableOpacity onPress={() => this.selectPlanned(Actions.myevents2)} style={this.state.plannedCont}>
+          <Text style={this.state.planned}>Planned</Text>
         </TouchableOpacity>
       </View>
     );

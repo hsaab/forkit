@@ -36,17 +36,19 @@ class ExpandableMeal extends Component{
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight: event.nativeEvent.layout.height
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight: event.nativeEvent.layout.height
         });
     }
 
     render(){
+      const validator = this.props.meal.length >= 2;
+      console.log(validator, this.props.meal)
       return (
         <View style={styles.masterContainer}>
           <Animated.View style={[styles.container, {height: this.state.animation}]} >
@@ -58,20 +60,30 @@ class ExpandableMeal extends Component{
                   <Text style={styles.titleText}>Meal</Text>
                 </View>
                 <View style={styles.button} underlayColor="#f1f1f1">
-                  <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')} />
+                  {validator ? <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')}/> : null}
                 </View>
                 <Image style={styles.downIcon} source={downIcon} />
               </TouchableOpacity>
               <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-                <SelectorMeal/>
-                {/*Send the dispatch action into the SelectorMeal to update state*/}
+                <SelectorMeal fn={this.props.selectMeal}/>
               </View>
           </Animated.View>
         </View>
       );
     }
 }
-export default ExpandableMeal;
+
+const mapStateToProps = (state) => {
+    return {
+      meal: state.form.meal
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      selectMeal: (meal) => dispatch({type: 'CHOOSE_MEAL', meal: meal})
+    };
+};
 
 var styles = StyleSheet.create({
     masterContainer: {
@@ -130,3 +142,8 @@ var styles = StyleSheet.create({
       right: verticalScale(28)
     }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ExpandableMeal);

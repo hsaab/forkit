@@ -124,7 +124,6 @@ class Eats2 extends Component {
   }
 
   update() {
-    // YOUR CODE HERE
     if(this.state.secondsLeft === 0) {
       this.handleGamble()
     }
@@ -151,26 +150,22 @@ class Eats2 extends Component {
     switch(cuisineType) {
       case 'mexican':
         var mexImage = require('../assets/taco.png');
-        return mexImage;
+        return <Image style={styles.mexican} source={mexImage}/>
       case 'japanese':
         var jap = require('../assets/japanese.png');
-        return jap;
+        return <Image style={styles.japanese} source={jap}/>
       case 'american':
         var american = require('../assets/american.png');
-        return american;
-      case 'italian':
-        var italian = require('../assets/italian.png');
-        return italian;
+        return <Image style={styles.american} source={american}/>
       default:
-        var mexImage = require('../assets/taco.png');
-        return mexImage;
+        var italian = require('../assets/italian.png');
+        return <Image style={styles.italian} source={italian}/>
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Navbar/>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/DiscoverEat-2.png")}/>
           <View style={styles.topTile}>
@@ -184,19 +179,19 @@ class Eats2 extends Component {
           <View style={styles.colSubContainer}>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleFirst(ev)}>
               <Text style={styles.optionText}>{this.props.cuisineState.cuisines[0]}</Text>
-              <Image style={styles.mexican} source={this.imageMatch(this.props.cuisineState.cuisines[0])}/>
+              {this.imageMatch(this.props.cuisineState.cuisines[0])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleSecond(ev)}>
               <Text style={styles.optionText}>{this.props.cuisineState.cuisines[1]}</Text>
-              <Image style={styles.japanese} source={this.imageMatch(this.props.cuisineState.cuisines[1])}/>
+              {this.imageMatch(this.props.cuisineState.cuisines[1])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleThird(ev)}>
               <Text style={styles.optionText}>{this.props.cuisineState.cuisines[2]}</Text>
-              <Image style={styles.american} source={this.imageMatch(this.props.cuisineState.cuisines[2])}/>
+              {this.imageMatch(this.props.cuisineState.cuisines[2])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleFourth(ev)}>
               <Text style={styles.optionText}> {this.props.cuisineState.cuisines[3]}</Text>
-              <Image style={styles.italian} source={this.imageMatch(this.props.cuisineState.cuisines[3])}/>
+              {this.imageMatch(this.props.cuisineState.cuisines[3])}
             </TouchableOpacity>
             <TouchableOpacity style={[styles.option, styles.rowSubContainer]} onPress={() => this.handleGamble()}>
               <Text style={styles.gambleText}> Take a Gamble </Text>
@@ -233,16 +228,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   background: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375),
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375)
   },
   topTile: {
@@ -311,19 +306,23 @@ const styles = StyleSheet.create({
   },
   mexican: {
     height: verticalScale(50),
-    width: scale(70)
+    width: scale(70),
+    overflow: 'visible'
   },
   japanese: {
     height: verticalScale(50),
-    width: scale(60)
+    width: scale(60),
+    overflow: 'visible'
   },
   american: {
     height: verticalScale(30),
     width: scale(65),
+    overflow: 'visible'
   },
   italian: {
     height: verticalScale(30),
     width: scale(80),
+    overflow: 'visible'
   },
 });
 

@@ -7,7 +7,7 @@ import moment from 'moment';
 import { Calendar } from 'react-native-calendars';
 import _ from 'underscore';
 
-class CalendarForm extends Component{
+export default class CalendarForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -33,12 +33,10 @@ class CalendarForm extends Component{
           selected: [selectedDate]
         })
       }
-      // this.props.setDates(this.state.selected);
     }
 
     render(){
-      // console.log(this.state.selected);
-      this.props.setDates(this.state.selected);
+      this.props.fn(this.state.selected);
       const start = moment().format("YYYY-MM-DD");
       const end = moment().add(14,'days').format("YYYY-MM-DD");
       const marked = this.state.selected;
@@ -86,22 +84,6 @@ class CalendarForm extends Component{
     }
 }
 
-CalendarForm.propTypes = {
-};
-
-const mapStateToProps = (state) => {
-    // console.log(state);
-    return {
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-      setDates: (dates) => dispatch({type: 'SET_DATES', dates: dates})
-    };
-};
-
-
 var styles = StyleSheet.create({
     calendar: {
       backgroundColor: 'rgba(255,255,255,.2)',
@@ -110,8 +92,3 @@ var styles = StyleSheet.create({
       right: scale(7)
     },
 });
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CalendarForm);

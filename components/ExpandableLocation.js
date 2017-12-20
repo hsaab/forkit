@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import {StyleSheet,Text,View,Image,TouchableOpacity,Animated} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -46,6 +46,7 @@ class ExpandableLocation extends Component{
     }
 
     render(){
+      const validator = this.props.coords.lat !== 37.13283999999999;
         return (
           <View style={styles.masterContainer}>
             <Animated.View style={[styles.container, {height: this.state.animation}]} >
@@ -57,19 +58,30 @@ class ExpandableLocation extends Component{
                     <Text style={styles.titleText}>Location</Text>
                   </View>
                   <View style={styles.button} underlayColor="#f1f1f1">
-                    <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')} />
+                    {validator ? <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')}/> : null}
                   </View>
                   <Image style={styles.downIcon} source={downIcon} />
                 </TouchableOpacity>
                 <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-                  <MyMap/>
+                  <MyMap fn={this.props.setLocation}/>
                 </View>
             </Animated.View>
           </View>
         );
     }
 }
-export default ExpandableLocation;
+
+const mapStateToProps = (state) => {
+    return {
+      coords: state.form.coords
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      setLocation: (coords) => dispatch({type: 'SET_LOCATION', coords: coords})
+    };
+};
 
 var styles = StyleSheet.create({
     masterContainer: {
@@ -126,3 +138,8 @@ var styles = StyleSheet.create({
       right: verticalScale(28)
     }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ExpandableLocation);

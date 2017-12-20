@@ -50,19 +50,22 @@ class MyEvents3 extends React.Component {
 
   render() {
     return (
-      <View style={styles.background}>
-        <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
-        <ScrollView style={{top: verticalScale(20)}}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>New Events</Text>
-          </View>
-          <View style={styles.listContainer}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionText}>This Week</Text>
+      <View>
+        <MyEventBar title={"Notif"} aLink={() => Actions.myevents()} bLink={() => Actions.myevents2()} cLink={() => Actions.myevents3()}/>
+        <View style={styles.background}>
+          <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
+          <ScrollView style={{top: verticalScale(20)}}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>New Events</Text>
             </View>
-            {this.state.results.map((result, index) => <EventNotification key={index} data={result} user={this.props.user.id}/>)}
-          </View>
-        </ScrollView>
+            <View style={styles.listContainer}>
+              <View style={styles.sectionContainer}>
+                <Text style={styles.sectionText}>This Week</Text>
+              </View>
+              {this.state.results.map((result, index) => <EventNotification key={index} data={result} user={this.props.user.id}/>)}
+            </View>
+          </ScrollView>
+        </View>
       </View>
     );
   }
@@ -70,7 +73,7 @@ class MyEvents3 extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-      user : state.user
+      user: state.user
     };
 };
 
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667),
+    height: verticalScale(667-50-75),
     width: scale(375)
   },
   backgroundColor: {

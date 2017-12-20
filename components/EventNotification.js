@@ -11,7 +11,6 @@ class EventNotification extends Component{
     constructor(props){
         super(props);
         this.state = {
-          host: '',
           show: true
         };
     }
@@ -23,10 +22,6 @@ class EventNotification extends Component{
         let firstInitial = resp.data.result[0].firstname.slice(0,1);
         let lastInitial = resp.data.result[0].lastname.slice(0,1);
         let initials = firstInitial + lastInitial;
-        this.setState({
-          host: initials
-        })
-        console.log(this.state.host);
       })
       .catch((err) => {
         console.log('Event Notification error is ', err);
@@ -71,7 +66,7 @@ class EventNotification extends Component{
                   </View>
                   <View style={styles.rowPicContainer}>
                     <View style={styles.hostContainer}>
-                      <Text style={styles.hostText}>{this.state.host}</Text>
+                      <Text style={styles.hostText}>H</Text>
                       <View style={styles.circle}>
                         <Image style={styles.headShot} source={this.props.host}/>
                       </View>

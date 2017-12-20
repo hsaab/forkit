@@ -44,10 +44,7 @@ import Eats1Multi from './containers/Eats1Multi.js';
 import Eats2Multi from './containers/Eats2Multi.js';
 import Eats4 from './containers/Eats4.js';
 
-
 EStyleSheet.build();
-
-const store = configureStore();
 
 const Scenes = Actions.create(
         <Lightbox>
@@ -79,25 +76,20 @@ const Scenes = Actions.create(
               <Scene key="personaldata" component={PersonalData} hideNavBar={true}/>
               <Scene key="statuspage" component={StatusPage} hideNavBar={true}/>
               <Scene key="multiresult" component={MultiResult} hideNavBar={true}/>
-              <Scene tabs={true} tabBarComponent={MinibarResults} tabBarPosition='top'>
-                <Scene key="listresults" component={ListResults} hideNavBar={true} lazy={true}/>
-                <Scene key="listmap" component={ListMap} hideNavBar={true}/>
-              </Scene>
-              <Scene tabs={true} tabBarComponent={FormBar} tabBarPosition='top'>
-                <Scene key="eventform" component={EventForm} hideNavBar={true}/>
-                <Scene key="invitefriends" component={InviteFriends} hideNavBar={true}/>
-              </Scene>
-              <Scene tabs={true} tabBarComponent={MyEventBar} tabBarPosition='top'>
-                <Scene lazy={true} key="myevents" component={MyEvents} hideNavBar={true}/>
-                <Scene lazy={true} key="myevents2" component={MyEvents2} hideNavBar={true}/>
-                <Scene lazy={true} key="myevents3" component={MyEvents3} hideNavBar={true}/>
-              </Scene>
+              <Scene key="listresults" component={ListResults} hideNavBar={true} lazy={true}/>
+              <Scene key="listmap" component={ListMap} hideNavBar={true}/>
+              <Scene key="eventform" component={EventForm} hideNavBar={true}/>
+              <Scene key="invitefriends" component={InviteFriends} hideNavBar={true}/>
+              <Scene key="myevents" component={MyEvents} hideNavBar={true}/>
+              <Scene key="myevents2" component={MyEvents2} hideNavBar={true}/>
+              <Scene key="myevents3" component={MyEvents3} hideNavBar={true}/>
             </Scene>
           </Scene>
           <Scene key="resultlightbox" component={ResultLightbox} hideNavBar={true}/>
         </Lightbox>
 );
 
+const store = configureStore();
 
 export default class App extends Component {
   render() {

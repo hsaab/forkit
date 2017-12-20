@@ -39,17 +39,18 @@ class ListResults extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Navbar/>
-        <MinibarResults/>
+        <MinibarResults title={"Results"} aLink={() => Actions.listresults()} bLink={() => Actions.listmap()}/>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/discoverHome.png")}/>
           <View style={styles.listContainer}>
-            <RestResult restaurant={this.props.restaurants.results[0]} name={this.props.restaurants.results[0].name} rating={this.props.restaurants.results[0].rating} reviews={this.props.restaurants.results[0].review_count}
-              distance={this.props.restaurants.results[0].distance} img={this.props.restaurants.results[0].image_url} border={true}/>
-            <RestResult restaurant={this.props.restaurants.results[1]} name={this.props.restaurants.results[1].name} rating={this.props.restaurants.results[1].rating} reviews={this.props.restaurants.results[1].review_count}
-              distance={this.props.restaurants.results[1].distance} img={this.props.restaurants.results[1].image_url} border={true}/>
-            <RestResult restaurant={this.props.restaurants.results[2]} name={this.props.restaurants.results[2].name} rating={this.props.restaurants.results[2].rating} reviews={this.props.restaurants.results[2].review_count}
-              distance={this.props.restaurants.results[2].distance} img={this.props.restaurants.results[2].image_url} border={false}/>
+            <ScrollView>
+              <RestResult restaurant={this.props.restaurants.results[0]} name={this.props.restaurants.results[0].name} rating={this.props.restaurants.results[0].rating} reviews={this.props.restaurants.results[0].review_count}
+                distance={this.props.restaurants.results[0].distance} img={this.props.restaurants.results[0].image_url} border={true}/>
+              <RestResult restaurant={this.props.restaurants.results[1]} name={this.props.restaurants.results[1].name} rating={this.props.restaurants.results[1].rating} reviews={this.props.restaurants.results[1].review_count}
+                distance={this.props.restaurants.results[1].distance} img={this.props.restaurants.results[1].image_url} border={true}/>
+              <RestResult restaurant={this.props.restaurants.results[2]} name={this.props.restaurants.results[2].name} rating={this.props.restaurants.results[2].rating} reviews={this.props.restaurants.results[2].review_count}
+                distance={this.props.restaurants.results[2].distance} img={this.props.restaurants.results[2].image_url} border={true}/>
+            </ScrollView>
           </View>
           <View style={styles.bottomContainer}>
             <TouchableOpacity style={styles.gamble} onPress={(ev) => this.handleGamble(ev)}>
@@ -82,33 +83,26 @@ const mapDispatchToProps = (dispatch) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 1)'
+    backgroundColor: 'transparent'
   },
   background: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70-50-50),
+    height: verticalScale(667-75-50),
     width: scale(375)
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    opacity: 0.8,
-    height: verticalScale(667-70-50-50),
+    height: verticalScale(667),
     width: scale(375)
   },
   listContainer: {
     flex: 6,
+    justifyContent: 'center'
   },
   bottomContainer: {
-    flex: 1,
-    flexDirection: 'row'
-  },
-  listItem: {
-    borderBottomColor: "#00042E",
-    borderBottomWidth: moderateScale(2),
-    width: scale(375),
     flex: 1,
     flexDirection: 'row'
   },
@@ -120,13 +114,13 @@ const styles = StyleSheet.create({
   restaurantIcon: {
     height: verticalScale(80),
     width: scale(80),
-    borderRadius: 40,
+    borderRadius: scale(40),
     opacity: 0.7
   },
   menuIcon: {
     height: verticalScale(60),
     width: scale(60),
-    borderRadius: 30
+    borderRadius: scale(30)
   },
   dice: {
     height: verticalScale(35),
@@ -138,14 +132,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#00042E",
-    borderRadius: scale(40),
+    backgroundColor: "rgba(255,255,255,.5)",
+    borderRadius: scale(75),
     margin: moderateScale(5),
+    width: scale(300),
     bottom: verticalScale(3)
   },
   gambleText: {
     fontFamily: 'Futura',
-    color: 'white',
+    color: '#646464',
     fontSize: moderateScale(30),
   },
 });
