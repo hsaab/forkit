@@ -20,9 +20,10 @@ class MyEvents extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen&conditions=participant_id='${this.props.user.id}'`)
     .then(response => {
+      // console.log(response)
       if (response.data.result.length > 1) {
         var params = '';
         for (var i = 0; i < response.data.result.length; i++) {
@@ -40,7 +41,7 @@ class MyEvents extends React.Component {
 
           axios.get(url)
           .then((resp) => {
-            console.log(resp.data.result)
+            // console.log('THIS IS HAPPEDNING IN CDIDMOUNT IN MYEVENTS.JS', resp.data.result)
             this.setState({
               results: resp.data.result
             });
