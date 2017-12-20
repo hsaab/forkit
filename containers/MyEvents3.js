@@ -4,34 +4,27 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
-import EventItem from '../components/EventItem';
+import EventNotification from '../components/EventNotification.js';
 import MyEventBar from '../components/MyEventBar.js';
 import Calendar from '../components/Calendar.js';
 import ProfPic from '../assets/profile.png';
-import Tabbar from '../components/Tabbar.js';
 import axios from 'axios';
 
-class MyEvents extends React.Component {
+class MyEvents3 extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       results: []
     }
   }
-
   componentWillMount() {
-    axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen&conditions=participant_id='${this.props.user.id}'`)
+    axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id&conditions=participant_id='${this.props.user.id}'`)
     .then(response => {
       if (response.data.result.length > 1) {
         var params = '';
         for (var i = 0; i < response.data.result.length; i++) {
-          if (!response.data.result[i].pending && response.data.result[i].accepted) {
-            if (response.data.result[i].restaurant_chosen) {
-              params = params;
-            } else {
+          if (response.data.result[i].pending) {
               params += `id='${response.data.result[i].group_id}' or `;
-            }
           }
         }
         params = params.slice(0, params.length - 4);
@@ -39,11 +32,12 @@ class MyEvents extends React.Component {
           var url = `http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=group_event&fields=id,title,dates,meal_type,location,radius,cuisines,host_id,participants_id,restaurant_chosen,yelp_id&conditions=${params}`;
 
           axios.get(url)
-          .then((resp) => {
+          .then(resp => {
             console.log(resp.data.result)
             this.setState({
               results: resp.data.result
             });
+            console.log(this.state.results);
           })
         }
 
@@ -57,28 +51,22 @@ class MyEvents extends React.Component {
   render() {
     return (
       <View style={styles.background}>
-        {/* <MyEventBar title={'Ongoing'} aLink={Actions.myevents} bLink={Actions.myevents2}/> */}
         <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
-        <Calendar/>
-        <ScrollView>
+        <ScrollView style={{top: verticalScale(20)}}>
           <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>Upcoming</Text>
+            <Text style={styles.titleText}>New Events</Text>
           </View>
           <View style={styles.listContainer}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionText}>This Week</Text>
             </View>
-            {this.state.results.map((result, index) => <EventItem key={index} data={result} ost={ProfPic}/>)}
+            {this.state.results.map((result, index) => <EventNotification key={index} data={result} user={this.props.user.id}/>)}
           </View>
         </ScrollView>
-        <Tabbar/>
       </View>
     );
   }
 }
-
-MyEvents.propTypes = {
-};
 
 const mapStateToProps = (state) => {
     return {
@@ -138,4 +126,4 @@ const styles = StyleSheet.create({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(MyEvents);
+)(MyEvents3);

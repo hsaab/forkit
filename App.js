@@ -23,7 +23,6 @@ import Preferences from './containers/Preferences.js';
 import FavoriteList from './containers/FavoriteList.js';
 import MyForks from './containers/MyForks.js';
 import FriendList from './containers/FriendList.js';
-import Search from './containers/Search.js';
 import PersonalData from './containers/PersonalData.js';
 import EventForm from './containers/EventForm.js';
 import StatusPage from './containers/StatusPage.js';
@@ -34,9 +33,16 @@ import OpenTable from './containers/openTable.js';
 import menu from './containers/menu.js';
 import ForgotPassword from './containers/ForgotPassword.js'
 import InviteFriends from './containers/InviteFriends.js';
+import MyEventBar from './components/MyEventBar.js';
 import MyEvents from './containers/MyEvents.js';
 import MyEvents2 from './containers/MyEvents2.js';
+import MyEvents3 from './containers/MyEvents3.js';
 import verifyNumber from './containers/verifyNumber.js';
+import MinibarResults from './components/MinibarResults.js';
+import FormBar from './components/FormBar.js';
+import Eats1Multi from './containers/Eats1Multi.js';
+import Eats2Multi from './containers/Eats2Multi.js';
+import Eats4 from './containers/Eats4.js';
 
 
 EStyleSheet.build();
@@ -50,8 +56,11 @@ const Scenes = Actions.create(
             <Scene key="login" component={Login} initial={true} hideNavBar={true}/>
             <Scene key="register" component={Register} hideNavBar={true}/>
             <Scene key="eats1" component={Eats1} hideNavBar={true} hideTabBar={true}/>
+            <Scene key="eats1multi" component={Eats1Multi} hideNavBar={true} hideTabBar={true}/>
             <Scene key="eats2" component={Eats2} hideNavBar={true} hideTabBar={true}/>
+            <Scene key="eats2multi" component={Eats2Multi} hideNavBar={true} hideTabBar={true}/>
             <Scene key="eats3" component={Eats3} hideNavBar={true} hideTabBar={true}/>
+            <Scene key="eats4" component={Eats4} hideNavBar={true} hideTabBar={true}/>
             <Scene key="algo" component={Algo} hideNavBar={true} hideTabBar={true}/>
             <Scene key='yelp' component={Yelp} hideNavBar={true} hideTabBar={true}/>
             <Scene key='openTable' component={OpenTable} hideNavBar={true} hideTabBar={true}/>
@@ -61,8 +70,6 @@ const Scenes = Actions.create(
             <Scene key='vnumber' component={verifyNumber} hideNavBar={true} hideTabBar={true}/>
             <Scene key="root2" tabs={true} lazy={true} animationEnabled={false} tabBarComponent={Tabbar}>
               <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>
-              <Scene key="listmap" component={ListMap} hideNavBar={true}/>
-              <Scene key="listresults" component={ListResults} hideNavBar={true}/>
               <Scene key="singleresult" component={SingleResult} hideNavBar={true}/>
               <Scene key="profile" component={Profile} hideNavBar={true}/>
               <Scene key="preferences" component={Preferences} hideNavBar={true}/>
@@ -70,13 +77,21 @@ const Scenes = Actions.create(
               <Scene key="myforks" component={MyForks} hideNavBar={true}/>
               <Scene key="friendlist" component={FriendList} hideNavBar={true}/>
               <Scene key="personaldata" component={PersonalData} hideNavBar={true}/>
-              <Scene key="search" component={Search} hideNavBar={true}/>
-              <Scene key="eventform" component={EventForm} hideNavBar={true}/>
               <Scene key="statuspage" component={StatusPage} hideNavBar={true}/>
               <Scene key="multiresult" component={MultiResult} hideNavBar={true}/>
-              <Scene key="invitefriends" component={InviteFriends} hideNavBar={true}/>
-              <Scene key="myevents" component={MyEvents} hideNavBar={true}/>
-              <Scene key="myevents2" component={MyEvents2} hideNavBar={true}/>
+              <Scene tabs={true} tabBarComponent={MinibarResults} tabBarPosition='top'>
+                <Scene key="listresults" component={ListResults} hideNavBar={true} lazy={true}/>
+                <Scene key="listmap" component={ListMap} hideNavBar={true}/>
+              </Scene>
+              <Scene tabs={true} tabBarComponent={FormBar} tabBarPosition='top'>
+                <Scene key="eventform" component={EventForm} hideNavBar={true}/>
+                <Scene key="invitefriends" component={InviteFriends} hideNavBar={true}/>
+              </Scene>
+              <Scene lazy={true} tabs={true} tabBarComponent={MyEventBar} tabBarPosition='top'>
+                <Scene key="myevents" component={MyEvents} hideNavBar={true}/>
+                <Scene key="myevents2" component={MyEvents2} hideNavBar={true}/>
+                <Scene key="myevents3" component={MyEvents3} hideNavBar={true}/>
+              </Scene>
             </Scene>
           </Scene>
           <Scene key="resultlightbox" component={ResultLightbox} hideNavBar={true}/>

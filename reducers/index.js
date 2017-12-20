@@ -8,6 +8,8 @@ import OpenTableReducer from './OpenTableReducer';
 import menuReducer from './menuReducer';
 import FormReducer from './FormReducer';
 import FriendReducer from './FriendReducer';
+import StatusReducer from './StatusReducer';
+import YelpMultiReducer from './YelpMultiReducer';
 
 const rootReducer = combineReducers({
     test: testReducer,
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
     openTable: OpenTableReducer,
     menu: menuReducer,
     form: FormReducer,
-    friend: FriendReducer
+    yelpMulti: YelpMultiReducer,
+    friend: FriendReducer,
+    status: StatusReducer
 });
 
 

@@ -8,12 +8,50 @@ import EventItem from '../components/EventItem';
 import MyEventBar from '../components/MyEventBar.js';
 import Calendar from '../components/Calendar.js';
 import ProfPic from '../assets/profile.png';
+import axios from 'axios';
 
 class MyEvents2 extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      results: []
+    }
+  }
+  componentWillMount() {
+    axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen&conditions=participant_id='${this.props.user.id}'`)
+    .then(response => {
+      if (response.data.result.length > 1) {
+        var params = '';
+        for (var i = 0; i < response.data.result.length; i++) {
+          if (response.data.result[i].restaurant_chosen) {
+              params += `id='${response.data.result[i].group_id}' or `;
+          }
+        }
+        params = params.slice(0, params.length - 4);
+        if (params.length >= 1) {
+          var url = `http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=group_event&fields=id,title,dates,meal_type,location,radius,cuisines,host_id,participants_id,restaurant_chosen,yelp_id&conditions=${params}`;
+
+          axios.get(url)
+          .then((resp) => {
+            console.log(resp.data.result)
+            this.setState({
+              results: resp.data.result
+            });
+          })
+        }
+
+      }
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }
+
   render() {
     return (
       <View style={styles.background}>
-        <MyEventBar title={'Planned'} aLink={Actions.myevents} bLink={Actions.myevents2}/>
+        {/* <MyEventBar title={'Planned'} aLink={Actions.myevents} bLink={Actions.myevents2}/> */}
         <Image style={styles.backgroundColor} source={require("../assets/MultiForm.png")}/>
         <Calendar/>
         <ScrollView>
@@ -24,14 +62,7 @@ class MyEvents2 extends React.Component {
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionText}>This Week</Text>
             </View>
-            <EventItem host={ProfPic}/>
-            <EventItem />
-            <EventItem />
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionText}>Next Week</Text>
-            </View>
-            <EventItem />
-            <EventItem />
+            {this.state.results.map((result, index) => <EventItem key={index} data={result} ost={ProfPic}/>)}
           </View>
         </ScrollView>
       </View>
@@ -41,6 +72,7 @@ class MyEvents2 extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+      user : state.user
     };
 };
 

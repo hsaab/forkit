@@ -1,5 +1,5 @@
 let initialState = {
-  "cuisines": [],
+  // "cuisines": [],
   "price": "",
   "ethnic": "",
   "distance": 0

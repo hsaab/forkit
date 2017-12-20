@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar.js';
 import Dash from 'react-native-dash';
 import PropTypes from 'prop-types';
 
-class Eats1 extends Component {
+class Eats1Multi extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,14 +22,14 @@ class Eats1 extends Component {
     ev.preventDefault();
     this.props.handlePrice("1,2");
     clearInterval(this.state.interval);
-    Actions.eats2();
+    Actions.eats2multi();
   }
 
   handleHigh(ev) {
     ev.preventDefault();
     this.props.handlePrice("3,4");
     clearInterval(this.state.interval);
-    Actions.eats2();
+    Actions.eats2multi();
   }
 
   handleGamble() {
@@ -42,7 +42,7 @@ class Eats1 extends Component {
     }
   this.props.handlePrice(price);
   clearInterval(this.state.interval);
-  Actions.eats2();
+  Actions.eats2multi();
   }
 
   update() {
@@ -117,10 +117,6 @@ class Eats1 extends Component {
   }
 }
 
-Eats1.propTypes = {
-  handlePrice: PropTypes.func
-};
-
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
@@ -129,7 +125,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      handlePrice: (price) => dispatch({type: 'PRICE_CHECK', price: price})
+      handlePrice: (price) => dispatch({type: 'PRICE_CHECK_MULTI', price: price})
     };
 };
 
@@ -141,16 +137,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   background: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375),
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375)
   },
   topTile: {
@@ -185,7 +181,7 @@ const styles = StyleSheet.create({
     borderWidth: moderateScale(3),
     borderColor: 'white',
     backgroundColor: 'rgba(255,255,255,.20)',
-    height: verticalScale(90),
+    height: verticalScale(80),
     width: scale(340),
     justifyContent: 'center',
     alignItems: 'center',
@@ -200,8 +196,8 @@ const styles = StyleSheet.create({
     margin: scale(10)
   },
   dollarSigns: {
-    height: verticalScale(20),
-    width: scale(20)
+    height: verticalScale(50),
+    width: scale(50)
   },
   dollarCols: {
     flexDirection: 'column',
@@ -216,10 +212,17 @@ const styles = StyleSheet.create({
   dice: {
     height: verticalScale(35),
     width: scale(35)
+  },
+  plus: {
+    fontFamily: 'Futura',
+    color: 'white',
+    fontSize: moderateScale(45),
+    fontWeight: 'bold',
+    left: scale(5)
   }
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Eats1);
+)(Eats1Multi);
