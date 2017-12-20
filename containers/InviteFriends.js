@@ -19,6 +19,7 @@ class InviteFriends extends React.Component {
         {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20}]},
         {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22}]},
       ],
+      searchVal: '',
       FoF: true
     }
   }
@@ -46,12 +47,7 @@ class InviteFriends extends React.Component {
       cuisinesChosen.push(this.props.eventData.cuisines[k].label)
     }
 
-
     var group_event = {id: Date.now().toString(), title: this.props.eventData.title, dates: dates.toString(), meal_type: this.props.eventData.meal, location: {latitude: this.props.eventData.coords.lat, longitude: this.props.eventData.coords.long}, radius: this.props.eventData.distance, host_id: this.props.user.id, participants_id: participants_id.toString(), restaurant_chosen: false, cuisines: cuisinesChosen.toString()}
-
-    // console.log('EVENT DATA IS HERE', this.props.eventData);
-    // console.log('FRIENDS DATA IS HERE', this.props.friends)
-    console.log('GROUP EVENT', group_event);
 
     axios({
       method: 'POST',
@@ -82,31 +78,31 @@ class InviteFriends extends React.Component {
           <View style={styles.createContainer}>
             <TouchableOpacity style={styles.optionContainer} onPress={() => {this.fofToggle()}}>
               <Image style={styles.group} source={require("../assets/groupMGrey.png")}/>
-              {this.state.FoF ? <Text>+1s ON </Text> : <Text>+1s OFF </Text>}
+              {this.state.FoF ? <Text style={styles.optionText}>+1s ON </Text> : <Text style={styles.optionText}>+1s OFF </Text>}
             </TouchableOpacity>
             <TouchableOpacity style={styles.optionContainer}>
-              <Text>Friends O Friends</Text>
+              <Image style={styles.group} source={require("../assets/plusMGrey.png")}/>
+              <Text style={styles.optionText}>Contacts</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.handleCreate()} style={styles.optionContainer}>
-              <Text>Create Button</Text>
+            <TouchableOpacity onPress={Actions.eats1multi} style={styles.optionContainer}>
+              <Image style={styles.group} source={require("../assets/CubeLogoMGrey.png")}/>
+              <Text style={styles.optionText}>Create</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.searchContainer}>
-            <TextInput style={styles.search} placeholder={'Search'}/>
+          <View style={styles.rowContainer}>
+            <View style={styles.searchContainer}>
+              <Image style={styles.logoSearch} source={require("../assets/search.png")}/>
+              <TextInput style={styles.search} placeholder={'Search'} onChangeText={(searchVal) => {this.search(searchVal)}}/>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.counterText}>10</Text>
+            </View>
           </View>
           <View style={styles.listContainer}>
-            {/* <AlphabetListView
-              data={this.state.data}
-              cell={FriendItem}
-              cellHeight={100}
-              sectionHeaderHeight={22.5}
-            /> */}
-            {/* <FriendItem/>
-            <FriendItem/>
-            <FriendItem/> */}
             <SectionList
               renderItem={({item}) => <FriendItem title={item.name} number={item.number} id={item.id}/>}
-              renderSectionHeader={({section}) => <Text>{section.title}</Text>}
+              renderSectionHeader={({section}) =>
+              <View style={styles.sectionHeader}><Text style={styles.sectionText}>{section.title}</Text></View>}
               sections={this.state.data}
             />
           </View>
@@ -138,8 +134,7 @@ const styles = EStyleSheet.create({
     backgroundColor: 'transparent',
   },
   background: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: 'transparent',
     height: verticalScale(667-70-50),
     width: '100%',
@@ -158,35 +153,82 @@ const styles = EStyleSheet.create({
     flexDirection: 'row'
   },
   createContainer: {
-    flex: 1,
-    flexDirection: 'row'
+    flex: 1.1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#F0F0F0',
+    borderBottomWidth: 1,
+    borderBottomColor: '#95989A'
+  },
+  rowContainer: {
+    flex: 0.8,
+    flexDirection: 'row',
+    width: '100%',
   },
   searchContainer: {
-    flex: 1,
-    width: scale(375),
-    marginTop: 20,
-    marginBottom: 20,
+    width: '80%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: moderateScale(40),
+    margin: moderateScale(10)
+  },
+  textContainer: {
+    width: '10%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  counterText: {
+    fontFamily: 'Futura',
+    fontWeight: 'bold',
+    fontSize: moderateScale(25),
+    color: '#646464',
   },
   listContainer: {
     flex: 5
   },
   search: {
-    backgroundColor: 'white',
-    borderRadius: 40,
-    padding: 20,
-    width: scale(250)
+    width: '85%',
+    left: scale(15),
+    fontSize: moderateScale(15),
+    color: '#646464'
   },
   optionContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     width: '33%'
   },
+  optionText: {
+    fontFamily: 'Futura',
+    color: '#646464',
+    fontSize: moderateScale(15),
+    marginTop: verticalScale(5),
+    fontWeight: 'bold',
+  },
   group: {
-    height: verticalScale(45),
-    width: scale(45),
+    height: verticalScale(30),
+    width: scale(30),
     overflow: 'visible'
+  },
+  logoSearch: {
+    height: verticalScale(20),
+    width: scale(20),
+    left: scale(3),
+    opacity: 0.52,
+    overflow: 'visible'
+  },
+  sectionHeader: {
+    width: '100%',
+    height: verticalScale(15),
+    justifyContent: 'space-around',
+    backgroundColor: 'silver',
+  },
+  sectionText: {
+    fontFamily: 'Futura',
+    fontSize: moderateScale(10),
+    marginLeft: scale(10)
   }
 });
 

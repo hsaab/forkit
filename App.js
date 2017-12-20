@@ -10,8 +10,11 @@ import Login from './containers/Login.js';
 import Register from './containers/Register.js';
 import DiscoverHome from './containers/DiscoverHome.js';
 import Eats1 from './containers/Eats1.js';
+import Eats1Multi from './containers/Eats1Multi.js';
 import Eats2 from './containers/Eats2.js';
+import Eats2Multi from './containers/Eats2Multi.js';
 import Eats3 from './containers/Eats3.js';
+import Eats4 from './containers/Eats4.js';
 import Algo from './containers/Algo.js';
 import ListResults from './containers/ListResults.js';
 import ListMap from './containers/ListMap.js';
@@ -38,7 +41,6 @@ import MyEvents from './containers/MyEvents.js';
 import MyEvents2 from './containers/MyEvents2.js';
 import verifyNumber from './containers/verifyNumber.js';
 
-
 EStyleSheet.build();
 
 const store = configureStore();
@@ -50,8 +52,11 @@ const Scenes = Actions.create(
             <Scene key="login" component={Login} initial={true} hideNavBar={true}/>
             <Scene key="register" component={Register} hideNavBar={true}/>
             <Scene key="eats1" component={Eats1} hideNavBar={true} hideTabBar={true}/>
+            <Scene key="eats1multi" component={Eats1Multi} hideNavBar={true} hideTabBar={true}/>
             <Scene key="eats2" component={Eats2} hideNavBar={true} hideTabBar={true}/>
+            <Scene key="eats2multi" component={Eats2Multi} hideNavBar={true} hideTabBar={true}/>
             <Scene key="eats3" component={Eats3} hideNavBar={true} hideTabBar={true}/>
+            <Scene key="eats4" component={Eats4} hideNavBar={true} hideTabBar={true}/>
             <Scene key="algo" component={Algo} hideNavBar={true} hideTabBar={true}/>
             <Scene key='yelp' component={Yelp} hideNavBar={true} hideTabBar={true}/>
             <Scene key='openTable' component={OpenTable} hideNavBar={true} hideTabBar={true}/>

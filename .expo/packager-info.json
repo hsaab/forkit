@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19001,
-  "packagerPort": 19002,
-  "packagerPid": 19440,
-  "expoServerNgrokUrl": "https://3y-xy2.vazish.forkit2.exp.direct",
-  "packagerNgrokUrl": "https://packager.kt-b3i.vazish.forkit2.exp.direct",
-  "ngrokPid": 19470
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 32150,
+  "expoServerNgrokUrl": "https://kt-b3i.hsaab.forkit2.exp.direct",
+  "packagerNgrokUrl": "https://packager.kt-b3i.hsaab.forkit2.exp.direct",
+  "ngrokPid": 32163
 }

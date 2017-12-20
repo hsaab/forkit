@@ -45,10 +45,8 @@ const FormReducer = (state = initialState, action) => {
       console.log(distanceState);
       return distanceState;
     case 'SET_CUISINE':
-      console.log(action);
       const cuisineState = Object.assign({}, state);
       cuisineState.cuisines = action.cuisine;
-      console.log(cuisineState);
       return cuisineState;
     default:
       return state

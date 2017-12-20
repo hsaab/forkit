@@ -21,10 +21,9 @@ class DiscoverHome extends Component {
       let coords = {latitude: location.coords.latitude, longitude: location.coords.longitude};
       axios.get(`https://guarded-dawn-44803.herokuapp.com/yelp/initialfetch?latitude=${coords.latitude}&longitude=${coords.longitude}&radius=1000`)
       .then((resp) => {
-        console.log(resp.data);
         let cuisines = {cuisines: resp.data};
+        console.log('THIS ARE THE CUISINES', cuisines);
         this.props.initialYelp(cuisines);
-        // console.log(this.props.searchArea);
         Actions.eats1();
       })
       .catch((err) => console.log('Initial yelp error', err));
@@ -92,7 +91,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
       locationFetch: (location) => dispatch({type: 'YOU_HERE', location: location}),
-      initialYelp: (area) => dispatch({type: 'INITIAL_YELP', area: area})
+      initialYelp: (area) => dispatch({type: 'INITIAL_YELP', area: area}),
+      initialYelpMulti: (area) => dispatch({type: 'INITIAL_YELP_MULTI', area: area})
     };
 };
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import SelectMultiple from 'react-native-select-multiple'
 
-const fruits = ['Mexican', 'Thai', 'American', 'Chinese', 'Lebanese']
+const fruits = ['American', 'Italian', 'Mexican', 'Japanese', 'Lebanese']
 
 class SelectorCuisine extends Component {
   constructor(props) {
@@ -18,7 +18,10 @@ class SelectorCuisine extends Component {
     if(selectedFruits.length > 4){
       return
     } else {
-      this.setState({ selectedFruits })
+      let selected = selectedFruits.map((each) => {
+        return each.label;
+      })
+      this.setState({ selectedFruits: selected })
     }
   }
 
@@ -46,7 +49,6 @@ SelectorCuisine.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
     };
 };
