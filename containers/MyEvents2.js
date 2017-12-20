@@ -34,7 +34,7 @@ class MyEvents2 extends React.Component {
 
           axios.get(url)
           .then((resp) => {
-            console.log(resp.data.result)
+            // console.log(resp.data.result)
             this.setState({
               results: resp.data.result
             });

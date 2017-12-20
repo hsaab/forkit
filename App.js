@@ -87,10 +87,10 @@ const Scenes = Actions.create(
                 <Scene key="eventform" component={EventForm} hideNavBar={true}/>
                 <Scene key="invitefriends" component={InviteFriends} hideNavBar={true}/>
               </Scene>
-              <Scene lazy={true} tabs={true} tabBarComponent={MyEventBar} tabBarPosition='top'>
-                <Scene key="myevents" component={MyEvents} hideNavBar={true}/>
-                <Scene key="myevents2" component={MyEvents2} hideNavBar={true}/>
-                <Scene key="myevents3" component={MyEvents3} hideNavBar={true}/>
+              <Scene tabs={true} tabBarComponent={MyEventBar} tabBarPosition='top'>
+                <Scene lazy={true} key="myevents" component={MyEvents} hideNavBar={true}/>
+                <Scene lazy={true} key="myevents2" component={MyEvents2} hideNavBar={true}/>
+                <Scene lazy={true} key="myevents3" component={MyEvents3} hideNavBar={true}/>
               </Scene>
             </Scene>
           </Scene>

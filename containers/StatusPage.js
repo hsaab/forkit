@@ -17,39 +17,10 @@ class StatusPage extends Component {
     };
   }
 
-  componentDidMount() {
-    axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen,played&conditions=participant_id='${this.props.user.id}' and group_id='${this.props.status.id}'`)
-    .then((response) => {
-      console.log(response.data)
-        if (response.data.result[0].restaurant_chosen === true) {
-          this.setState({
-            text: 'Result'
-          });
-        } else if (response.data.result[0].played === false && !response.data.result[0].restaurant_chosen) {
-          this.setState({
-            text: 'Play'
-          });
-        } else {
-          this.setState({
-            text: 'Pending'
-          });
-        }
-        axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=users&fields=firstname&conditions=id='${this.props.status.host_id}'`)
-        .then((resp) => {
-          this.setState({
-            host: resp.data.result[0].firstname
-          })
-        })
-    })
-    .catch((err) => {
-      console.log('Event Notification error is ', err);
-    })
-  }
-
   handleButton() {
-    if (this.state.text === 'Play') {
-      Actions.playMulti();
-    } else if (this.state.text === 'Result') {
+    if (this.props.status.type === 'Play') {
+      Actions.eats1multi();
+    } else if (this.props.status.type === 'Result') {
       Actions.multiresult();
     } else {
       Alert.alert('Game is ongoing', 'We\'ll let you know once the restaurant is chosen', {text: 'Ok'})
@@ -96,7 +67,7 @@ class StatusPage extends Component {
               </View>
             </View>
             <View style={styles.resultContainer}>
-              <TouchableOpacity style={styles.resultButton} onPress={() => this.handleButton()}><Text style={{fontFamily: 'Futura', color: 'white'}}>{this.state.text}</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.resultButton} onPress={() => this.handleButton()}><Text style={{fontFamily: 'Futura', color: 'white'}}>{this.props.status.type}</Text></TouchableOpacity>
             </View>
           </View>
           <View style={styles.responsesContainer}>

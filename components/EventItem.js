@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import RightButton from '../assets/fasttrackGrey.png';
+import axios from 'axios';
 
 class EventItem extends Component{
     constructor(props){
@@ -13,18 +14,24 @@ class EventItem extends Component{
         };
     }
 
-    componentWillMount() {
-      if (this.props.data === undefined) {
-        this.setState({
-          show: false
-        })
-      } else {
-        this.props.sendStatus(this.props.data);
-      }
-    }
-
     handleClick() {
-      this.props.clickedStatus(this.props.data);
+        axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen,played&conditions=participant_id='${this.props.user.id}' and group_id='${this.props.data.id}'`)
+        .then((response) => {
+            var toAdd = '';
+            if (response.data.result[0].restaurant_chosen) {
+              toAdd = 'Result'
+            } else if (response.data.result[0].played === false) {
+              toAdd = 'Play'
+            } else {
+              toAdd = 'Pending'
+            }
+            var newObj = Object.assign({}, this.props.data)
+            newObj.type = toAdd;
+            this.props.clickedStatus(newObj);
+        })
+        .catch((err) => {
+          console.log('Event Notification error is ', err);
+        })
       Actions.statuspage();
     }
 
@@ -89,12 +96,12 @@ EventItem.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+      user: state.user,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      sendStatus: (status) => dispatch({type: 'SEND_STATUS', status: status}),
       clickedStatus: (clicked) => dispatch({type: 'CLICKED', clicked: clicked})
     };
 };
