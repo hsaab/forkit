@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": 19002,
-  "packagerPid": 3897,
-  "expoServerNgrokUrl": "https://kt-b3i.bjeng.forkit2.exp.direct",
-  "packagerNgrokUrl": "https://packager.kt-b3i.bjeng.forkit2.exp.direct",
-  "ngrokPid": 3915
+  "packagerPort": 19001,
+  "packagerPid": 983,
+  "expoServerNgrokUrl": "https://ty-c76.hsaab.forkit2.exp.direct",
+  "packagerNgrokUrl": "https://packager.ty-c76.hsaab.forkit2.exp.direct",
+  "ngrokPid": 1002
 }

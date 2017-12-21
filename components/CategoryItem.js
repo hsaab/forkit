@@ -26,12 +26,11 @@ class CategoryItem extends Component{
               <Text style={styles.winningText}>{this.props.winning}</Text>
             </View>
             <View style={styles.respondedContainer}>
-              <View style={styles.guestCircle}>
-                <Image style={styles.headShot} source={require('../assets/profile.png')}/>
-              </View>
-              <View style={styles.guestCircle}>
-                <Image style={styles.headShot} source={require('../assets/profile.png')}/>
-              </View>
+              {this.props.responded.map((result) =>
+                  <View style={styles.circle}>
+                    <Image style={styles.headShot} source={result}/>
+                  </View>
+                )}
             </View>
           </View>
         );
@@ -47,6 +46,19 @@ var styles = StyleSheet.create({
     borderBottomColor: '#A2A2A2',
     width: scale(375),
     borderBottomWidth: scale(1),
+  },
+  circle: {
+    height: verticalScale(30),
+    width: scale(30),
+    borderRadius: scale(30/2),
+    borderColor: 'black',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  headShot: {
+    height: verticalScale(30),
+    width: scale(30)
   },
   categoryText: {
     fontFamily: 'Futura',

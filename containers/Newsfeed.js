@@ -12,18 +12,18 @@ import Tabbar from '../components/Tabbar.js';
 import axios from 'axios';
 import Post from '../components/Post.js';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Vasish from '../assets/Prof/Vasish.png';
-import Brandon from '../assets/Prof/Brandon.png';
-import Paul from '../assets/Prof/Paul.png';
-import Queen from '../assets/Prof/queen.png';
-import Megan from '../assets/Prof/megan.png';
-import Shakira from '../assets/Prof/shakira.png';
-import Natalie from '../assets/Prof/natalie.png';
-import Kobe from '../assets/Prof/kobe.png';
-import Pauly from '../assets/Prof/pauly.png';
-import Cent from '../assets/Prof/50.png';
-import Ariana from '../assets/Prof/ariana.png';
-import Alec from '../assets/Prof/alec.png';
+import Vasish from '../assets/prof/Vasish.png';
+import Brandon from '../assets/prof/Brandon.png';
+import Paul from '../assets/prof/Paul.png';
+import Queen from '../assets/prof/queen.png';
+import Megan from '../assets/prof/megan.png';
+import Shakira from '../assets/prof/shakira.png';
+import Natalie from '../assets/prof/natalie.png';
+import Kobe from '../assets/prof/kobe.png';
+import Pauly from '../assets/prof/pauly.png';
+import Cent from '../assets/prof/50.png';
+import Ariana from '../assets/prof/ariana.png';
+import Alec from '../assets/prof/alec.png';
 
 class Newsfeed extends React.Component {
   constructor(props) {

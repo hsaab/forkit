@@ -43,9 +43,6 @@ import MyEvents3 from './containers/MyEvents3.js';
 import verifyNumber from './containers/verifyNumber.js';
 import MinibarResults from './components/MinibarResults.js';
 import FormBar from './components/FormBar.js';
-import Eats1Multi from './containers/Eats1Multi.js';
-import Eats2Multi from './containers/Eats2Multi.js';
-import Eats4 from './containers/Eats4.js';
 import Newsfeed from './containers/Newsfeed.js';
 import Search from './containers/Search.js';
 
