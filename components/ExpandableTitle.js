@@ -11,7 +11,6 @@ class ExpandableTitle extends Component{
     constructor(props){
         super(props);
         this.state = {
-            title: "",
             expanded: false,
             animation: new Animated.Value(96.5)
         };
@@ -22,7 +21,7 @@ class ExpandableTitle extends Component{
       finalValue = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
       this.setState({
-          expanded : !this.state.expanded
+          expanded: !this.state.expanded
       });
 
       this.state.animation.setValue(initialValue);
@@ -47,7 +46,7 @@ class ExpandableTitle extends Component{
     }
 
     render(){
-      const textValidator = this.state.title.length >= 1
+      const textValidator = this.props.title.length >= 1
       return (
         <View style={styles.masterContainer}>
           <Animated.View style={[styles.container, {height: this.state.animation}]} >
@@ -64,14 +63,25 @@ class ExpandableTitle extends Component{
                 <Image style={styles.downIcon} source={downIcon} />
               </TouchableOpacity>
               <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-                <TitleInput/>
+                <TitleInput fn={this.props.titleChange}/>
               </View>
           </Animated.View>
         </View>
       );
     }
 }
-export default ExpandableTitle;
+
+const mapStateToProps = (state) => {
+    return {
+      title: state.form.title
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      titleChange: (title) => dispatch({type: 'TITLE_CHANGE', title: title})
+    };
+};
 
 var styles = StyleSheet.create({
     masterContainer: {
@@ -136,3 +146,8 @@ var styles = StyleSheet.create({
       right: verticalScale(28)
     }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ExpandableTitle);

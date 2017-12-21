@@ -47,6 +47,7 @@ class ExpandableCuisine extends Component{
     }
 
     render(){
+      const validator = this.props.cuisines.length === 4;
         return (
           <View style={styles.masterContainer}>
             <Animated.View style={[styles.container, {height: this.state.animation}]} >
@@ -58,19 +59,30 @@ class ExpandableCuisine extends Component{
                     <Text style={styles.titleText}>Cuisine</Text>
                   </View>
                   <View style={styles.button} underlayColor="#f1f1f1">
-                    <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')} />
+                    {validator ? <Image style={styles.checkImage} source={require('../assets/checkMGrey.png')}/> : null}
                   </View>
                   <Image style={styles.downIcon} source={downIcon} />
                 </TouchableOpacity>
                 <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-                  <SelectorCuisine/>
+                  <SelectorCuisine fn={this.props.setCuisine}/>
                 </View>
             </Animated.View>
           </View>
         );
     }
 }
-export default ExpandableCuisine;
+
+const mapStateToProps = (state) => {
+    return {
+      cuisines: state.form.cuisines
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      setCuisine: (cuisine) => dispatch({type: 'SET_CUISINE', cuisine: cuisine})
+    };
+};
 
 var styles = StyleSheet.create({
     masterContainer: {
@@ -129,3 +141,8 @@ var styles = StyleSheet.create({
       right: verticalScale(28)
     }
 });
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ExpandableCuisine);

@@ -141,16 +141,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   background: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375),
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375)
   },
   topTile: {
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     borderWidth: moderateScale(3),
     borderColor: 'white',
     backgroundColor: 'rgba(255,255,255,.20)',
-    height: verticalScale(90),
+    height: verticalScale(80),
     width: scale(340),
     justifyContent: 'center',
     alignItems: 'center',
@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
     margin: scale(10)
   },
   dollarSigns: {
-    height: verticalScale(20),
-    width: scale(20)
+    height: verticalScale(50),
+    width: scale(50)
   },
   dollarCols: {
     flexDirection: 'column',
@@ -216,6 +216,13 @@ const styles = StyleSheet.create({
   dice: {
     height: verticalScale(35),
     width: scale(35)
+  },
+  plus: {
+    fontFamily: 'Futura',
+    color: 'white',
+    fontSize: moderateScale(45),
+    fontWeight: 'bold',
+    left: scale(5)
   }
 });
 

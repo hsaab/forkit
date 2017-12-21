@@ -4,39 +4,41 @@ import { Actions } from 'react-native-router-flux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
-import iconRight from '../assets/fasttrack.png';
-import iconLeft from '../assets/fasttrackLeft.png';
+import iconRight from '../assets/fasttrackDGrey.png';
+import iconLeft from '../assets/fasttrackDGreyLeft.png';
 import discoverBack from '../assets/Discover.png';
 
 export default class Calendar extends React.Component {
   render() {
     const startDate = moment();
-    const endDate = moment().add(14,'days')
+    const endDate = moment().add(14,'days');
     const events = [true,false,true,false,false,false,true,false,true,false,false,false,false,true];
     let customDatesStyles = [];
     for (let i = 0; i < 13; i++) {
       let backColor = events[i] ? '#FF7F00' : null
-      let fontColor = events[i] ? 'white' : '#646464'
+      let fontDateColor = events[i] ? 'white' : '#8D8D8D'
+      let fontNameColor = events[i] ? 'white' : '#646464'
       customDatesStyles.push({
           startDate: moment().add(i,'days'),
-          dateNameStyle: {fontFamily: 'Futura', fontWeight: '100', color: fontColor},
-          dateNumberStyle: {fontFamily: 'Futura', fontWeight: '100', color: fontColor},
+          dateNameStyle: {fontFamily: 'Futura', fontWeight: '100', color: fontNameColor},
+          dateNumberStyle: {fontFamily: 'Futura', fontWeight: '100', color: fontDateColor},
           dateContainerStyle: {backgroundColor: backColor},
       });
     }
     return (
-      <View style={styles.calendarContainer}>
+      <View style={styles.calBackground}>
         <CalendarStrip
-          style={{height: 125, paddingTop: 20, paddingBottom: 10}}
+          style={styles.calendarContainer}
           minDate={startDate}
           maxDate={endDate}
-          calendarColor={'rgba(255,255,255,.20)'}
           styleWeekend={false}
+          showMonth={false}
           customDatesStyles={customDatesStyles}
           iconRight={iconRight}
-          iconRightStyle={{bottom: verticalScale(12.5), right: scale(3), width: scale(20)}}
+          useIsoWeekday={false}
+          iconRightStyle={{width: scale(17), height: verticalScale(15), left: scale(3)}}
           iconLeft={iconLeft}
-          iconLeftStyle={{width: scale(20), left: scale(3), top: verticalScale(8)}}
+          iconLeftStyle={{width: scale(17), height: verticalScale(15), right: scale(3)}}
           calendarHeaderStyle={styles.calHeader}
           dateNameStyle={styles.dateName}
           dateNumberStyle={styles.dateNumber}
@@ -49,9 +51,16 @@ export default class Calendar extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  calBackground: {
+    height: verticalScale(80),
+    width: scale(375),
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
   calendarContainer: {
-    flex: 1.8,
-    width: scale(375)
+    height: verticalScale(70),
+    width: scale(350),
+    justifyContent: 'center'
   },
   calHeader: {
     fontFamily: 'Futura',
@@ -62,7 +71,7 @@ const styles = StyleSheet.create({
   dateNumber: {
     fontFamily: 'Futura',
     fontWeight: '100',
-    color: '#646464',
+    color: '#8D8D8D',
   },
   dateName: {
     fontFamily: 'Futura',
