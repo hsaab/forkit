@@ -22,8 +22,10 @@ export default class CalendarTrivia extends React.Component {
   }
 
   dayItem(selDay, i) {
-    const possible = this.props.dates.map((each) => {return each.day});
+    let days = this.props.dates.split(',');
+    const possible = days.map((each) => {return moment(each).date()});
     const select = possible.includes(selDay.num);
+    // console.log('SELDAY!!!!!! ', selDay);
     if(select){
       return <TouchableOpacity key={i} style={this.state.selected === selDay.num ? styles.dayContainerSel : styles.dayContainer} onPress={() => {this.selectDay(selDay)}}>
                 <Text style={styles.dayText}>{selDay.dayAbr}</Text>
@@ -39,7 +41,8 @@ export default class CalendarTrivia extends React.Component {
 
   render() {
     let week = []
-    let firstDay = moment(this.props.dates[0].dateString);
+    let days = this.props.dates.split(',');
+    let firstDay = moment(days[0]);
     for(let i = 0; i < 7; i++){
       let date = moment(firstDay).add(i, 'days');
       let day = moment(date).format('dddd');

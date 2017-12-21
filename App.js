@@ -43,6 +43,7 @@ import MyEvents3 from './containers/MyEvents3.js';
 import verifyNumber from './containers/verifyNumber.js';
 import MinibarResults from './components/MinibarResults.js';
 import FormBar from './components/FormBar.js';
+import MultiLastResult from './containers/MultiLastResult.js'
 import Newsfeed from './containers/Newsfeed.js';
 import Search from './containers/Search.js';
 
@@ -71,6 +72,7 @@ const Scenes = Actions.create(
               <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>
               <Scene key="newsfeed" component={Newsfeed} hideNavBar={true}/>
               <Scene key="singleresult" component={SingleResult} hideNavBar={true}/>
+              <Scene key="multilastresult" component={MultiLastResult} hideNavBar={true}/>
               <Scene key="profile" component={Profile} hideNavBar={true}/>
               <Scene key="preferences" component={Preferences} hideNavBar={true}/>
               <Scene key="favoritelist" component={FavoriteList} hideNavBar={true}/>

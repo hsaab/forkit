@@ -10,6 +10,9 @@ import menuReducer from './menuReducer';
 import FormReducer from './FormReducer';
 import FriendReducer from './FriendReducer';
 import StatusReducer from './StatusReducer';
+import YelpMultiReducer from './YelpMultiReducer';
+import LastPersonReducer from './LastPersonReducer';
+import FinalMultiReducer from './FinalMultiReducer';
 
 const rootReducer = combineReducers({
     test: testReducer,
@@ -22,7 +25,9 @@ const rootReducer = combineReducers({
     menu: menuReducer,
     form: FormReducer,
     friend: FriendReducer,
-    status: StatusReducer
+    status: StatusReducer,
+    lastPerson: LastPersonReducer,
+    finalMulti: FinalMultiReducer
 });
 
 

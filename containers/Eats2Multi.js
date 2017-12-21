@@ -143,6 +143,7 @@ class Eats2Multi extends Component {
       interval: this.interval
     })
   }
+  
   componentWillUnmount() {
     clearInterval(this.update);
   }
@@ -210,7 +211,7 @@ class Eats2Multi extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      cuisineState: state.form,
+      cuisineState: state.yelpMulti,
       status: state.status
     };
 };

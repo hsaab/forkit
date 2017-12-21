@@ -27,7 +27,22 @@ class EventItem extends Component{
             }
             var newObj = Object.assign({}, this.props.data)
             newObj.type = toAdd;
+            newObj.dates = this.props.data.dates;
+            newObj.meal = this.props.data.meal_type;
+            newObj.group_id = this.props.data.id;
+            newObj.host_id = this.props.data.host_id;
+            newObj.radius = this.props.data.radius;
+            newObj.location = JSON.parse(this.props.data.location);
             this.props.clickedStatus(newObj);
+
+            let Np = this.props.data.participants_id.split(',').length + 1; //length === 1
+            axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=responses&fields=group_event_id,host_id,participant_id,is_host,date_chosen,meal_chosen,radius_chosen&conditions=group_event_id='${this.props.data.id}'`)
+            .then((response) => {
+              var Nr = response.data.result.length;
+              if (Np === (Nr + 1)) {
+                this.props.lastPerson(true);
+              }
+            })
         })
         .catch((err) => {
           console.log('Event Notification error is ', err);
@@ -44,8 +59,7 @@ class EventItem extends Component{
               <Text style={styles.subtitleText}>{this.props.data.meal_type}</Text>
               <View style={styles.rowContainer}>
                 <View style={styles.colContainer}>
-                  <Text style={styles.detailText}>{this.props.data.dates}</Text>
-                  {/* really here we would take the day pass it into moment rather than getting it from props  */}
+                  <Text style={styles.detailText}>{this.props.data.dates.split(',')[0]}</Text>
                   <Text style={styles.detailText}>{this.props.data.day}</Text>
                 </View>
                 <View style={styles.rowPicContainer}>
@@ -101,7 +115,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      clickedStatus: (clicked) => dispatch({type: 'CLICKED', clicked: clicked})
+      clickedStatus: (clicked) => dispatch({type: 'CLICKED', clicked: clicked}),
+      lastPerson: (person) => dispatch({type: 'LAST', last:person})
     };
 };
 

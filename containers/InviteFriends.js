@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput, SectionList, Header } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput, SectionList, Header, Alert} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
@@ -9,12 +9,34 @@ import FriendItem from '../components/FriendItem.js';
 import FormBar from '../components/FormBar.js';
 import axios from 'axios';
 import _ from 'underscore';
+import Fifty from '../assets/prof/50.png';
+import Alec from '../assets/prof/alec.png';
+import Andrew from '../assets/prof/andrew.png';
+import Ariana from '../assets/prof/ariana.png';
+import Brandon from '../assets/prof/Brandon.png';
+import Hassan from '../assets/prof/Hassan.png';
+import Kobe from '../assets/prof/kobe.png';
+import Luda from '../assets/prof/luda.png';
+import Megan from '../assets/prof/megan.png';
+import Natalie from '../assets/prof/natalie.png';
+import Paul from '../assets/prof/Paul.png';
+import Pauly from '../assets/prof/pauly.png';
+import Queen from '../assets/prof/queen.png';
+import Shakira from '../assets/prof/shakira.png';
+import Vasish from '../assets/prof/Vasish.png';
 
 const allData = [
-  {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23}]},
-  {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21}]},
-  {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20}]},
-  {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22}]},
+  {title: "A", data: [{name: "Alec Baldwin", number: "+17322997997", id: 1, img: Alec},
+  {name: "Andrew Garfield", number: "+17322997997", id: 2, img: Andrew},
+  {name: "Ariana Grande", number: "+17322997997", id: 7, img: Ariana}]},
+  {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23, img: Brandon}]},
+  {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21, img: Hassan}]},
+  {title: "K", data: [{name: "Kobe Bryant", number: "+13109442125", id: 3, img: Kobe}]},
+  {title: "L", data: [{name: "Ludacris", number: "+13109442125", id: 4, img: Luda}]},
+  {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20, img: Paul},
+  {name: "Pauly D", number: "+16502695502", id: 6, img: Pauly}]},
+  {title: "S", data: [{name: "Shakira", number: "+16502695502", id: 5, img: Shakira}]},
+  {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22, img: Vasish}]},
 ]
 
 class InviteFriends extends React.Component {
@@ -22,10 +44,17 @@ class InviteFriends extends React.Component {
     super(props);
     this.state = {
       data: [
-        {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23}]},
-        {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21}]},
-        {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20}]},
-        {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22}]},
+        {title: "A", data: [{name: "Alec Baldwin", number: "+17322997997", id: 1, img: Alec},
+        {name: "Andrew Garfield", number: "+17322997997", id: 2, img: Andrew},
+        {name: "Ariana Grande", number: "+17322997997", id: 7, img: Ariana}]},
+        {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23, img: Brandon}]},
+        {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21, img: Hassan}]},
+        {title: "K", data: [{name: "Kobe Bryant", number: "+13109442125", id: 3, img: Kobe}]},
+        {title: "L", data: [{name: "Ludacris", number: "+13109442125", id: 4, img: Luda}]},
+        {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20, img: Paul},
+        {name: "Pauly D", number: "+16502695502", id: 6, img: Pauly}]},
+        {title: "S", data: [{name: "Shakira", number: "+16502695502", id: 5, img: Shakira}]},
+        {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22, img: Vasish}]},
       ],
       searchVal: '',
       FoF: true
@@ -66,7 +95,7 @@ class InviteFriends extends React.Component {
 
     var cuisinesChosen = [];
     for (var k = 0; k < this.props.eventData.cuisines.length; k++) {
-      cuisinesChosen.push(this.props.eventData.cuisines[k].label)
+      cuisinesChosen.push(this.props.eventData.cuisines[k])
     }
 
     var group_event = {id: Date.now().toString(), title: this.props.eventData.title, dates: dates.toString(), meal_type: this.props.eventData.meal, location: {latitude: this.props.eventData.coords.lat, longitude: this.props.eventData.coords.long}, radius: this.props.eventData.distance, host_id: this.props.user.id, participants_id: participants_id.toString(), restaurant_chosen: false, cuisines: cuisinesChosen.toString()}
@@ -80,11 +109,38 @@ class InviteFriends extends React.Component {
       data: {
         password: '$BIG_SHAQ101$',
         type: 'search',
-        query: `insert into group_event(id, title, dates, meal_type, location, radius, host_id, participants_id, restaurant_chosen, cuisines) values ('${group_event.id}', '${group_event.title}', '${group_event.dates}', '${group_event.meal_type}', '${JSON.stringify(group_event.location)}','${group_event.radius}', ${group_event.host_id},'${group_event.participants_id}', true, '${group_event.cuisines}')`
+        query: `insert into group_event(id, title, dates, meal_type, location, radius, host_id, participants_id, restaurant_chosen, cuisines) values ('${group_event.id}', '${group_event.title}', '${group_event.dates}', '${group_event.meal_type}', '${JSON.stringify(group_event.location)}','${group_event.radius}', ${group_event.host_id},'${group_event.participants_id}', false, '${group_event.cuisines}')`
       }
     })
     .then(response => {
-      console.log(response.data)
+      if (response.data.success) {
+        var participants = '';
+        for (var i = 0; i < participants_id.length; i++) {
+          participants += `(${group_event.id}, ${participants_id[i]}, true, false, ${this.props.user.id}, false, false),`
+        }
+        participants += `(${group_event.id}, ${this.props.user.id}, false, true, ${this.props.user.id}, false, false)`;
+
+        var completeQuery = `insert into participants(group_id, participant_id, pending, accepted, host_id, restaurant_chosen, played) values${participants}`;
+        completeQuery = completeQuery.slice(0, completeQuery.length);
+
+        axios({
+          method: 'POST',
+          url: 'http://localhost:3000/db/101_super_duper_secret_101',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            password: '$BIG_SHAQ101$',
+            type: 'search',
+            query: completeQuery
+          }
+        })
+        .then(resp => {
+          if (resp.data.success) {
+            Alert.alert('Oh yeah!', 'We created the event and sent notifications to your peeps!', {text: 'Ok', onPress: Actions.statuspage()})
+          }
+        })
+      }
     })
     .catch(e => {
       console.log(e);
@@ -106,7 +162,7 @@ class InviteFriends extends React.Component {
               <Image style={styles.group} source={require("../assets/plusMGrey.png")}/>
               <Text style={styles.optionText}>Contacts</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={Actions.eats1multi} style={styles.optionContainer}>
+            <TouchableOpacity onPress={() => this.handleCreate()} style={styles.optionContainer}>
               <Image style={styles.group} source={require("../assets/CubeLogoMGrey.png")}/>
               <Text style={styles.optionText}>Create</Text>
             </TouchableOpacity>
@@ -116,13 +172,10 @@ class InviteFriends extends React.Component {
               <Image style={styles.logoSearch} source={require("../assets/search.png")}/>
               <TextInput style={styles.search} placeholder={'Search'} onChangeText={(searchVal) => {this.search(searchVal)}}/>
             </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.counterText}>10</Text>
-            </View>
           </View>
           <View style={styles.listContainer}>
             <SectionList
-              renderItem={({item}) => <FriendItem title={item.name} number={item.number} id={item.id}/>}
+              renderItem={({item}) => <FriendItem img={item.img} title={item.name} number={item.number} id={item.id}/>}
               renderSectionHeader={({section}) =>
               <View style={styles.sectionHeader}><Text style={styles.sectionText}>{section.title}</Text></View>}
               sections={this.state.data}
@@ -136,6 +189,9 @@ class InviteFriends extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+      eventData: state.form,
+      friends: state.friend,
+      user: state.user
     };
 };
 
@@ -183,7 +239,7 @@ const styles = EStyleSheet.create({
     width: '100%',
   },
   searchContainer: {
-    width: '80%',
+    width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
