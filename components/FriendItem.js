@@ -31,7 +31,7 @@ class FriendItem extends Component{
       return (
         <TouchableOpacity onPress={() => this.uninvite()} style={styles.container}>
           <View style={styles.rowContainer}>
-            <Image source={require('../assets/fb.png')} style={styles.headshot}/>
+            <Image source={this.props.img} style={styles.headshot}/>
             <Text style={styles.name}>{this.props.title}</Text>
           </View>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -45,7 +45,7 @@ class FriendItem extends Component{
       return (
         <TouchableOpacity onPress={() => this.invite()} style={styles.container}>
           <View style={styles.rowContainer}>
-            <Image source={require('../assets/fb.png')} style={styles.headshot}/>
+            <Image source={this.props.img} style={styles.headshot}/>
             <Text style={styles.name}>{this.props.title}</Text>
           </View>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
