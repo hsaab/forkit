@@ -149,28 +149,25 @@ class Eats2Multi extends Component {
 
   imageMatch(cuisineType) {
     switch(cuisineType) {
-      case 'Mexican':
-        var mexImage = require('../assets/taco.png');
-        return mexImage;
+
       case 'Japanese':
         var jap = require('../assets/japanese.png');
-        return jap;
+        return  <Image style={styles.japanese} source={jap}/>;
       case 'American':
         var american = require('../assets/american.png');
-        return american;
+        return  <Image style={styles.american} source={american}/>;
       case 'Italian':
         var italian = require('../assets/italian.png');
-        return italian;
+        return <Image style={styles.italian} source={italian}/>;
       default:
         var mexImage = require('../assets/taco.png');
-        return mexImage;
+        return <Image style={styles.mexican} source={mexImage}/>;
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Navbar/>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/DiscoverEat-2.png")}/>
           <View style={styles.topTile}>
@@ -182,21 +179,22 @@ class Eats2Multi extends Component {
             <Text style={styles.topText}>What type of cuisine?</Text>
           </View>
           <View style={styles.colSubContainer}>
+
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleFirst(ev)}>
               <Text style={styles.optionText}>{this.props.cuisineState.cuisines[0]}</Text>
-              <Image style={styles.mexican} source={this.imageMatch(this.props.cuisineState.cuisines[0])}/>
+              {this.imageMatch(this.props.cuisineState.cuisines[0])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleSecond(ev)}>
               <Text style={styles.optionText}>{this.props.cuisineState.cuisines[1]}</Text>
-              <Image style={styles.japanese} source={this.imageMatch(this.props.cuisineState.cuisines[1])}/>
+              {this.imageMatch(this.props.cuisineState.cuisines[1])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleThird(ev)}>
               <Text style={styles.optionText}>{this.props.cuisineState.cuisines[2]}</Text>
-              <Image style={styles.american} source={this.imageMatch(this.props.cuisineState.cuisines[2])}/>
+              {this.imageMatch(this.props.cuisineState.cuisines[2])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleFourth(ev)}>
               <Text style={styles.optionText}> {this.props.cuisineState.cuisines[3]}</Text>
-              <Image style={styles.italian} source={this.imageMatch(this.props.cuisineState.cuisines[3])}/>
+              {this.imageMatch(this.props.cuisineState.cuisines[3])}
             </TouchableOpacity>
             <TouchableOpacity style={[styles.option, styles.rowSubContainer]} onPress={() => this.handleGamble()}>
               <Text style={styles.gambleText}> Take a Gamble </Text>
@@ -230,16 +228,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   background: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375),
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375)
   },
   topTile: {

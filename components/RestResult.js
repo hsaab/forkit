@@ -81,8 +81,8 @@ class RestResult extends React.Component {
                 <View style={styles.starRating}>
                   <Image style={styles.starMe} source={this.imageMatch(this.props.rating)}/>
                 </View>
-                <Text style={styles.textDetails}>Yelp Reviews: {this.props.reviews}</Text>
-                <Text style={styles.textDetails}>Distance: {(this.props.distance*0.000621371).toPrecision(3)} miles</Text>
+                <Text style={styles.textDetails}>{this.props.reviews} Yelp reviews</Text>
+                <Text style={styles.textDetails}>{(this.props.distance*0.000621371).toPrecision(3)} miles away</Text>
               </View>
               {/* <TouchableOpacity style={styles.eatIcon} onPress={() => this.handleMenu(this.props.name)}>
                 <Image style={styles.menuIcon} source={require("../assets/ForkandKnifeTransparentGrey.png")}/>

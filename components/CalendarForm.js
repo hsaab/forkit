@@ -26,17 +26,18 @@ export default class CalendarForm extends Component{
         this.setState({
           selected: newSelection
         })
+        this.props.fn(newSelection);
       }
 
       if(selectedDate.timestamp < maxDate.timestamp || selDuration > 3 || maxDate === 'none'){
         this.setState({
           selected: [selectedDate]
         })
+        this.props.fn([selectedDate]);
       }
     }
 
     render(){
-      this.props.fn(this.state.selected);
       const start = moment().format("YYYY-MM-DD");
       const end = moment().add(14,'days').format("YYYY-MM-DD");
       const marked = this.state.selected;

@@ -6,7 +6,7 @@ import { scale, verticalScale, moderateScale } from '../scaler.js';
 import moment from 'moment';
 import downIcon from '../assets/fasttrackMGreyDown.png';
 import CalendarForm from '../components/CalendarForm.js';
-import calendarIcon from '../assets/calendarLGreyForm.png';
+import calendarIcon from '../assets/calendarMGrey.png';
 
 class ExpandableDate extends Component{
     constructor(props){

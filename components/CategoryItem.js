@@ -11,23 +11,29 @@ class CategoryItem extends Component{
         };
     }
 
-
     render(){
         return (
-            <View style={styles.container} >
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Image source={require('../assets/DesktopCopy2Black.png')} style={{height: 30, width: 30}}/>
+          <View style={styles.container} >
+            <View style={styles.categoryContainer}>
+              <View style={styles.iconContainer}>
+                <Image source={this.props.img} style={styles.icon}/>
               </View>
-              <View style={{flex: 3, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>Cuisine</Text>
-              </View>
-              <View style={{flex: 3, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>Mexican</Text>
-              </View>
-              <View style={{flex: 3, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>People</Text>
+              <View>
+                <Text style={styles.categoryText}>{this.props.type}</Text>
               </View>
             </View>
+            <View style={styles.winningContainer}>
+              <Text style={styles.winningText}>{this.props.winning}</Text>
+            </View>
+            <View style={styles.respondedContainer}>
+              <View style={styles.guestCircle}>
+                <Image style={styles.headShot} source={require('../assets/profile.png')}/>
+              </View>
+              <View style={styles.guestCircle}>
+                <Image style={styles.headShot} source={require('../assets/profile.png')}/>
+              </View>
+            </View>
+          </View>
         );
     }
 }
@@ -38,9 +44,58 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     flexDirection: 'row',
-    borderColor: 'white',
+    borderBottomColor: '#A2A2A2',
     width: scale(375),
     borderBottomWidth: scale(1),
-
+  },
+  categoryText: {
+    fontFamily: 'Futura',
+    color: '#8D8D8D',
+    fontSize: moderateScale(18)
+  },
+  categoryContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  winningContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  respondedContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  winningText: {
+    fontFamily: 'Futura',
+    color: '#646464',
+    fontSize: moderateScale(18)
+  },
+  headShot: {
+    height: verticalScale(20),
+    width: scale(20)
+  },
+  guestCircle: {
+    height: verticalScale(30),
+    width: scale(30),
+    borderRadius: scale(15),
+    borderColor: 'black',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconContainer: {
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  icon: {
+    height: verticalScale(30),
+    width: scale(30),
+    overflow: 'visible'
   }
 });

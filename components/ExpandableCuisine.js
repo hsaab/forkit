@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Animated, Picker } fro
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
-import cuisineIcon from '../assets/cuisineMGrey.png';
+import cuisineIcon from '../assets/cuisineLGreyForm.png';
 import downIcon from '../assets/fasttrackMGreyDown.png';
 import SelectorCuisine from '../components/SelectorCuisine.js';
 

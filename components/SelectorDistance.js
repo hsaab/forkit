@@ -21,17 +21,18 @@ onClick(value){
       distance: '<1 mile',
       select: 0
     })
+    this.props.setDistance('<1 mile');
   }
   if(value === 1){
     this.setState({
       distance: '1-3 miles',
       select: 1
     })
+    this.props.setDistance('1-3 miles');
   }
 }
 
 render() {
-  this.props.setDistance(this.state.distance);
   const radio_props = [
   {label: '<1 mile', value: 0 },
   {label: '1-3 miles', value: 1 },
