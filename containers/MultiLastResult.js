@@ -14,7 +14,7 @@ import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
 import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
 import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
 
-class SingleResult extends Component {
+class MultiLastResult extends Component {
   imageMatch(rating) {
     switch(rating) {
       case (4 || 4.1 || 4.2 || 4.3 || 4.4):
@@ -76,8 +76,6 @@ class SingleResult extends Component {
   }
 
   render() {
-    console.log(this.props.single.singleResult.coordinates);
-    console.log(this.props.location);
     return (
       <View style={styles.container}>
         <View style={styles.background}>
@@ -86,20 +84,20 @@ class SingleResult extends Component {
             <TouchableOpacity onPress={Actions.listresults}><Text style={styles.backText}>-Back-</Text></TouchableOpacity>
           </View>
           <View style={styles.nameContainer}>
-            <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
+            <Text style={styles.nameText}>{this.props.singleResult.name}</Text>
           </View>
           <View style={styles.detailsContainer}>
             <View style={styles.left}>
-              <Text style={styles.textStyle}>{this.props.single.singleResult.categories[0].title}</Text>
+              <Text style={styles.textStyle}>American, Burgers PL</Text>
               <Image style={styles.starMe} source={this.imageMatch(this.props.single.singleResult.rating)}/>
-                <Text style={styles.detailText}>{this.props.single.singleResult.review_count} Yelp reviews</Text>
-                <Text style={styles.detailText}>{(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
+                <Text style={styles.textStyle}>1,000 reviews PL</Text>
+                <Text style={styles.textStyle}> {(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
             </View>
           </View>
           <View style={styles.actionBar}>
             <View style={styles.leftAction}>
               <TouchableOpacity style={styles.call} onPress={() => Communications.phonecall(this.props.single.singleResult.display_phone, true)}>
-                <Image style={styles.phoneIcon} source={require("../assets/phone.png")}/>
+                <Text style={styles.phoneIcon}>{this.props.single.singleResult.display_phone}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.yelp} onPress={Actions.yelp}>
                 <Image style={styles.yelpIcon} source={require("../assets/yelp.jpg")}/>
@@ -110,12 +108,12 @@ class SingleResult extends Component {
             </View>
             <View style={styles.rightAction}>
               <View style={styles.star}>
-                <Image style={styles.starIcon} source={require('../assets/stariconMGrey.png')}/>
+                <Text>STAR</Text>
               </View>
             </View>
           </View>
           <View style={styles.address}>
-            <Text style={styles.addressText}>{this.props.single.singleResult.location.address1}, {this.props.single.singleResult.location.city}, {this.props.single.singleResult.location.state}, {this.props.single.singleResult.location.zip_code}</Text>
+            <Text style={styles.addressText}>{this.props.singleResult.location.address1}, {this.props.singleResult.location.city}, {this.props.singleResult.location.state}, {this.props.singleResult.location.zip_code}</Text>
           </View>
           <View style={styles.mapContainer}>
             <MapView
@@ -128,8 +126,8 @@ class SingleResult extends Component {
               }}>
               <MapView.Marker
                  coordinate={{
-                   latitude: this.props.single.singleResult.coordinates.latitude,
-                   longitude: this.props.single.singleResult.coordinates.longitude
+                   latitude: this.props.singleResult.coordinates.latitude,
+                   longitude: this.props.singleResult.coordinates.longitude
                  }}
                  pinColor={'#008000'}
                  />
@@ -153,7 +151,7 @@ class SingleResult extends Component {
   }
 }
 
-SingleResult.propTypes = {
+MultiLastResult.propTypes = {
   openTable: PropTypes.func
 };
 
@@ -211,7 +209,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: scale(375),
     paddingLeft: scale(15),
-    bottom: verticalScale(5),
     alignItems: 'flex-start'
   },
   forkContainer: {
@@ -283,18 +280,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Futura',
     color: '#646464'
   },
-  detailText: {
-    fontSize: moderateScale(16),
-    fontFamily: 'Futura',
-    color: '#646464'
-  },
   backText: {
     fontFamily: 'Futura',
     color: '#646464',
     fontSize: moderateScale(18)
   },
   nameText: {
-    fontSize: moderateScale(25),
+    fontSize: moderateScale(30),
     fontFamily: 'Futura',
     color: '#646464',
   },
@@ -350,15 +342,10 @@ const styles = StyleSheet.create({
     width: scale(120),
     height: verticalScale(20),
     overflow: 'visible'
-  },
-  starIcon: {
-    width: scale(40),
-    height: verticalScale(40),
-    overflow: 'visible'
   }
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SingleResult);
+)(MultiLastResult);

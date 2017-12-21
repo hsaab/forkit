@@ -39,10 +39,10 @@ class MyEvents extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen&conditions=participant_id='${this.props.user.id}'`)
+    var url = `http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen&conditions=participant_id='${this.props.user.id}'`
+    axios.get(url)
     .then(response => {
-      // console.log(response)
-      if (response.data.result.length > 1) {
+      if (response.data.result.length > 0) {
         var params = '';
         for (var i = 0; i < response.data.result.length; i++) {
           if (!response.data.result[i].pending && response.data.result[i].accepted) {
@@ -55,14 +55,12 @@ class MyEvents extends React.Component {
         }
         params = params.slice(0, params.length - 4);
         if (params.length >= 1) {
-          var url = `http://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=group_event&fields=id,title,dates,meal_type,location,radius,cuisines,host_id,participants_id,restaurant_chosen,yelp_id&conditions=${params}`;
-
+          var url = `http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=group_event&fields=id,title,dates,meal_type,location,radius,cuisines,host_id,participants_id,restaurant_chosen,yelp_id&conditions=${params}`;
           axios.get(url)
-          .then((resp) => {
-            // console.log('THIS IS HAPPEDNING IN CDIDMOUNT IN MYEVENTS.JS', resp.data.result)
+          .then(resp => {
             this.setState({
               results: resp.data.result
-            });
+            })
           })
         }
       }

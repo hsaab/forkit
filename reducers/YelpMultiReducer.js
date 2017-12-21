@@ -2,7 +2,7 @@ let initialState = {
   "price": "",
   "ethnic": "",
   "date": "",
-  "time": "",
+  "time": "5:30",
 }
 
 const YelpMultiReducer = (state = initialState, action) => {
@@ -20,12 +20,12 @@ const YelpMultiReducer = (state = initialState, action) => {
     case 'DATE_CHOICE_MULTI':
       const dateState = Object.assign({}, state);
       dateState.date = action.date;
-      // console.log(dateState);
+      console.log('YELP MULTI REDUCER ', dateState);
       return dateState;
     case 'TIME_CHOICE_MULTI':
       const timeState = Object.assign({}, state);
       timeState.time = action.time;
-      // console.log(timeState);
+      console.log('TIME CHOICE MULTI REDUCER ', timeState);
       return timeState;
     default:
       return state

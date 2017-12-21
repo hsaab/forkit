@@ -19,6 +19,10 @@ class Login extends React.Component{
   }
 
   async componentWillMount() {
+    AsyncStorage.setItem('email', JSON.stringify({
+      email: 'jin.paul7@gmail.com',
+      type: 'regular'
+      }));
     let emailObj = await AsyncStorage.getItem('email');
     let email = JSON.parse(emailObj);
     var userObj = {};
