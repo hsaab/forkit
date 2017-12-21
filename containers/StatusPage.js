@@ -9,15 +9,39 @@ import CategoryItem from '../components/CategoryItem.js';
 import axios from 'axios';
 import dollarIcon from '../assets/dollarsignsGrey.png';
 import timeIcon from '../assets/timeMGrey.png';
-import calIcon from '../assets/calendarMGrey.png';
-import cusIcon from '../assets/cuisineMGrey.png';
+import calIcon from '../assets/calendarMGray.png';
+import cusIcon from '../assets/cuisineMGray.png';
+import Fifty from '../assets/prof/50.png';
+import Alec from '../assets/prof/alec.png';
+import Andrew from '../assets/prof/andrew.png';
+import Ariana from '../assets/prof/ariana.png';
+import Brandon from '../assets/prof/Brandon.png';
+import Hassan from '../assets/prof/Hassan.png';
+import Kobe from '../assets/prof/kobe.png';
+import Luda from '../assets/prof/lunda.png';
+import Megan from '../assets/prof/megan.png';
+import Natalie from '../assets/prof/natalie.png';
+import Paul from '../assets/prof/Paul.png';
+import Pauly from '../assets/prof/pauly.png';
+import Queen from '../assets/prof/queen.png';
+import Shakira from '../assets/prof/shakira.png';
+import Vasish from '../assets/prof/Vasish.png';
 
 class StatusPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      text: ''
+      text: 'See Result!',
+      status: 'Closed!',
+      result: {
+        title: 'I believe in Santa',
+        dates: 'Dec 24 at 11:59PM',
+        day: 'Sunday',
+        meal_type: 'Midnight Snack',
+        guests: [Pauly, Alec]
+      },
+      host: {name: 'Fifty', pic: Fifty}
     };
   }
 
@@ -67,24 +91,24 @@ class StatusPage extends Component {
         <Image style={styles.backgroundColor} source={require("../assets/MultiFormL.png")}/>
         <View style={styles.background}>
           <View style={styles.currentContainer}>
-            <Text style={styles.statusText}>Game Closed!</Text>
+            <Text style={styles.statusText}>Game {this.state.status}</Text>
           </View>
           <View style={styles.detailsContainer}>
             <View style={styles.detailsLeft}>
-              <Text style={styles.title}>{this.props.status.title}</Text>
-              <Text style={styles.lightFont}>NEED RESTAURANT OR UPDATE</Text>
-              <Text style={styles.lightFont}>{this.props.status.dates}</Text>
+              <Text style={styles.title}>{this.state.result.title}</Text>
+              <Text style={styles.lightFont}>{this.state.result.meal_type}</Text>
+              <Text style={styles.lightFont}>{this.state.result.dates}</Text>
             </View>
             <View style={styles.detailsRight}>
               <View style={styles.hostContainer}>
                 <Text style={styles.lightFont}>H</Text>
                 <View style={styles.hostCircle}>
-                  <Image style={styles.headShot} source={require('../assets/profile.png')}/>
+                  <Image style={styles.headShot} source={this.state.host.pic}/>
                 </View>
-                <Text style={styles.hostName}>NAME</Text>
+                <Text style={styles.hostName}>{this.state.host.name}</Text>
               </View>
               <View style={styles.inviteContainer}>
-                <Text style={styles.hostName}>invited 4</Text>
+                <Text style={styles.hostName}>invited {this.state.result.guests.length}</Text>
                 <Image style={styles.addIcon} source={require("../assets/add2Grey.png")}/>
               </View>
             </View>
@@ -93,18 +117,17 @@ class StatusPage extends Component {
             <View style={styles.guestsContainer}>
               <Text style={styles.guestTitle}>Guests</Text>
               <View style={styles.guestsBar}>
-                <View style={styles.guestCircle}>
-                  <Image style={styles.headShot} source={require('../assets/profile.png')}/>
-                </View>
-                <View style={styles.guestCircle}>
-                  <Image style={styles.headShot} source={require('../assets/profile.png')}/>
-                </View>
+                {this.state.result.guests.map((guest)=>
+                  <View style={styles.guestCircle}>
+                    <Image style={styles.headShot} source={guest}/>
+                  </View>
+                )}
               </View>
             </View>
             <TouchableOpacity style={styles.resultContainer} onPress={() => this.handleButton()}>
               <LinearGradient colors={['#F63535', 'rgba(246, 53, 53, 0.75)', 'rgba(255, 27, 0, 0.75)', '#FF7F00']}
                 style={styles.resultButton} location={[0.8, 0.66, 0.4, 0.2]}>
-                <Text style={{fontFamily: 'Futura', color: 'white', fontSize: moderateScale(20)}}>{this.state.text}</Text>
+                <Text style={{fontFamily: 'Futura', color: 'white', fontSize: moderateScale(20), backgroundColor: 'transparent'}}>{this.state.text}</Text>
               </LinearGradient>
               {/* <LinearGradient colors={['#303F4C', '#3B4955', '#AFAFAF']}
                 style={styles.resultButton} location={[0.3, 0.4, 1]}>
@@ -119,10 +142,10 @@ class StatusPage extends Component {
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}><Text style={styles.headerText}>Responded</Text></View>
             </View>
             <View style={{flex: 8}}>
-              <CategoryItem type={'Price'} img={dollarIcon} winning={'$$'}/>
-              <CategoryItem type={'Cuisine'} img={cusIcon} winning={'Mexican'}/>
-              <CategoryItem type={'Date'} img={calIcon} winning={'Friday'}/>
-              <CategoryItem type={'Time'} img={timeIcon} winning={'7 PM'}/>
+              <CategoryItem type={'Price'} img={dollarIcon} winning={'$$'} responded={[Pauly, Alec]}/>
+              <CategoryItem type={'Cuisine'} img={cusIcon} winning={'Mexican'} responded={[Pauly, Alec]}/>
+              <CategoryItem type={'Date'} img={calIcon} winning={'Sunday'} responded={[Pauly, Alec]}/>
+              <CategoryItem type={'Time'} img={timeIcon} winning={'11:59PM'} responded={[Pauly, Alec]}/>
             </View>
           </View>
         </View>
@@ -196,21 +219,21 @@ const styles = StyleSheet.create({
     height: verticalScale(50),
     width: scale(50),
     borderRadius: scale(25),
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   headShot: {
-    height: verticalScale(20),
-    width: scale(20)
+    height: verticalScale(40),
+    width: scale(40)
   },
   guestCircle: {
     height: verticalScale(40),
     width: scale(40),
     borderRadius: scale(20),
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     margin: scale(5)

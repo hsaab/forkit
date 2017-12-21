@@ -19,13 +19,17 @@ class Login extends React.Component{
   }
 
   async componentWillMount() {
+    AsyncStorage.setItem('email', JSON.stringify({
+     email: 'bjeng3@gmail.com',
+     type: 'regular'
+     }));
     let emailObj = await AsyncStorage.getItem('email');
     let email = JSON.parse(emailObj);
     var userObj = {};
     console.log(email);
     if (email) {
       if (email.type === 'regular') {
-        axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=users&fields=id,token,email,firstname,lastname,friends,forks,wishlist,os,number&conditions=email='${email.email}'`)
+        axios.get(`https://guarded-dawn-44803.herokuapp.com/db/search?password=$BIG_SHAQ103$&tableName=users&fields=id,token,email,firstname,lastname,friends,forks,wishlist,os,number&conditions=email='${email.email}'`)
         .then(resp => {
           if (resp.data) {
             if (bcrypt.compareSync(email.email, resp.data.result[0].token)) {

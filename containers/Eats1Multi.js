@@ -32,6 +32,13 @@ class Eats1Multi extends Component {
     Actions.eats2multi();
   }
 
+  handleMid(ev) {
+    ev.preventDefault();
+    this.props.handlePrice("2,3");
+    clearInterval(this.state.interval);
+    Actions.eats2multi();
+  }
+
   handleGamble() {
     let price = 0;
     let random = Math.random() * 2;
@@ -87,7 +94,7 @@ class Eats1Multi extends Component {
                 <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.option}>
+            <TouchableOpacity style={styles.option} onPress={(ev) => this.handleMid(ev)}>
               <View style={styles.dollarCols}>
                 <View style={styles.rowSubContainer}>
                   <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
