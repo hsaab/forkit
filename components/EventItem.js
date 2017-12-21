@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import RightButton from '../assets/fasttrackGrey.png';
+import axios from 'axios';
 
 class EventItem extends Component{
     constructor(props){
@@ -13,30 +14,39 @@ class EventItem extends Component{
         };
     }
 
-    componentWillMount() {
-      if (this.props.data === undefined) {
-        this.setState({
-          show: false
-        })
-      } else {
-        this.props.sendStatus(this.props.data);
-      }
-    }
-
     handleClick() {
-      this.props.clickedStatus(this.props.data);
+        axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen,played&conditions=participant_id='${this.props.user.id}' and group_id='${this.props.data.id}'`)
+        .then((response) => {
+            var toAdd = '';
+            if (response.data.result[0].restaurant_chosen) {
+              toAdd = 'Result'
+            } else if (response.data.result[0].played === false) {
+              toAdd = 'Play'
+            } else {
+              toAdd = 'Pending'
+            }
+            var newObj = Object.assign({}, this.props.data)
+            newObj.type = toAdd;
+            this.props.clickedStatus(newObj);
+        })
+        .catch((err) => {
+          console.log('Event Notification error is ', err);
+        })
       Actions.statuspage();
     }
 
     showEvent() {
+      console.log(this.props.data, '********')
       return (
         <View style={styles.container}>
           <TouchableOpacity style={styles.background} onPress={() => this.handleClick()}>
             <View style={styles.mealContainer}>
-              <Text style={styles.titleText}>{this.props.data.title}</Text>
+              <Text style={styles.subtitleText}>{this.props.data.meal_type}</Text>
               <View style={styles.rowContainer}>
                 <View style={styles.colContainer}>
                   <Text style={styles.detailText}>{this.props.data.dates}</Text>
+                  {/* really here we would take the day pass it into moment rather than getting it from props  */}
+                  <Text style={styles.detailText}>{this.props.data.day}</Text>
                 </View>
                 <View style={styles.rowPicContainer}>
                   <View style={styles.hostContainer}>
@@ -47,21 +57,17 @@ class EventItem extends Component{
                   </View>
                   <View style={styles.guestContainer}>
                     <Text style={styles.guestText}>G</Text>
-                    <View style={styles.circle}>
-                      <Image style={styles.headShot} source={this.props.host}/>
-                    </View>
-                    <View style={styles.circle}>
-                      <Image style={styles.headShot} source={this.props.host}/>
-                    </View>
-                    <View style={styles.circle}>
-                      <Image style={styles.headShot} source={this.props.host}/>
-                    </View>
+                    {this.props.data.guests.map((result) =>
+                      <View style={styles.circle}>
+                        <Image style={styles.headShot} source={result}/>
+                      </View>
+                    )}
                   </View>
                 </View>
               </View>
             </View>
             <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>Let's Turn Up Peeps</Text>
+              <Text style={styles.titleText}>{this.props.data.title}</Text>
               <Image style={styles.rightButton} source={RightButton}/>
             </View>
           </TouchableOpacity>
@@ -89,12 +95,12 @@ EventItem.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+      user: state.user,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      sendStatus: (status) => dispatch({type: 'SEND_STATUS', status: status}),
       clickedStatus: (clicked) => dispatch({type: 'CLICKED', clicked: clicked})
     };
 };
@@ -123,6 +129,11 @@ var styles = StyleSheet.create({
     left: scale(8)
   },
   titleText: {
+    color: '#646464',
+    fontSize: moderateScale(20),
+    fontFamily: 'Futura',
+  },
+  subtitleText: {
     color: '#646464',
     fontSize: moderateScale(18),
     fontFamily: 'Futura',
@@ -163,14 +174,14 @@ var styles = StyleSheet.create({
     height: verticalScale(30),
     width: scale(30),
     borderRadius: scale(30/2),
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   headShot: {
-    height: verticalScale(20),
-    width: scale(20)
+    height: verticalScale(30),
+    width: scale(30)
   },
   guestContainer: {
     alignItems: 'center',

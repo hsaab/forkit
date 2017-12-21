@@ -9,12 +9,29 @@ import MyEventBar from '../components/MyEventBar.js';
 import Calendar from '../components/Calendar.js';
 import ProfPic from '../assets/profile.png';
 import axios from 'axios';
+import Fifty from '../assets/prof/50.png';
+import Alec from '../assets/prof/alec.png';
+import Andrew from '../assets/prof/andrew.png';
+import Ariana from '../assets/prof/ariana.png';
+import Brandon from '../assets/prof/Brandon.png';
+import Hassan from '../assets/prof/Hassan.png';
+import Kobe from '../assets/prof/kobe.png';
+import Luda from '../assets/prof/lunda.png';
+import Megan from '../assets/prof/megan.png';
+import Natalie from '../assets/prof/natalie.png';
+import Paul from '../assets/prof/Paul.png';
+import Pauly from '../assets/prof/pauly.png';
+import Queen from '../assets/prof/queen.png';
+import Shakira from '../assets/prof/shakira.png';
+import Vasish from '../assets/prof/Vasish.png';
 
 class MyEvents3 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: []
+      results: [
+        {title:"The morning after", day:'Tuesday', dates: 'Dec 26 at 10:00AM', meal_type: 'Brunch', guests:[Luda, Shakira], host: Hassan}
+      ]
     }
   }
   componentWillMount() {
@@ -62,7 +79,7 @@ class MyEvents3 extends React.Component {
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionText}>This Week</Text>
               </View>
-              {this.state.results.map((result, index) => <EventNotification key={index} data={result} user={this.props.user.id}/>)}
+              {this.state.results.map((result, index) => <EventNotification key={index} data={result} host={result.host} user={this.props.user.id}/>)}
             </View>
           </ScrollView>
         </View>
