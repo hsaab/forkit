@@ -16,7 +16,7 @@ import Ariana from '../assets/prof/ariana.png';
 import Brandon from '../assets/prof/Brandon.png';
 import Hassan from '../assets/prof/Hassan.png';
 import Kobe from '../assets/prof/kobe.png';
-import Luda from '../assets/prof/lunda.png';
+import Luda from '../assets/prof/luda.png';
 import Megan from '../assets/prof/megan.png';
 import Natalie from '../assets/prof/natalie.png';
 import Paul from '../assets/prof/Paul.png';

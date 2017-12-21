@@ -21,23 +21,25 @@ onClick(value){
       meal: 'Brunch',
       select: 0
     });
+    this.props.fn('Brunch');
   }
   if(value === 1){
     this.setState({
       meal: 'Lunch',
       select: 1
     });
+    this.props.fn('Lunch');
   }
   if(value === 2){
     this.setState({
       meal: 'Dinner',
       select: 2
     });
+    this.props.fn('Dinner');
   }
 }
 
 render() {
-  this.props.fn(this.state.meal);
   const radio_props = [
   {label: 'Brunch', value: 0 },
   {label: 'Lunch', value: 1 },

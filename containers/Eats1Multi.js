@@ -53,7 +53,6 @@ class Eats1Multi extends Component {
   }
 
   update() {
-    // YOUR CODE HERE
     if(this.state.secondsLeft === 0) {
       this.handleGamble()
     }
@@ -105,7 +104,7 @@ class Eats1Multi extends Component {
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleHigh(ev)}>
               <View style={styles.dollarCols}>
-                <View style={styles.rowSubContainer}>
+                <View style={styles.rowSubContainer3}>
                   <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
                   <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
                   <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
@@ -172,6 +171,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  rowSubContainer3: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: scale(15)
   },
   colSubContainer: {
     flexDirection: 'column',

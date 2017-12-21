@@ -10,8 +10,11 @@ import Login from './containers/Login.js';
 import Register from './containers/Register.js';
 import DiscoverHome from './containers/DiscoverHome.js';
 import Eats1 from './containers/Eats1.js';
+import Eats1Multi from './containers/Eats1Multi.js';
 import Eats2 from './containers/Eats2.js';
+import Eats2Multi from './containers/Eats2Multi.js';
 import Eats3 from './containers/Eats3.js';
+import Eats4 from './containers/Eats4.js';
 import Algo from './containers/Algo.js';
 import ListResults from './containers/ListResults.js';
 import ListMap from './containers/ListMap.js';
@@ -40,9 +43,8 @@ import MyEvents3 from './containers/MyEvents3.js';
 import verifyNumber from './containers/verifyNumber.js';
 import MinibarResults from './components/MinibarResults.js';
 import FormBar from './components/FormBar.js';
-import Eats1Multi from './containers/Eats1Multi.js';
-import Eats2Multi from './containers/Eats2Multi.js';
-import Eats4 from './containers/Eats4.js';
+import Newsfeed from './containers/Newsfeed.js';
+import Search from './containers/Search.js';
 
 EStyleSheet.build();
 
@@ -67,6 +69,7 @@ const Scenes = Actions.create(
             <Scene key='vnumber' component={verifyNumber} hideNavBar={true} hideTabBar={true}/>
             <Scene key="root2" tabs={true} lazy={true} animationEnabled={false} tabBarComponent={Tabbar}>
               <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>
+              <Scene key="newsfeed" component={Newsfeed} hideNavBar={true}/>
               <Scene key="singleresult" component={SingleResult} hideNavBar={true}/>
               <Scene key="profile" component={Profile} hideNavBar={true}/>
               <Scene key="preferences" component={Preferences} hideNavBar={true}/>
@@ -83,6 +86,7 @@ const Scenes = Actions.create(
               <Scene key="myevents" component={MyEvents} hideNavBar={true}/>
               <Scene key="myevents2" component={MyEvents2} hideNavBar={true}/>
               <Scene key="myevents3" component={MyEvents3} hideNavBar={true}/>
+              <Scene key="search" component={MyEvents3} hideNavBar={true}/>
             </Scene>
           </Scene>
           <Scene key="resultlightbox" component={ResultLightbox} hideNavBar={true}/>

@@ -17,14 +17,12 @@ class DiscoverHome extends Component {
       // navigator.geolocation.getCurrentPosition());
       let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
       this.props.locationFetch(location.coords);
-      console.log(this.props.locationInfo);
       let coords = {latitude: location.coords.latitude, longitude: location.coords.longitude};
       axios.get(`https://guarded-dawn-44803.herokuapp.com/yelp/initialfetch?latitude=${coords.latitude}&longitude=${coords.longitude}&radius=1000`)
       .then((resp) => {
-        console.log(resp.data);
         let cuisines = {cuisines: resp.data};
+        console.log('THIS ARE THE CUISINES', cuisines);
         this.props.initialYelp(cuisines);
-        // console.log(this.props.searchArea);
         Actions.eats1();
       })
       .catch((err) => console.log('Initial yelp error', err));
@@ -92,7 +90,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
       locationFetch: (location) => dispatch({type: 'YOU_HERE', location: location}),
-      initialYelp: (area) => dispatch({type: 'INITIAL_YELP', area: area})
+      initialYelp: (area) => dispatch({type: 'INITIAL_YELP', area: area}),
+      initialYelpMulti: (area) => dispatch({type: 'INITIAL_YELP_MULTI', area: area})
     };
 };
 
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(80),
     fontFamily: 'Futura',
     color: 'white',
-    margin: 10
+    margin: moderateScale(10)
   },
   playButton: {
     width: scale(327),
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   playText: {
-    fontSize: moderateScale(30),
+    fontSize: moderateScale(35),
     fontFamily: 'Futura',
     color: 'white',
   },
@@ -157,18 +156,18 @@ const styles = StyleSheet.create({
     overflow: 'visible'
   },
   statusIcon: {
-    height: verticalScale(80),
-    width: scale(80),
+    height: verticalScale(60),
+    width: scale(60),
     overflow: 'visible'
   },
   multiIcon: {
-    height: verticalScale(70),
-    width: scale(85),
+    height: verticalScale(60),
+    width: scale(60),
     overflow: 'visible'
   },
   singleIcon: {
-    height: verticalScale(60),
-    width: scale(50),
+    height: verticalScale(30),
+    width: scale(30),
     overflow: 'visible'
   }
 });

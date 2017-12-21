@@ -66,7 +66,7 @@ export default class Tabbar extends React.Component {
           alignItems: 'center',
           justifyContent: 'center'
           }}
-          onPress={() => this.selectNewsfeed(Actions.resultlightbox)}>
+          onPress={() => this.selectNewsfeed(Actions.newsfeed)}>
           <Image style={styles.logoNewsfeed} source={require("../assets/newsfeed.png")}/>
         </TouchableOpacity>
         <TouchableOpacity style={{
