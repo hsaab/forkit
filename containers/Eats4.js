@@ -23,7 +23,7 @@ const Eats4 = ({dates, meal, setDate, setTime}) => {
               <SelectorTime meal={meal} fn={setTime}/>
             </View>
           </View>
-          <TouchableOpacity style={styles.next} onPress={Actions.statuspage}>
+          <TouchableOpacity style={styles.next} onPress={Actions.statuspagehard}>
             <Text style={styles.nextText}>SUBMIT</Text>
           </TouchableOpacity>
         </View>

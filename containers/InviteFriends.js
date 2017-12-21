@@ -83,41 +83,41 @@ class InviteFriends extends React.Component {
   }
 
   handleCreate() {
-    var dates = [];
-    for (var i = 0; i < this.props.eventData.dates.length; i++) {
-      dates.push(this.props.eventData.dates[i].dateString)
-    }
-
-    var participants_id = [];
-    for (var j = 0; j < this.props.friends.friends.length; j++) {
-      participants_id.push(this.props.friends.friends[j].id)
-    }
-
-    var cuisinesChosen = [];
-    for (var k = 0; k < this.props.eventData.cuisines.length; k++) {
-      cuisinesChosen.push(this.props.eventData.cuisines[k].label)
-    }
-
-    var group_event = {id: Date.now().toString(), title: this.props.eventData.title, dates: dates.toString(), meal_type: this.props.eventData.meal, location: {latitude: this.props.eventData.coords.lat, longitude: this.props.eventData.coords.long}, radius: this.props.eventData.distance, host_id: this.props.user.id, participants_id: participants_id.toString(), restaurant_chosen: false, cuisines: cuisinesChosen.toString()}
-
-    axios({
-      method: 'POST',
-      url: 'http://localhost:3000/db/101_super_duper_secret_101',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        password: '$BIG_SHAQ101$',
-        type: 'search',
-        query: `insert into group_event(id, title, dates, meal_type, location, radius, host_id, participants_id, restaurant_chosen, cuisines) values ('${group_event.id}', '${group_event.title}', '${group_event.dates}', '${group_event.meal_type}', '${JSON.stringify(group_event.location)}','${group_event.radius}', ${group_event.host_id},'${group_event.participants_id}', true, '${group_event.cuisines}')`
-      }
-    })
-    .then(response => {
-      console.log(response.data)
-    })
-    .catch(e => {
-      console.log(e);
-    })
+    // var dates = [];
+    // for (var i = 0; i < this.props.eventData.dates.length; i++) {
+    //   dates.push(this.props.eventData.dates[i].dateString)
+    // }
+    //
+    // var participants_id = [];
+    // for (var j = 0; j < this.props.friends.friends.length; j++) {
+    //   participants_id.push(this.props.friends.friends[j].id)
+    // }
+    //
+    // var cuisinesChosen = [];
+    // for (var k = 0; k < this.props.eventData.cuisines.length; k++) {
+    //   cuisinesChosen.push(this.props.eventData.cuisines[k].label)
+    // }
+    //
+    // var group_event = {id: Date.now().toString(), title: this.props.eventData.title, dates: dates.toString(), meal_type: this.props.eventData.meal, location: {latitude: this.props.eventData.coords.lat, longitude: this.props.eventData.coords.long}, radius: this.props.eventData.distance, host_id: this.props.user.id, participants_id: participants_id.toString(), restaurant_chosen: false, cuisines: cuisinesChosen.toString()}
+    //
+    // axios({
+    //   method: 'POST',
+    //   url: 'http://localhost:3000/db/101_super_duper_secret_101',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   data: {
+    //     password: '$BIG_SHAQ101$',
+    //     type: 'search',
+    //     query: `insert into group_event(id, title, dates, meal_type, location, radius, host_id, participants_id, restaurant_chosen, cuisines) values ('${group_event.id}', '${group_event.title}', '${group_event.dates}', '${group_event.meal_type}', '${JSON.stringify(group_event.location)}','${group_event.radius}', ${group_event.host_id},'${group_event.participants_id}', true, '${group_event.cuisines}')`
+    //   }
+    // })
+    // .then(response => {
+    //   console.log(response.data)
+    // })
+    // .catch(e => {
+    //   console.log(e);
+    // })
   }
 
   render() {
@@ -135,7 +135,7 @@ class InviteFriends extends React.Component {
               <Image style={styles.group} source={require("../assets/plusMGrey.png")}/>
               <Text style={styles.optionText}>Contacts</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={Actions.eats1multi} style={styles.optionContainer}>
+            <TouchableOpacity onPress={Actions.myevents} style={styles.optionContainer}>
               <Image style={styles.group} source={require("../assets/CubeLogoMGrey.png")}/>
               <Text style={styles.optionText}>Create</Text>
             </TouchableOpacity>

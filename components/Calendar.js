@@ -12,7 +12,7 @@ export default class Calendar extends React.Component {
   render() {
     const startDate = moment();
     const endDate = moment().add(14,'days');
-    const events = [true,false,true,false,false,false,true,false,true,false,false,false,false,true];
+    const events = [false,false,false,false,false,false,false,false,false,false,false,false,false,false];
     let customDatesStyles = [];
     for (let i = 0; i < 13; i++) {
       let backColor = events[i] ? '#FF7F00' : null

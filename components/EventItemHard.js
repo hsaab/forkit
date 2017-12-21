@@ -20,6 +20,7 @@ import Pauly from '../assets/prof/pauly.png';
 import Queen from '../assets/prof/queen.png';
 import Shakira from '../assets/prof/shakira.png';
 import Vasish from '../assets/prof/Vasish.png';
+import moment from 'moment';
 
 class EventItem extends Component{
     constructor(props){
@@ -52,16 +53,23 @@ class EventItem extends Component{
 
     showEvent() {
       let guestValidator = typeof(this.props.data.guests) !== 'undefined';
+      // console.log(this.props.data)
+      // let day = moment(this.props.data.day);
+      // let date = moment(this.props.data.dates[0])
+      // console.log(day);
+      console.log(this.props.form, this.props.multi)
+      let date = moment(this.props.multi.date).format('ddd') === 'Invalid date' ? 'Date TBD!': moment(this.props.multi.date).format('ddd');
+      let day = moment(this.props.multi.date).format('ddd') === 'Invalid date' ? null : moment(this.props.multi.date).format('ddd');
       return (
         <View style={styles.container}>
-          <TouchableOpacity style={styles.background}>
+          <TouchableOpacity style={styles.background} onPress={Actions.statuspagehard}>
             <View style={styles.mealContainer}>
-              <Text style={styles.subtitleText}>{this.props.data.meal_type}</Text>
+              <Text style={styles.subtitleText}>{this.props.form.meal}</Text>
               <View style={styles.rowContainer}>
                 <View style={styles.colContainer}>
-                  <Text style={styles.detailText}>{this.props.data.dates}</Text>
+                  <Text style={styles.detailText}>{date}</Text>
                   {/* really here we would take the day pass it into moment rather than getting it from props  */}
-                  <Text style={styles.detailText}>{this.props.data.day}</Text>
+                  <Text style={styles.detailText}>{day}</Text>
                 </View>
                 <View style={styles.rowPicContainer}>
                   <View style={styles.hostContainer}>
@@ -86,7 +94,7 @@ class EventItem extends Component{
               </View>
             </View>
             <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>{this.props.data.title}</Text>
+              <Text style={styles.titleText}>{this.props.form.title}</Text>
               <Image style={styles.rightButton} source={RightButton}/>
             </View>
           </TouchableOpacity>
@@ -115,6 +123,8 @@ EventItem.propTypes = {
 const mapStateToProps = (state) => {
     return {
       user: state.user,
+      form: state.form,
+      multi: state.yelpMulti
     };
 };
 

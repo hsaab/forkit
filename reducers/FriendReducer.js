@@ -7,6 +7,7 @@ const FriendReducer = (state = initialState, action) => {
     case 'INVITE_FRIEND':
       const friendState = Object.assign({}, state);
       friendState.friends = friendState.friends.concat(action.friend);
+      console.log(friendState);
       return friendState;
     case 'UNINVITE_FRIEND':
       const uninviteFriendState = Object.assign({}, state);
