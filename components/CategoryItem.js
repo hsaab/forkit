@@ -87,10 +87,6 @@ var styles = StyleSheet.create({
     color: '#646464',
     fontSize: moderateScale(18)
   },
-  headShot: {
-    height: verticalScale(20),
-    width: scale(20)
-  },
   guestCircle: {
     height: verticalScale(30),
     width: scale(30),
