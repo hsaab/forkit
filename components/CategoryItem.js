@@ -16,16 +16,20 @@ class CategoryItem extends Component{
         return (
             <View style={styles.container} >
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Image source={require('../assets/DesktopCopy2Black.png')} style={{height: 30, width: 30}}/>
+                <Image source={this.props.img} style={{height: 30, width: 30}}/>
               </View>
               <View style={{flex: 3, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>Cuisine</Text>
+                <Text>{this.props.type}</Text>
               </View>
               <View style={{flex: 3, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>Mexican</Text>
+                <Text>{this.props.winning}</Text>
               </View>
-              <View style={{flex: 3, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>People</Text>
+              <View style={{flex: 3, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                {this.props.responded.map((result) =>
+                  <View style={styles.circle}>
+                    <Image style={styles.headShot} source={result}/>
+                  </View>
+                )}
               </View>
             </View>
         );
@@ -41,6 +45,18 @@ var styles = StyleSheet.create({
     borderColor: 'white',
     width: scale(375),
     borderBottomWidth: scale(1),
-
-  }
+  },
+  circle: {
+    height: verticalScale(30),
+    width: scale(30),
+    borderRadius: scale(30/2),
+    borderColor: 'black',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  headShot: {
+    height: verticalScale(30),
+    width: scale(30)
+  },
 });
