@@ -53,36 +53,36 @@ const Scenes = Actions.create(
         <Lightbox>
           <Scene key="root">
             {/* <Scene key="home" component={Home} initial={true} hideNavBar={true}/> */}
-            <Scene key="login" component={Login} initial={true} hideNavBar={true}/>
-            <Scene key="register" component={Register} hideNavBar={true}/>
-            <Scene key="eats1" component={Eats1} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="eats1multi" component={Eats1Multi} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="eats2" component={Eats2} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="eats2multi" component={Eats2Multi} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="eats3" component={Eats3} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="eats4" component={Eats4} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="algo" component={Algo} hideNavBar={true} hideTabBar={true}/>
-            <Scene key='yelp' component={Yelp} hideNavBar={true} hideTabBar={true}/>
-            <Scene key='openTable' component={OpenTable} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="menu" component={menu} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="testquestion" component={TestQuestion} hideNavBar={true} hideTabBar={true}/>
-            <Scene key='forgot' component={ForgotPassword} hideNavBar={true} hideTabBar={true}/>
-            <Scene key='vnumber' component={verifyNumber} hideNavBar={true} hideTabBar={true}/>
-            <Scene key="root2" tabs={true} lazy={true} animationEnabled={false} tabBarComponent={Tabbar}>
-              <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>
-              <Scene key="newsfeed" component={Newsfeed} hideNavBar={true}/>
-              <Scene key="singleresult" component={SingleResult} hideNavBar={true}/>
-              <Scene key="multilastresult" component={MultiLastResult} hideNavBar={true}/>
-              <Scene key="profile" component={Profile} hideNavBar={true}/>
-              <Scene key="preferences" component={Preferences} hideNavBar={true}/>
-              <Scene key="favoritelist" component={FavoriteList} hideNavBar={true}/>
-              <Scene key="myforks" component={MyForks} hideNavBar={true}/>
-              <Scene key="friendlist" component={FriendList} hideNavBar={true}/>
-              <Scene key="personaldata" component={PersonalData} hideNavBar={true}/>
-              <Scene key="statuspage" component={StatusPage} hideNavBar={true}/>
-              <Scene key="multiresult" component={MultiResult} hideNavBar={true}/>
+            <Scene key="login" component={Login} initial={true} hideNavBar={true} lazy={true} />
+            <Scene key="register" component={Register} hideNavBar={true} lazy={true} />
+            <Scene key="eats1" component={Eats1} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key="eats1multi" component={Eats1Multi} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key="eats2" component={Eats2} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key="eats2multi" component={Eats2Multi} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key="eats3" component={Eats3} hideNavBar={true} hideTabBar={true} lazy={true} lazy={true} />
+            <Scene key="eats4" component={Eats4} hideNavBar={true} hideTabBar={true} lazy={true} lazy={true} />
+            <Scene key="algo" component={Algo} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key='yelp' component={Yelp} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key='openTable' component={OpenTable} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key="menu" component={menu} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key="testquestion" component={TestQuestion} hideNavBar={true} hideTabBar={true} lazy={true} />
+            <Scene key='forgot' component={ForgotPassword} hideNavBar={true} hideTabBar={true} lazy={true}/>
+            <Scene key='vnumber' component={verifyNumber} hideNavBar={true} hideTabBar={true} lazy={true}/>
+            <Scene key="root2" tabs={true} lazy={true} animationEnabled={false} tabBarComponent={Tabbar} lazy={true}>
+              <Scene key="discover" component={DiscoverHome} hideNavBar={true} lazy={true}/>
+              <Scene key="newsfeed" component={Newsfeed} hideNavBar={true} lazy={true}/>
+              <Scene key="singleresult" component={SingleResult} hideNavBar={true} lazy={true}/>
+              <Scene key="multilastresult" component={MultiLastResult} hideNavBar={true} lazy={true}/>
+              <Scene key="profile" component={Profile} hideNavBar={true} lazy={true}/>
+              <Scene key="preferences" component={Preferences} hideNavBar={true} lazy={true}/>
+              <Scene key="favoritelist" component={FavoriteList} hideNavBar={true} lazy={true}/>
+              <Scene key="myforks" component={MyForks} hideNavBar={true} lazy={true}/>
+              <Scene key="friendlist" component={FriendList} hideNavBar={true} lazy={true}/>
+              <Scene key="personaldata" component={PersonalData} hideNavBar={true} lazy={true}/>
+              <Scene key="statuspage" component={StatusPage} hideNavBar={true} lazy={true}/>
+              <Scene key="multiresult" component={MultiResult} hideNavBar={true} lazy={true}/>
               <Scene key="listresults" component={ListResults} hideNavBar={true} lazy={true}/>
-              <Scene key="listmap" component={ListMap} hideNavBar={true}/>
+              <Scene key="listmap" component={ListMap} hideNavBar={true} lazy={true}/>
               <Scene key="eventform" component={EventForm} hideNavBar={true}/>
               <Scene key="invitefriends" component={InviteFriends} hideNavBar={true}/>
               <Scene key="myevents" component={MyEvents} hideNavBar={true}/>

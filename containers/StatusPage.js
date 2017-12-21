@@ -11,6 +11,7 @@ import dollarIcon from '../assets/dollarsignsGrey.png';
 import timeIcon from '../assets/timeMGrey.png';
 import calIcon from '../assets/calendarMGray.png';
 import cusIcon from '../assets/cuisineMGray.png';
+import moment from 'moment';
 import Fifty from '../assets/prof/50.png';
 import Alec from '../assets/prof/alec.png';
 import Andrew from '../assets/prof/andrew.png';
@@ -125,7 +126,6 @@ class StatusPage extends Component {
                 }
               }
 
-
               var date = '';
               var number = 0;
               var chosenDateObj = '';
@@ -155,10 +155,6 @@ class StatusPage extends Component {
                 }
               }
 
-              // console.log('Date Obj ', chosenDateObj);
-              // console.log('Meal OBJ', chosenMealObj);
-              // console.log('Price OBJ ', chosenPriceObj);
-
               var finalObj = {group_id: chosenObj.group_event_id, host_id: chosenObj.host_id, date: chosenDateObj, meal: chosenMealObj, radius: chosenObj.radius_chosen, price: chosenPriceObj};
               this.props.finalDecider(finalObj);
               Actions.multiresult();
@@ -174,7 +170,8 @@ class StatusPage extends Component {
   }
 
   render() {
-    console.log('IN STATUS', this.props.status)
+    // let date = moment(this.props.status.dates)
+    console.log('IN THE STATUS PAGE BBY', this.props.status, this.props.multi, this.props.fullState)
     return (
       <View style={styles.container}>
         <Image style={styles.backgroundColor} source={require("../assets/MultiFormL.png")}/>
@@ -248,8 +245,10 @@ StatusPage.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+      fullState: state,
       user: state.user,
-      status: state.status
+      status: state.status,
+      multi: state.yelpMulti
     };
 };
 

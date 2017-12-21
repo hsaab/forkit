@@ -15,40 +15,40 @@ class EventItem extends Component{
     }
 
     handleClick() {
-        axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen,played&conditions=participant_id='${this.props.user.id}' and group_id='${this.props.data.id}'`)
-        .then((response) => {
-            var toAdd = '';
-            if (response.data.result[0].restaurant_chosen) {
-              toAdd = 'Result'
-            } else if (response.data.result[0].played === false) {
-              toAdd = 'Play'
-            } else {
-              toAdd = 'Pending'
-            }
-            var newObj = Object.assign({}, this.props.data)
-            newObj.type = toAdd;
-            newObj.dates = this.props.data.dates;
-            newObj.meal = this.props.data.meal_type;
-            newObj.group_id = this.props.data.id;
-            newObj.host_id = this.props.data.host_id;
-            newObj.radius = this.props.data.radius;
-            newObj.location = JSON.parse(this.props.data.location);
-            newObj.participants = this.props.data.participants_id.split(',');
-            this.props.clickedStatus(newObj);
-
-            let Np = this.props.data.participants_id.split(',').length + 1; //length === 1
-            axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=responses&fields=group_event_id,host_id,participant_id,is_host,date_chosen,meal_chosen,radius_chosen&conditions=group_event_id='${this.props.data.id}'`)
-            .then((response) => {
-              var Nr = response.data.result.length;
-              if (Np === (Nr + 1)) {
-                this.props.lastPerson(true);
-              }
-              Actions.statuspage();
-            })
-        })
-        .catch((err) => {
-          console.log('Event Notification error is ', err);
-        })
+        // axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen,played&conditions=participant_id='${this.props.user.id}' and group_id='${this.props.data.id}'`)
+        // .then((response) => {
+        //     var toAdd = '';
+        //     if (response.data.result[0].restaurant_chosen) {
+        //       toAdd = 'Result'
+        //     } else if (response.data.result[0].played === false) {
+        //       toAdd = 'Play'
+        //     } else {
+        //       toAdd = 'Pending'
+        //     }
+        //     var newObj = Object.assign({}, this.props.data)
+        //     newObj.type = toAdd;
+        //     newObj.dates = this.props.data.dates;
+        //     newObj.meal = this.props.data.meal_type;
+        //     newObj.group_id = this.props.data.id;
+        //     newObj.host_id = this.props.data.host_id;
+        //     newObj.radius = this.props.data.radius;
+        //     newObj.location = JSON.parse(this.props.data.location);
+        //     newObj.participants = this.props.data.participants_id.split(',');
+        //     this.props.clickedStatus(newObj);
+        //
+        //     let Np = this.props.data.participants_id.split(',').length + 1; //length === 1
+        //     axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=responses&fields=group_event_id,host_id,participant_id,is_host,date_chosen,meal_chosen,radius_chosen&conditions=group_event_id='${this.props.data.id}'`)
+        //     .then((response) => {
+        //       var Nr = response.data.result.length;
+        //       if (Np === (Nr + 1)) {
+        //         this.props.lastPerson(true);
+        //       }
+        //       Actions.statuspage();
+        //     })
+        // })
+        // .catch((err) => {
+        //   console.log('Event Notification error is ', err);
+        // })
     }
 
     showEvent() {

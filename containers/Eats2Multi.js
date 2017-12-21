@@ -143,7 +143,7 @@ class Eats2Multi extends Component {
       interval: this.interval
     })
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.update);
   }
@@ -151,19 +151,18 @@ class Eats2Multi extends Component {
 
   imageMatch(cuisineType) {
     switch(cuisineType) {
-
       case 'Japanese':
         var jap = require('../assets/japanese.png');
-        return  <Image style={styles.japanese} source={jap}/>;
+        return <Image style={styles.japanese} source={jap}/>;
       case 'American':
         var american = require('../assets/american.png');
-        return  <Image style={styles.american} source={american}/>;
+        return <Image style={styles.american} source={american}/>
       case 'Italian':
         var italian = require('../assets/italian.png');
-        return <Image style={styles.italian} source={italian}/>;
+        return <Image style={styles.italian} source={italian}/>
       default:
         var mexImage = require('../assets/taco.png');
-        return <Image style={styles.mexican} source={mexImage}/>;
+        return <Image style={styles.mexican} source={mexImage}/>
     }
   }
 
@@ -181,22 +180,21 @@ class Eats2Multi extends Component {
             <Text style={styles.topText}>What type of cuisine?</Text>
           </View>
           <View style={styles.colSubContainer}>
-
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleFirst(ev)}>
-              <Text style={styles.optionText}>{this.props.cuisineState.cuisines[0]}</Text>
-              {this.imageMatch(this.props.cuisineState.cuisines[0])}
+              <Text style={styles.optionText}>{this.props.status.cuisines[0]}</Text>
+              {this.imageMatch(this.props.status.cuisines[0])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleSecond(ev)}>
-              <Text style={styles.optionText}>{this.props.cuisineState.cuisines[1]}</Text>
-              {this.imageMatch(this.props.cuisineState.cuisines[1])}
+              <Text style={styles.optionText}>{this.props.status.cuisines[1]}</Text>
+              {this.imageMatch(this.props.status.cuisines[1])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleThird(ev)}>
-              <Text style={styles.optionText}>{this.props.cuisineState.cuisines[2]}</Text>
-              {this.imageMatch(this.props.cuisineState.cuisines[2])}
+              <Text style={styles.optionText}>{this.props.status.cuisines[2]}</Text>
+              {this.imageMatch(this.props.status.cuisines[2])}
             </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleFourth(ev)}>
-              <Text style={styles.optionText}> {this.props.cuisineState.cuisines[3]}</Text>
-              {this.imageMatch(this.props.cuisineState.cuisines[3])}
+              <Text style={styles.optionText}> {this.props.status.cuisines[3]}</Text>
+              {this.imageMatch(this.props.status.cuisines[3])}
             </TouchableOpacity>
             <TouchableOpacity style={[styles.option, styles.rowSubContainer]} onPress={() => this.handleGamble()}>
               <Text style={styles.gambleText}> Take a Gamble </Text>
@@ -308,20 +306,30 @@ const styles = StyleSheet.create({
   },
   mexican: {
     height: verticalScale(50),
-    width: scale(70)
+    width: scale(70),
+    overflow: 'visible'
   },
   japanese: {
     height: verticalScale(50),
-    width: scale(60)
+    width: scale(60),
+    overflow: 'visible'
   },
   american: {
     height: verticalScale(30),
     width: scale(65),
+    overflow: 'visible'
   },
   italian: {
     height: verticalScale(30),
     width: scale(80),
+    overflow: 'visible'
   },
+  indian: {
+    height: verticalScale(40),
+    width: scale(40),
+    overflow: 'visible',
+    left: scale(5)
+  }
 });
 
 
