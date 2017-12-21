@@ -46,6 +46,8 @@ import FormBar from './components/FormBar.js';
 import MultiLastResult from './containers/MultiLastResult.js'
 import Newsfeed from './containers/Newsfeed.js';
 import Search from './containers/Search.js';
+import StatusPageHard from './containers/StatusPageHard.js';
+console.disableYellowBox = true;
 
 EStyleSheet.build();
 
@@ -80,6 +82,7 @@ const Scenes = Actions.create(
               <Scene key="friendlist" component={FriendList} hideNavBar={true}/>
               <Scene key="personaldata" component={PersonalData} hideNavBar={true}/>
               <Scene key="statuspage" component={StatusPage} hideNavBar={true}/>
+              <Scene key="statuspagehard" component={StatusPageHard} hideNavBar={true}/>
               <Scene key="multiresult" component={MultiResult} hideNavBar={true}/>
               <Scene key="listresults" component={ListResults} hideNavBar={true} lazy={true}/>
               <Scene key="listmap" component={ListMap} hideNavBar={true}/>

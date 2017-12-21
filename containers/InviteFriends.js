@@ -162,7 +162,7 @@ class InviteFriends extends React.Component {
               <Image style={styles.group} source={require("../assets/plusMGrey.png")}/>
               <Text style={styles.optionText}>Contacts</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.handleCreate()} style={styles.optionContainer}>
+            <TouchableOpacity onPress={Actions.myevents} style={styles.optionContainer}>
               <Image style={styles.group} source={require("../assets/CubeLogoMGrey.png")}/>
               <Text style={styles.optionText}>Create</Text>
             </TouchableOpacity>

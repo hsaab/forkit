@@ -18,12 +18,12 @@ export default class CalendarTrivia extends React.Component {
     this.setState({
       selected: day.num
     })
-    this.props.fn(day)
+    this.props.fn(day.date);
   }
 
   dayItem(selDay, i) {
-    let days = this.props.dates.split(',');
-    const possible = days.map((each) => {return moment(each).date()});
+    console.log(selDay)
+    const possible = this.props.dates.map((each) => {return each.day});
     const select = possible.includes(selDay.num);
     // console.log('SELDAY!!!!!! ', selDay);
     if(select){

@@ -40,9 +40,9 @@ class Eats2Multi extends Component {
 
   handleFirst(ev) {
     ev.preventDefault();
-    if (this.props.status.cuisines[0] === 'indian') {
+    if (this.props.cuisineState.cuisines[0] === 'indian') {
       this.props.setFoodChoice('indpak');
-    } else if (this.props.status.cuisines[0] === 'american') {
+    } else if (this.props.cuisineState.cuisines[0] === 'american') {
       var value = Math.random();
       if (value < 0.5) {
         this.props.setFoodChoice('tradamerican')
@@ -50,7 +50,7 @@ class Eats2Multi extends Component {
         this.props.setFoodChoice('newamerican');
       }
     } else {
-      this.props.setFoodChoice(this.props.status.cuisines[0]);
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[0]);
     }
     clearInterval(this.state.interval);
       Actions.eats4();
@@ -59,9 +59,9 @@ class Eats2Multi extends Component {
 
   handleSecond(ev) {
     ev.preventDefault();
-    if (this.props.status.cuisines[1] === 'indian') {
+    if (this.props.cuisineState.cuisines[1] === 'indian') {
       this.props.setFoodChoice('indpak');
-    } else if (this.props.status.cuisines[1] === 'american') {
+    } else if (this.props.cuisineState.cuisines[1] === 'american') {
       var value = Math.random();
       if (value < 0.5) {
         this.props.setFoodChoice('tradamerican')
@@ -69,7 +69,7 @@ class Eats2Multi extends Component {
         this.props.setFoodChoice('newamerican');
       }
     } else {
-      this.props.setFoodChoice(this.props.status.cuisines[1]);
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[1]);
     }
     clearInterval(this.state.interval);
     Actions.eats4();
@@ -77,9 +77,9 @@ class Eats2Multi extends Component {
 
   handleThird(ev) {
     ev.preventDefault();
-    if (this.props.status.cuisines[2] === 'indian') {
+    if (this.props.cuisineState.cuisines[2] === 'indian') {
       this.props.setFoodChoice('indpak');
-    } else if (this.props.status.cuisines[2] === 'american') {
+    } else if (this.props.cuisineState.cuisines[2] === 'american') {
       var value = Math.random();
       if (value < 0.5) {
         this.props.setFoodChoice('tradamerican')
@@ -87,7 +87,7 @@ class Eats2Multi extends Component {
         this.props.setFoodChoice('newamerican');
       }
     } else {
-      this.props.setFoodChoice(this.props.status.cuisines[2]);
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[2]);
     }
     clearInterval(this.state.interval);
     Actions.eats4();
@@ -95,9 +95,9 @@ class Eats2Multi extends Component {
 
   handleFourth(ev) {
     ev.preventDefault();
-    if (this.props.status.cuisines[3] === 'indian') {
+    if (this.props.cuisineState.cuisines[3] === 'indian') {
       this.props.setFoodChoice('indpak');
-    } else if (this.props.status.cuisines[3] === 'american') {
+    } else if (this.props.cuisineState.cuisines[3] === 'american') {
       var value = Math.random();
       if (value < 0.5) {
         this.props.setFoodChoice('tradamerican')
@@ -105,14 +105,14 @@ class Eats2Multi extends Component {
         this.props.setFoodChoice('newamerican');
       }
     } else {
-      this.props.setFoodChoice(this.props.status.cuisines[3]);
+      this.props.setFoodChoice(this.props.cuisineState.cuisines[3]);
     }
     clearInterval(this.state.interval);
     Actions.eats4();
   }
 
   handleGamble() {
-    let choice = this.props.status.cuisines;
+    let choice = this.props.cuisineState.cuisines;
     shuffle(choice);
     if (choice[0] === 'indian') {
       this.props.setFoodChoice('indpak');

@@ -20,6 +20,7 @@ import Pauly from '../assets/prof/pauly.png';
 import Queen from '../assets/prof/queen.png';
 import Shakira from '../assets/prof/shakira.png';
 import Vasish from '../assets/prof/Vasish.png';
+import moment from 'moment';
 
 class EventItem extends Component{
     constructor(props){
@@ -30,52 +31,45 @@ class EventItem extends Component{
     }
 
     handleClick() {
-        axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen,played&conditions=participant_id='${this.props.user.id}' and group_id='${this.props.data.id}'`)
-        .then((response) => {
-            var toAdd = '';
-            if (response.data.result[0].restaurant_chosen) {
-              toAdd = 'Result'
-            } else if (response.data.result[0].played === false) {
-              toAdd = 'Play'
-            } else {
-              toAdd = 'Pending'
-            }
-            var newObj = Object.assign({}, this.props.data)
-            newObj.type = toAdd;
-            newObj.dates = this.props.data.dates;
-            newObj.meal = this.props.data.meal_type;
-            newObj.group_id = this.props.data.id;
-            newObj.host_id = this.props.data.host_id;
-            newObj.radius = this.props.data.radius;
-            newObj.location = JSON.parse(this.props.data.location);
-            this.props.clickedStatus(newObj);
-
-            let Np = this.props.data.participants_id.split(',').length + 1; //length === 1
-            axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=responses&fields=group_event_id,host_id,participant_id,is_host,date_chosen,meal_chosen,radius_chosen&conditions=group_event_id='${this.props.data.id}'`)
-            .then((response) => {
-              var Nr = response.data.result.length;
-              if (Np === (Nr + 1)) {
-                this.props.lastPerson(true);
-              }
-            })
-        })
-        .catch((err) => {
-          console.log('Event Notification error is ', err);
-        })
-      Actions.statuspage();
+      //   axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id,restaurant_chosen,played&conditions=participant_id='${this.props.user.id}' and group_id='${this.props.data.id}'`)
+      //   .then((response) => {
+      //       var toAdd = '';
+      //       if (response.data.result[0].restaurant_chosen) {
+      //         toAdd = 'Result'
+      //       } else if (response.data.result[0].played === false) {
+      //         toAdd = 'Play'
+      //       } else {
+      //         toAdd = 'Pending'
+      //       }
+      //       var newObj = Object.assign({}, this.props.data)
+      //       newObj.type = toAdd;
+      //       this.props.clickedStatus(newObj);
+      //   })
+      //   .catch((err) => {
+      //     console.log('Event Notification error is ', err);
+      //   })
+      // Actions.statuspage();
     }
 
     showEvent() {
       let guestValidator = typeof(this.props.data.guests) !== 'undefined';
+      // console.log(this.props.data)
+      // let day = moment(this.props.data.day);
+      // let date = moment(this.props.data.dates[0])
+      // console.log(day);
+      console.log(this.props.form, this.props.multi)
+      let date = moment(this.props.multi.date).format('ddd') === 'Invalid date' ? 'Date TBD!': moment(this.props.multi.date).format('ddd');
+      let day = moment(this.props.multi.date).format('ddd') === 'Invalid date' ? null : moment(this.props.multi.date).format('ddd');
       return (
         <View style={styles.container}>
-          <TouchableOpacity style={styles.background}>
+          <TouchableOpacity style={styles.background} onPress={Actions.statuspagehard}>
             <View style={styles.mealContainer}>
-              <Text style={styles.subtitleText}>{this.props.data.meal_type}</Text>
+              <Text style={styles.subtitleText}>{this.props.form.meal}</Text>
               <View style={styles.rowContainer}>
                 <View style={styles.colContainer}>
-                  <Text style={styles.detailText}>{this.props.data.dates.split(',')[0]}</Text>
-                  <Text style={styles.detailText}>{this.props.data.day}</Text>
+                  <Text style={styles.detailText}>{date}</Text>
+                  {/* really here we would take the day pass it into moment rather than getting it from props  */}
+                  <Text style={styles.detailText}>{day}</Text>
                 </View>
                 <View style={styles.rowPicContainer}>
                   <View style={styles.hostContainer}>
@@ -100,7 +94,7 @@ class EventItem extends Component{
               </View>
             </View>
             <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>{this.props.data.title}</Text>
+              <Text style={styles.titleText}>{this.props.form.title}</Text>
               <Image style={styles.rightButton} source={RightButton}/>
             </View>
           </TouchableOpacity>
@@ -129,13 +123,14 @@ EventItem.propTypes = {
 const mapStateToProps = (state) => {
     return {
       user: state.user,
+      form: state.form,
+      multi: state.yelpMulti
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      clickedStatus: (clicked) => dispatch({type: 'CLICKED', clicked: clicked}),
-      lastPerson: (person) => dispatch({type: 'LAST', last:person})
+      clickedStatus: (clicked) => dispatch({type: 'CLICKED', clicked: clicked})
     };
 };
 

@@ -131,7 +131,7 @@ class Eats4 extends Component {
               <SelectorTime meal={this.props.status.meal} fn={this.props.setTime}/>
             </View>
           </View>
-          <TouchableOpacity style={styles.next} onPress={() => this.handleSubmit()}>
+          <TouchableOpacity style={styles.next} onPress={Actions.statuspagehard}>
             <Text style={styles.nextText}>SUBMIT</Text>
           </TouchableOpacity>
         </View>
