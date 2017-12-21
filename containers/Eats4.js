@@ -121,15 +121,15 @@ class Eats4 extends Component {
       <View style={styles.container}>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/DiscoverEat-3.png")}/>
-          <View style={styles.tile}>
-          </View>
-          <View style={styles.tileContent}>
-            <Text style={styles.topText}>What day?</Text>
-            <CalendarTrivia dates={this.props.status.dates} fn={this.props.setDate}/>
-          </View>
-          <View style={styles.tileContent}>
-            <Text style={styles.topText}>What time?</Text>
-            <SelectorTime meal={this.props.status.meal} fn={this.props.setTime}/>
+          <View style={styles.tiles}>
+            <View style={styles.tileContent}>
+              <Text style={styles.topText}>What day?</Text>
+              <CalendarTrivia dates={this.props.status.dates} fn={this.props.setDate}/>
+            </View>
+            <View style={styles.tileContent}>
+              <Text style={styles.topText}>What time?</Text>
+              <SelectorTime meal={this.props.status.meal} fn={this.props.setTime}/>
+            </View>
           </View>
           <TouchableOpacity style={styles.next} onPress={() => this.handleSubmit()}>
             <Text style={styles.nextText}>SUBMIT</Text>
@@ -141,7 +141,6 @@ class Eats4 extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state.form.dates)
     return {
       status: state.status,
       user: state.user,
@@ -165,11 +164,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   background: {
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
     backgroundColor: 'transparent',
     height: verticalScale(667),
     width: scale(375),
+    justifyContent: 'space-between'
   },
   backgroundColor: {
     top: verticalScale(0),
@@ -177,12 +175,8 @@ const styles = StyleSheet.create({
     height: verticalScale(667),
     width: scale(375)
   },
-  tile: {
-    height: verticalScale(200),
-    width: scale(375),
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
+  tiles: {
+    marginTop: verticalScale(50)
   },
   tileContent: {
     height: verticalScale(150),
@@ -190,8 +184,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    bottom: verticalScale(90),
-    marginTop: verticalScale(20)
+    marginTop: verticalScale(50)
   },
   topText: {
     fontSize: scale(45),
@@ -243,7 +236,8 @@ const styles = StyleSheet.create({
     height: verticalScale(70),
     backgroundColor: '#BFBFBF',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignSelf: 'flex-end'
   },
   nextText: {
     fontFamily: 'Futura',

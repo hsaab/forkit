@@ -9,12 +9,34 @@ import FriendItem from '../components/FriendItem.js';
 import FormBar from '../components/FormBar.js';
 import axios from 'axios';
 import _ from 'underscore';
+import Fifty from '../assets/prof/50.png';
+import Alec from '../assets/prof/alec.png';
+import Andrew from '../assets/prof/andrew.png';
+import Ariana from '../assets/prof/ariana.png';
+import Brandon from '../assets/prof/Brandon.png';
+import Hassan from '../assets/prof/Hassan.png';
+import Kobe from '../assets/prof/kobe.png';
+import Luda from '../assets/prof/luda.png';
+import Megan from '../assets/prof/megan.png';
+import Natalie from '../assets/prof/natalie.png';
+import Paul from '../assets/prof/Paul.png';
+import Pauly from '../assets/prof/pauly.png';
+import Queen from '../assets/prof/queen.png';
+import Shakira from '../assets/prof/shakira.png';
+import Vasish from '../assets/prof/Vasish.png';
 
 const allData = [
-  {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23}]},
-  {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21}]},
-  {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20}]},
-  {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22}]},
+  {title: "A", data: [{name: "Alec Baldwin", number: "+17322997997", id: 1, img: Alec},
+  {name: "Andrew Garfield", number: "+17322997997", id: 2, img: Andrew},
+  {name: "Ariana Grande", number: "+17322997997", id: 7, img: Ariana}]},
+  {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23, img: Brandon}]},
+  {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21, img: Hassan}]},
+  {title: "K", data: [{name: "Kobe Bryant", number: "+13109442125", id: 3, img: Kobe}]},
+  {title: "L", data: [{name: "Ludacris", number: "+13109442125", id: 4, img: Luda}]},
+  {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20, img: Paul},
+  {name: "Pauly D", number: "+16502695502", id: 6, img: Pauly}]},
+  {title: "S", data: [{name: "Shakira", number: "+16502695502", id: 5, img: Shakira}]},
+  {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22, img: Vasish}]},
 ]
 
 class InviteFriends extends React.Component {
@@ -22,10 +44,17 @@ class InviteFriends extends React.Component {
     super(props);
     this.state = {
       data: [
-        {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23}]},
-        {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21}]},
-        {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20}]},
-        {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22}]},
+        {title: "A", data: [{name: "Alec Baldwin", number: "+17322997997", id: 1, img: Alec},
+        {name: "Andrew Garfield", number: "+17322997997", id: 2, img: Andrew},
+        {name: "Ariana Grande", number: "+17322997997", id: 7, img: Ariana}]},
+        {title: "B", data: [{name: "Brandon Eng", number: "+17322997997", id: 23, img: Brandon}]},
+        {title: "H", data: [{name: "Hassan Saab", number: "+13109442125", id: 21, img: Hassan}]},
+        {title: "K", data: [{name: "Kobe Bryant", number: "+13109442125", id: 3, img: Kobe}]},
+        {title: "L", data: [{name: "Ludacris", number: "+13109442125", id: 4, img: Luda}]},
+        {title: "P", data: [{name: "Paul Jin", number: "+16502695502", id: 20, img: Paul},
+        {name: "Pauly D", number: "+16502695502", id: 6, img: Pauly}]},
+        {title: "S", data: [{name: "Shakira", number: "+16502695502", id: 5, img: Shakira}]},
+        {title: "V", data: [{name: "Vasish Baungally", number: "+13127098951", id: 22, img: Vasish}]},
       ],
       searchVal: '',
       FoF: true
@@ -143,13 +172,10 @@ class InviteFriends extends React.Component {
               <Image style={styles.logoSearch} source={require("../assets/search.png")}/>
               <TextInput style={styles.search} placeholder={'Search'} onChangeText={(searchVal) => {this.search(searchVal)}}/>
             </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.counterText}>10</Text>
-            </View>
           </View>
           <View style={styles.listContainer}>
             <SectionList
-              renderItem={({item}) => <FriendItem title={item.name} number={item.number} id={item.id}/>}
+              renderItem={({item}) => <FriendItem img={item.img} title={item.name} number={item.number} id={item.id}/>}
               renderSectionHeader={({section}) =>
               <View style={styles.sectionHeader}><Text style={styles.sectionText}>{section.title}</Text></View>}
               sections={this.state.data}
@@ -213,7 +239,7 @@ const styles = EStyleSheet.create({
     width: '100%',
   },
   searchContainer: {
-    width: '80%',
+    width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

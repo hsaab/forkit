@@ -26,7 +26,7 @@ class Login extends React.Component{
     let emailObj = await AsyncStorage.getItem('email');
     let email = JSON.parse(emailObj);
     var userObj = {};
-    // console.log(email);
+    console.log(email);
     if (email) {
       if (email.type === 'regular') {
         axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=users&fields=id,token,email,firstname,lastname,friends,forks,wishlist,os,number&conditions=email='${email.email}'`)

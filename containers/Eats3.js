@@ -70,7 +70,6 @@ class Eats3 extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Navbar/>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/DiscoverEat-3.png")}/>
           <View style={styles.topTile}>
@@ -85,8 +84,6 @@ class Eats3 extends Component {
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleShort(ev)}>
               <Text style={styles.optionText}>Less than 1 mile</Text>
               <View style={styles.rowSubContainer}>
-                <Image style={styles.hiker} source={require("../assets/Hikerwhite.png")}/>
-                <Image style={styles.hiker} source={require("../assets/Hikerwhite.png")}/>
                 <Image style={styles.hiker} source={require("../assets/Hikerwhite.png")}/>
               </View>
             </TouchableOpacity>
@@ -127,16 +124,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   background: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375),
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375)
   },
   topTile: {
@@ -168,12 +165,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Futura'
   },
   hiker: {
-    height: verticalScale(40),
-    width: scale(20)
+    height: verticalScale(55),
+    width: scale(55),
+    overflow: 'visible',
+    right: scale(10)
   },
   car: {
     height: verticalScale(40),
-    width: scale(60)
+    width: scale(60),
+    overflow: 'visible'
   },
   timer: {
     fontSize: moderateScale(45),

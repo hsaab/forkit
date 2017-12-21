@@ -1,5 +1,5 @@
-import React,{Component} from 'react'
-import {StyleSheet,Text,View,Image,TouchableOpacity,TextInput} from 'react-native'; //Step 1
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
@@ -51,14 +51,16 @@ class EventItem extends Component{
     }
 
     showEvent() {
+      console.log(this.props.data, '********')
       return (
         <View style={styles.container}>
           <TouchableOpacity style={styles.background} onPress={() => this.handleClick()}>
             <View style={styles.mealContainer}>
-              <Text style={styles.titleText}>{this.props.data.title}</Text>
+              <Text style={styles.subtitleText}>{this.props.data.meal_type}</Text>
               <View style={styles.rowContainer}>
                 <View style={styles.colContainer}>
                   <Text style={styles.detailText}>{this.props.data.dates.split(',')[0]}</Text>
+                  <Text style={styles.detailText}>{this.props.data.day}</Text>
                 </View>
                 <View style={styles.rowPicContainer}>
                   <View style={styles.hostContainer}>
@@ -69,21 +71,17 @@ class EventItem extends Component{
                   </View>
                   <View style={styles.guestContainer}>
                     <Text style={styles.guestText}>G</Text>
-                    <View style={styles.circle}>
-                      <Image style={styles.headShot} source={this.props.host}/>
-                    </View>
-                    <View style={styles.circle}>
-                      <Image style={styles.headShot} source={this.props.host}/>
-                    </View>
-                    <View style={styles.circle}>
-                      <Image style={styles.headShot} source={this.props.host}/>
-                    </View>
+                    {this.props.data.guests.map((result) =>
+                      <View style={styles.circle}>
+                        <Image style={styles.headShot} source={result}/>
+                      </View>
+                    )}
                   </View>
                 </View>
               </View>
             </View>
             <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>Let's Turn Up Peeps</Text>
+              <Text style={styles.titleText}>{this.props.data.title}</Text>
               <Image style={styles.rightButton} source={RightButton}/>
             </View>
           </TouchableOpacity>
@@ -147,6 +145,11 @@ var styles = StyleSheet.create({
   },
   titleText: {
     color: '#646464',
+    fontSize: moderateScale(20),
+    fontFamily: 'Futura',
+  },
+  subtitleText: {
+    color: '#646464',
     fontSize: moderateScale(18),
     fontFamily: 'Futura',
   },
@@ -186,14 +189,14 @@ var styles = StyleSheet.create({
     height: verticalScale(30),
     width: scale(30),
     borderRadius: scale(30/2),
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   headShot: {
-    height: verticalScale(20),
-    width: scale(20)
+    height: verticalScale(30),
+    width: scale(30)
   },
   guestContainer: {
     alignItems: 'center',

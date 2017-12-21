@@ -9,13 +9,31 @@ import MyEventBar from '../components/MyEventBar.js';
 import Calendar from '../components/Calendar.js';
 import ProfPic from '../assets/profile.png';
 import axios from 'axios';
+import Fifty from '../assets/prof/50.png';
+import Alec from '../assets/prof/alec.png';
+import Andrew from '../assets/prof/andrew.png';
+import Ariana from '../assets/prof/ariana.png';
+import Brandon from '../assets/prof/Brandon.png';
+import Hassan from '../assets/prof/Hassan.png';
+import Kobe from '../assets/prof/kobe.png';
+import Luda from '../assets/prof/luda.png';
+import Megan from '../assets/prof/megan.png';
+import Natalie from '../assets/prof/natalie.png';
+import Paul from '../assets/prof/Paul.png';
+import Pauly from '../assets/prof/pauly.png';
+import Queen from '../assets/prof/queen.png';
+import Shakira from '../assets/prof/shakira.png';
+import Vasish from '../assets/prof/Vasish.png';
 
 class MyEvents2 extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      results: []
+      results: [
+        {title:'Christmas Eve Eve Eve', day:'Friday', dates:'Dec 22 at 7:00PM', meal_type: 'Dinner', guests: [Megan, Brandon], host: Vasish},
+        {title:"For people who don't celebrate Christmas only", day:'Saturday', dates: 'Dec 23 at 1:00PM', meal_type: 'Lunch', guests: [Andrew, Queen], host: Kobe}
+      ]
     }
   }
   componentWillMount() {
@@ -90,7 +108,7 @@ class MyEvents2 extends React.Component {
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionText}>This Week</Text>
               </View>
-              {this.state.results.map((result, index) => <EventItem key={index} data={result} ost={ProfPic}/>)}
+              {this.state.results.map((result, index) => <EventItem key={index} data={result} host={result.host}/>)}
             </View>
           </ScrollView>
         </View>

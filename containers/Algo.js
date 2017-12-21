@@ -89,7 +89,6 @@ class Algo extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Navbar/>
         <View style={styles.background}>
           <Image style={styles.backgroundColor} source={require("../assets/Discover.png")}/>
           <TouchableOpacity onPress={Actions.listresults}>
@@ -136,13 +135,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375),
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-70),
+    height: verticalScale(667),
     width: scale(375)
   },
   logotext: {

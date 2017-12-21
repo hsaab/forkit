@@ -3,6 +3,7 @@ import testReducer from './testReducer';
 import UserReducer from './UserReducer';
 import LocationReducer from './LocationReducer';
 import YelpReducer from './YelpReducer';
+import YelpMultiReducer from './YelpMultiReducer';
 import ResultReducer from './ResultReducer';
 import OpenTableReducer from './OpenTableReducer';
 import menuReducer from './menuReducer';
@@ -18,11 +19,11 @@ const rootReducer = combineReducers({
     user: UserReducer,
     area: LocationReducer,
     yelp: YelpReducer,
+    yelpMulti: YelpMultiReducer,
     results: ResultReducer,
     openTable: OpenTableReducer,
     menu: menuReducer,
     form: FormReducer,
-    yelpMulti: YelpMultiReducer,
     friend: FriendReducer,
     status: StatusReducer,
     lastPerson: LastPersonReducer,

@@ -58,10 +58,11 @@ class EventNotification extends Component{
           <View style={styles.container}>
             <View style={styles.background}>
               <View style={styles.mealContainer}>
-                <Text style={styles.titleText}>{this.props.data.title}</Text>
+                <Text style={styles.subtitleText}>{this.props.data.meal_type}</Text>
                 <View style={styles.rowContainer}>
                   <View style={styles.colContainer}>
                     <Text style={styles.detailText}>{this.props.data.dates.split(',')[0]}</Text>
+                    <Text style={styles.detailText}>{this.props.data.day}</Text>
                   </View>
                   <View style={styles.rowPicContainer}>
                     <View style={styles.hostContainer}>
@@ -72,21 +73,17 @@ class EventNotification extends Component{
                     </View>
                     <View style={styles.guestContainer}>
                       <Text style={styles.guestText}>G</Text>
-                      <View style={styles.circle}>
-                        <Image style={styles.headShot} source={this.props.host}/>
-                      </View>
-                      <View style={styles.circle}>
-                        <Image style={styles.headShot} source={this.props.host}/>
-                      </View>
-                      <View style={styles.circle}>
-                        <Image style={styles.headShot} source={this.props.host}/>
-                      </View>
+                      {this.props.data.guests.map((result) =>
+                        <View style={styles.circle}>
+                          <Image style={styles.headShot} source={result}/>
+                        </View>
+                      )}
                     </View>
                   </View>
                 </View>
               </View>
               <View style={styles.titleContainer}>
-                <Text style={styles.titleText}>Let's Turn Up Peeps</Text>
+                <Text style={styles.titleText}>{this.props.data.title}</Text>
                 <View style={styles.rowIconContainer}>
                   <TouchableOpacity onPress={() => this.handleCheck()}>
                     <Image style={styles.rightButton} source={Check}/>
@@ -140,10 +137,15 @@ var styles = StyleSheet.create({
     top: verticalScale(8),
     left: scale(8)
   },
-  titleText: {
+  subtitleText: {
     color: '#646464',
     fontSize: moderateScale(18),
     fontFamily: 'Futura',
+  },
+  titleText: {
+    color: '#646464',
+    fontSize: moderateScale(20),
+    fontFamily: 'Futura'
   },
   detailText: {
     color: '#8D8D8D',
@@ -187,14 +189,14 @@ var styles = StyleSheet.create({
     height: verticalScale(30),
     width: scale(30),
     borderRadius: scale(30/2),
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   headShot: {
-    height: verticalScale(20),
-    width: scale(20)
+    height: verticalScale(30),
+    width: scale(30)
   },
   guestContainer: {
     alignItems: 'center',

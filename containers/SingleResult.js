@@ -90,16 +90,16 @@ class SingleResult extends Component {
           </View>
           <View style={styles.detailsContainer}>
             <View style={styles.left}>
-              <Text style={styles.textStyle}>American, Burgers PL</Text>
+              <Text style={styles.textStyle}>{this.props.single.singleResult.categories[0].title}</Text>
               <Image style={styles.starMe} source={this.imageMatch(this.props.single.singleResult.rating)}/>
-                <Text style={styles.textStyle}>1,000 reviews PL</Text>
-                <Text style={styles.textStyle}> {(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
+                <Text style={styles.detailText}>{this.props.single.singleResult.review_count} Yelp reviews</Text>
+                <Text style={styles.detailText}>{(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
             </View>
           </View>
           <View style={styles.actionBar}>
             <View style={styles.leftAction}>
               <TouchableOpacity style={styles.call} onPress={() => Communications.phonecall(this.props.single.singleResult.display_phone, true)}>
-                <Text style={styles.phoneIcon}>{this.props.single.singleResult.display_phone}</Text>
+                <Image style={styles.phoneIcon} source={require("../assets/phone.png")}/>
               </TouchableOpacity>
               <TouchableOpacity style={styles.yelp} onPress={Actions.yelp}>
                 <Image style={styles.yelpIcon} source={require("../assets/yelp.jpg")}/>
@@ -110,7 +110,7 @@ class SingleResult extends Component {
             </View>
             <View style={styles.rightAction}>
               <View style={styles.star}>
-                <Text>STAR</Text>
+                <Image style={styles.starIcon} source={require('../assets/stariconMGrey.png')}/>
               </View>
             </View>
           </View>
@@ -211,6 +211,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: scale(375),
     paddingLeft: scale(15),
+    bottom: verticalScale(5),
     alignItems: 'flex-start'
   },
   forkContainer: {
@@ -282,13 +283,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Futura',
     color: '#646464'
   },
+  detailText: {
+    fontSize: moderateScale(16),
+    fontFamily: 'Futura',
+    color: '#646464'
+  },
   backText: {
     fontFamily: 'Futura',
     color: '#646464',
     fontSize: moderateScale(18)
   },
   nameText: {
-    fontSize: moderateScale(30),
+    fontSize: moderateScale(25),
     fontFamily: 'Futura',
     color: '#646464',
   },
@@ -343,6 +349,11 @@ const styles = StyleSheet.create({
   starMe: {
     width: scale(120),
     height: verticalScale(20),
+    overflow: 'visible'
+  },
+  starIcon: {
+    width: scale(40),
+    height: verticalScale(40),
     overflow: 'visible'
   }
 });

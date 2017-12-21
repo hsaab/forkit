@@ -29,7 +29,6 @@ function shuffle(array) {
 class Eats2 extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       secondsLeft: 1,
       end: 0,
@@ -157,6 +156,27 @@ class Eats2 extends Component {
       case 'american':
         var american = require('../assets/american.png');
         return <Image style={styles.american} source={american}/>
+      case 'indian':
+        var indian = require('../assets/indian.png');
+        return <Image style={styles.indian} source={indian}/>
+      case 'french':
+        var french = require('../assets/french.png');
+        return <Image style={styles.american} source={french}/>
+      case 'thai':
+        var thai = require('../assets/thai.png');
+        return <Image style={styles.american} source={thai}/>
+      case 'chinese':
+        var chinese = require('../assets/chinese.png');
+        return <Image style={styles.indian} source={chinese}/>
+      case 'mediterranean':
+        var mediterranean = require('../assets/mediterranean.png');
+        return <Image style={styles.indian} source={mediterranean}/>
+      case 'spanish':
+        var spanish = require('../assets/spanish.png');
+        return <Image style={styles.indian} source={spanish}/>
+      case 'greek':
+        var greek = require('../assets/greek.png');
+        return <Image style={styles.indian} source={greek}/>
       default:
         var italian = require('../assets/italian.png');
         return <Image style={styles.italian} source={italian}/>
@@ -324,6 +344,12 @@ const styles = StyleSheet.create({
     width: scale(80),
     overflow: 'visible'
   },
+  indian: {
+    height: verticalScale(40),
+    width: scale(40),
+    overflow: 'visible',
+    left: scale(5)
+  }
 });
 
 
