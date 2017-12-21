@@ -8,7 +8,7 @@ const StatusReducer = (state = initialState, action) => {
     case 'CLICKED':
       const clickedState = Object.assign({}, action.clicked);
       clickedState.cuisines = clickedState.cuisines.split(',');
-      // console.log('CLICKSKSJDNFKSJDFNKJDSFNKJDNF', clickedState);
+      console.log('CLICKSKSJDNFKSJDFNKJDSFNKJDNF', clickedState);
       return clickedState;
     default:
       return state

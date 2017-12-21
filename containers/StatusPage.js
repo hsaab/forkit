@@ -147,7 +147,7 @@ class StatusPage extends Component {
 
               var priceNumber = 0;
               var chosenPriceObj = '';
-              console.log(priceObj);
+              // console.log(priceObj);
               for (const key in priceObj) {
                 if (priceObj[key] > priceNumber) {
                   priceNumber = priceObj[key];
@@ -155,9 +155,9 @@ class StatusPage extends Component {
                 }
               }
 
-              console.log('Date Obj ', chosenDateObj);
-              console.log('Meal OBJ', chosenMealObj);
-              console.log('Price OBJ ', chosenPriceObj);
+              // console.log('Date Obj ', chosenDateObj);
+              // console.log('Meal OBJ', chosenMealObj);
+              // console.log('Price OBJ ', chosenPriceObj);
 
               var finalObj = {group_id: chosenObj.group_event_id, host_id: chosenObj.host_id, date: chosenDateObj, meal: chosenMealObj, radius: chosenObj.radius_chosen, price: chosenPriceObj};
               this.props.finalDecider(finalObj);
@@ -174,18 +174,19 @@ class StatusPage extends Component {
   }
 
   render() {
+    console.log('IN STATUS', this.props.status)
     return (
       <View style={styles.container}>
         <Image style={styles.backgroundColor} source={require("../assets/MultiFormL.png")}/>
         <View style={styles.background}>
           <View style={styles.currentContainer}>
-            <Text style={styles.statusText}>Game {this.state.status}</Text>
+            <Text style={styles.statusText}>PLACE</Text>
           </View>
           <View style={styles.detailsContainer}>
             <View style={styles.detailsLeft}>
-              <Text style={styles.title}>{this.state.result.title}</Text>
-              <Text style={styles.lightFont}>{this.state.result.meal_type}</Text>
-              <Text style={styles.lightFont}>{this.state.result.dates}</Text>
+              <Text style={styles.title}>{this.props.status.title}</Text>
+              <Text style={styles.lightFont}>{this.props.status.meal}</Text>
+              <Text style={styles.lightFont}>{this.props.status.dates}</Text>
             </View>
             <View style={styles.detailsRight}>
               <View style={styles.hostContainer}>
@@ -193,10 +194,10 @@ class StatusPage extends Component {
                 <View style={styles.hostCircle}>
                   <Image style={styles.headShot} source={this.state.host.pic}/>
                 </View>
-                <Text style={styles.hostName}>{this.state.host.name}</Text>
+                <Text style={styles.hostName}>PLACE</Text>
               </View>
               <View style={styles.inviteContainer}>
-                <Text style={styles.hostName}>invited {this.state.result.guests.length}</Text>
+                <Text style={styles.hostName}>invited {this.props.status.participants}</Text>
                 <Image style={styles.addIcon} source={require("../assets/add2Grey.png")}/>
               </View>
             </View>
@@ -205,7 +206,7 @@ class StatusPage extends Component {
             <View style={styles.guestsContainer}>
               <Text style={styles.guestTitle}>Guests</Text>
               <View style={styles.guestsBar}>
-                {this.state.result.guests.map((guest)=>
+                {this.props.status.participants.map((guest)=>
                   <View style={styles.guestCircle}>
                     <Image style={styles.headShot} source={guest}/>
                   </View>

@@ -17,9 +17,6 @@ const PersonalData = ({}) => {
     );
 }
 
-PersonalData.propTypes = {
-};
-
 const mapStateToProps = (state) => {
     // console.log(state);
     return {

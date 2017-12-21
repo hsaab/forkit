@@ -53,10 +53,6 @@ class MultiResult extends Component{
   }
 }
 
-MultiResult.propTypes = {
-  openTable: PropTypes.func
-};
-
 const mapStateToProps = (state) => {
     return {
       final: state.finalMulti,

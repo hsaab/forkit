@@ -17,9 +17,6 @@ const Search = ({}) => {
     );
 }
 
-Search.propTypes = {
-};
-
 const mapStateToProps = (state) => {
     // console.log(state);
     return {

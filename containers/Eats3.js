@@ -102,9 +102,6 @@ class Eats3 extends Component {
   }
 }
 
-Eats3.propTypes = {
-};
-
 const mapStateToProps = (state) => {
     return {
     };

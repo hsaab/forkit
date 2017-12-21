@@ -31,9 +31,10 @@ class MyEvents extends React.Component {
     super(props);
 
     this.state = {
-      results: [
-        {title:'I Believe in Santa', day:'Sunday', dates:'Dec 24 at 11:59PM', meal_type: 'Midnight Snack', guests: [Pauly, Alec], host: Fifty},
-        {title:'Christmas Brunch', day:'Monday', dates: 'Dec 25 at 11:00AM', meal_type: 'Brunch', guests: [Paul, Natalie], host: Ariana}
+      results: [],
+      dummy: [
+        {title:'I Believe in Santa', day:'Sunday', dates:'Dec 24 at 11:59PM', meal_type: 'Midnight Snack', participants_id: '1,2', host: Fifty},
+        {title:'Christmas Brunch', day:'Monday', dates: 'Dec 25 at 11:00AM', meal_type: 'Brunch', participants_id: '3,4', host: Ariana}
       ]
     }
   }
@@ -86,6 +87,7 @@ class MyEvents extends React.Component {
                 <Text style={styles.sectionText}>This Week</Text>
               </View>
               {this.state.results.map((result, index) => <EventItem key={index} data={result} host={result.host}/>)}
+              {this.state.dummy.map((result, index) => <EventItem key={index} data={result} host={result.host}/>)}
             </View>
           </ScrollView>
         </View>
@@ -93,9 +95,6 @@ class MyEvents extends React.Component {
     );
   }
 }
-
-MyEvents.propTypes = {
-};
 
 const mapStateToProps = (state) => {
     return {

@@ -136,8 +136,10 @@ class InviteFriends extends React.Component {
           }
         })
         .then(resp => {
+          console.log(resp)
           if (resp.data.success) {
-            Alert.alert('Oh yeah!', 'We created the event and sent notifications to your peeps!', {text: 'Ok', onPress: Actions.statuspage()})
+            console.log('SUCCESS')
+            Alert.alert('Oh yeah!', 'We created the event and sent notifications to your peeps!', {text: 'Ok', onPress: Actions.myevents()})
           }
         })
       }
