@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput, SectionList, Header } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput, SectionList, Header, Alert} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
@@ -66,7 +66,7 @@ class InviteFriends extends React.Component {
 
     var cuisinesChosen = [];
     for (var k = 0; k < this.props.eventData.cuisines.length; k++) {
-      cuisinesChosen.push(this.props.eventData.cuisines[k].label)
+      cuisinesChosen.push(this.props.eventData.cuisines[k])
     }
 
     var group_event = {id: Date.now().toString(), title: this.props.eventData.title, dates: dates.toString(), meal_type: this.props.eventData.meal, location: {latitude: this.props.eventData.coords.lat, longitude: this.props.eventData.coords.long}, radius: this.props.eventData.distance, host_id: this.props.user.id, participants_id: participants_id.toString(), restaurant_chosen: false, cuisines: cuisinesChosen.toString()}
@@ -80,11 +80,38 @@ class InviteFriends extends React.Component {
       data: {
         password: '$BIG_SHAQ101$',
         type: 'search',
-        query: `insert into group_event(id, title, dates, meal_type, location, radius, host_id, participants_id, restaurant_chosen, cuisines) values ('${group_event.id}', '${group_event.title}', '${group_event.dates}', '${group_event.meal_type}', '${JSON.stringify(group_event.location)}','${group_event.radius}', ${group_event.host_id},'${group_event.participants_id}', true, '${group_event.cuisines}')`
+        query: `insert into group_event(id, title, dates, meal_type, location, radius, host_id, participants_id, restaurant_chosen, cuisines) values ('${group_event.id}', '${group_event.title}', '${group_event.dates}', '${group_event.meal_type}', '${JSON.stringify(group_event.location)}','${group_event.radius}', ${group_event.host_id},'${group_event.participants_id}', false, '${group_event.cuisines}')`
       }
     })
     .then(response => {
-      console.log(response.data)
+      if (response.data.success) {
+        var participants = '';
+        for (var i = 0; i < participants_id.length; i++) {
+          participants += `(${group_event.id}, ${participants_id[i]}, true, false, ${this.props.user.id}, false, false),`
+        }
+        participants += `(${group_event.id}, ${this.props.user.id}, false, true, ${this.props.user.id}, false, false)`;
+
+        var completeQuery = `insert into participants(group_id, participant_id, pending, accepted, host_id, restaurant_chosen, played) values${participants}`;
+        completeQuery = completeQuery.slice(0, completeQuery.length);
+
+        axios({
+          method: 'POST',
+          url: 'http://localhost:3000/db/101_super_duper_secret_101',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            password: '$BIG_SHAQ101$',
+            type: 'search',
+            query: completeQuery
+          }
+        })
+        .then(resp => {
+          if (resp.data.success) {
+            Alert.alert('Oh yeah!', 'We created the event and sent notifications to your peeps!', {text: 'Ok', onPress: Actions.statuspage()})
+          }
+        })
+      }
     })
     .catch(e => {
       console.log(e);
@@ -106,7 +133,7 @@ class InviteFriends extends React.Component {
               <Image style={styles.group} source={require("../assets/plusMGrey.png")}/>
               <Text style={styles.optionText}>Contacts</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={Actions.eats1multi} style={styles.optionContainer}>
+            <TouchableOpacity onPress={() => this.handleCreate()} style={styles.optionContainer}>
               <Image style={styles.group} source={require("../assets/CubeLogoMGrey.png")}/>
               <Text style={styles.optionText}>Create</Text>
             </TouchableOpacity>
@@ -136,6 +163,9 @@ class InviteFriends extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+      eventData: state.form,
+      friends: state.friend,
+      user: state.user
     };
 };
 

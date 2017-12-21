@@ -43,6 +43,7 @@ import FormBar from './components/FormBar.js';
 import Eats1Multi from './containers/Eats1Multi.js';
 import Eats2Multi from './containers/Eats2Multi.js';
 import Eats4 from './containers/Eats4.js';
+import MultiLastResult from './containers/MultiLastResult.js'
 
 EStyleSheet.build();
 
@@ -68,6 +69,7 @@ const Scenes = Actions.create(
             <Scene key="root2" tabs={true} lazy={true} animationEnabled={false} tabBarComponent={Tabbar}>
               <Scene key="discover" component={DiscoverHome} hideNavBar={true}/>
               <Scene key="singleresult" component={SingleResult} hideNavBar={true}/>
+              <Scene key="multilastresult" component={MultiLastResult} hideNavBar={true}/>
               <Scene key="profile" component={Profile} hideNavBar={true}/>
               <Scene key="preferences" component={Preferences} hideNavBar={true}/>
               <Scene key="favoritelist" component={FavoriteList} hideNavBar={true}/>

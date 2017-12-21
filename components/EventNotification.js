@@ -18,7 +18,6 @@ class EventNotification extends Component{
     componentWillMount() {
       axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=users&fields=firstname,lastname&conditions=id='${this.props.data.host_id}'`)
       .then((resp) => {
-        console.log(resp.data);
         let firstInitial = resp.data.result[0].firstname.slice(0,1);
         let lastInitial = resp.data.result[0].lastname.slice(0,1);
         let initials = firstInitial + lastInitial;
@@ -62,7 +61,7 @@ class EventNotification extends Component{
                 <Text style={styles.titleText}>{this.props.data.title}</Text>
                 <View style={styles.rowContainer}>
                   <View style={styles.colContainer}>
-                    <Text style={styles.detailText}>{this.props.data.dates}</Text>
+                    <Text style={styles.detailText}>{this.props.data.dates.split(',')[0]}</Text>
                   </View>
                   <View style={styles.rowPicContainer}>
                     <View style={styles.hostContainer}>

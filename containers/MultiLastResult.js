@@ -14,7 +14,7 @@ import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
 import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
 import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
 
-class SingleResult extends Component {
+class MultiLastResult extends Component {
   imageMatch(rating) {
     switch(rating) {
       case (4 || 4.1 || 4.2 || 4.3 || 4.4):
@@ -76,8 +76,6 @@ class SingleResult extends Component {
   }
 
   render() {
-    console.log(this.props.single.singleResult.coordinates);
-    console.log(this.props.location);
     return (
       <View style={styles.container}>
         <View style={styles.background}>
@@ -86,7 +84,7 @@ class SingleResult extends Component {
             <TouchableOpacity onPress={Actions.listresults}><Text style={styles.backText}>-Back-</Text></TouchableOpacity>
           </View>
           <View style={styles.nameContainer}>
-            <Text style={styles.nameText}>{this.props.single.singleResult.name}</Text>
+            <Text style={styles.nameText}>{this.props.singleResult.name}</Text>
           </View>
           <View style={styles.detailsContainer}>
             <View style={styles.left}>
@@ -115,7 +113,7 @@ class SingleResult extends Component {
             </View>
           </View>
           <View style={styles.address}>
-            <Text style={styles.addressText}>{this.props.single.singleResult.location.address1}, {this.props.single.singleResult.location.city}, {this.props.single.singleResult.location.state}, {this.props.single.singleResult.location.zip_code}</Text>
+            <Text style={styles.addressText}>{this.props.singleResult.location.address1}, {this.props.singleResult.location.city}, {this.props.singleResult.location.state}, {this.props.singleResult.location.zip_code}</Text>
           </View>
           <View style={styles.mapContainer}>
             <MapView
@@ -128,8 +126,8 @@ class SingleResult extends Component {
               }}>
               <MapView.Marker
                  coordinate={{
-                   latitude: this.props.single.singleResult.coordinates.latitude,
-                   longitude: this.props.single.singleResult.coordinates.longitude
+                   latitude: this.props.singleResult.coordinates.latitude,
+                   longitude: this.props.singleResult.coordinates.longitude
                  }}
                  pinColor={'#008000'}
                  />
@@ -153,7 +151,7 @@ class SingleResult extends Component {
   }
 }
 
-SingleResult.propTypes = {
+MultiLastResult.propTypes = {
   openTable: PropTypes.func
 };
 
@@ -350,4 +348,4 @@ const styles = StyleSheet.create({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SingleResult);
+)(MultiLastResult);

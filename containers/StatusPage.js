@@ -13,7 +13,7 @@ class StatusPage extends Component {
 
     this.state = {
       host: '',
-      text: ''
+      text: '',
     };
   }
 
@@ -21,7 +21,96 @@ class StatusPage extends Component {
     if (this.props.status.type === 'Play') {
       Actions.eats1multi();
     } else if (this.props.status.type === 'Result') {
-      Actions.multiresult();
+      axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=group_event&fields=yelp_id&conditions=id='${this.props.status.group_id}'`)
+      .then((res) => {
+        console.log(res.data.result);
+        if (res.data.result[0].yelp_id.length > 0) {
+          axios.get(`http://localhost:3000/yelp/findrestaurant?yelp_id=${res.data.result[0].yelp_id}`)
+          .then((final) => {
+            console.log(final.data.result);
+            if (final.data.success) {
+              this.props.finalDecision(final.data.result);
+              Actions.singleresult();
+            }
+          })
+        } else {
+          axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=responses&fields=group_event_id,host_id,participant_id,is_host,date_chosen,meal_chosen,radius_chosen,price&conditions=group_event_id='${this.props.status.group_id}'`)
+          .then((resp) => {
+              // console.log(resp.data.result)
+              var chosenObj = {group_event_id: this.props.status.group_id, host_id: resp.data.result[0].host_id, radius_chosen: resp.data.result[0].radius_chosen};
+              var dateObj = {};
+              var mealObj = {};
+              var priceObj = {};
+
+              for(let i = 0; i < resp.data.result.length; i++) {
+                if (dateObj.hasOwnProperty(resp.data.result[i].date)) {
+                  dateObj[resp.data.result[i].date_chosen] += 1;
+                } else {
+                  dateObj[resp.data.result[i].date_chosen] = 1;
+                }
+              }
+
+              for(let i = 0; i < resp.data.result.length; i++) {
+                if (mealObj.hasOwnProperty(resp.data.result[i].meal_chosen)) {
+                  mealObj[resp.data.result[i].meal_chosen] += 1;
+                } else {
+                  mealObj[resp.data.result[i].meal_chosen] = 1;
+                }
+              }
+
+              for(let i = 0; i < resp.data.result.length; i++) {
+                if (priceObj.hasOwnProperty(resp.data.result[i].price)) {
+                  console.log(resp.data.result[i].price);
+                  priceObj[resp.data.result[i].price] += 1;
+                } else {
+                  console.log(resp.data.result[i].price);
+                  priceObj[resp.data.result[i].price] = 1;
+                }
+              }
+
+
+              var date = '';
+              var number = 0;
+              var chosenDateObj = '';
+              for (const key in dateObj) {
+                if (dateObj[key] > number) {
+                  number = dateObj[key];
+                  chosenDateObj = key;
+                }
+              }
+
+              var mealNumber = 0;
+              var chosenMealObj = '';
+              for (const key in mealObj) {
+                if (mealObj[key] > mealNumber) {
+                  mealNumber = dateObj[key];
+                  chosenMealObj = key;
+                }
+              }
+
+              var priceNumber = 0;
+              var chosenPriceObj = '';
+              console.log(priceObj);
+              for (const key in priceObj) {
+                if (priceObj[key] > priceNumber) {
+                  priceNumber = priceObj[key];
+                  chosenPriceObj = key;
+                }
+              }
+
+              console.log('Date Obj ', chosenDateObj);
+              console.log('Meal OBJ', chosenMealObj);
+              console.log('Price OBJ ', chosenPriceObj);
+
+              var finalObj = {group_id: chosenObj.group_event_id, host_id: chosenObj.host_id, date: chosenDateObj, meal: chosenMealObj, radius: chosenObj.radius_chosen, price: chosenPriceObj};
+              this.props.finalDecider(finalObj);
+              Actions.multiresult();
+          })
+        }
+      })
+      .catch((err) => {
+        console.log('Result Error ', err);
+      });
     } else {
       Alert.alert('Game is ongoing', 'We\'ll let you know once the restaurant is chosen', {text: 'Ok'})
     }
@@ -101,6 +190,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      finalDecider: (final) => dispatch({type: 'FINAL_MULTI', final: final}),
+      finalDecision: (result) => dispatch({type: 'SINGLE_RESULT', result: result})
     };
 };
 

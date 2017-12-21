@@ -18,33 +18,73 @@ class MyEvents3 extends React.Component {
     }
   }
   componentWillMount() {
+    // // axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id&conditions=participant_id='${this.props.user.id}'`)
+    // // .then(response => {
+    // //   if (response.data.result.length > 1) {
+    // //     var params = '';
+    // //     for (var i = 0; i < response.data.result.length; i++) {
+    // //       if (response.data.result[i].pending) {
+    // //           params += `id='${response.data.result[i].group_id}' or `;
+    // //       }
+    // //     }
+    // //     params = params.slice(0, params.length - 4);
+    // //     if (params.length >= 1) {
+    // //       var url = `http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=group_event&fields=id,title,dates,meal_type,location,radius,cuisines,host_id,participants_id,restaurant_chosen,yelp_id&conditions=${params}`;
+    // //
+    // //       axios.get(url)
+    // //       .then(resp => {
+    // //         console.log(resp.data.result)
+    // //         this.setState({
+    // //           results: resp.data.result
+    // //         });
+    // //         console.log(this.state.results);
+    // //       })
+    // //     }
+    // //
+    // //   }
+    // // })
+    // // .catch(e => {
+    // //   console.log(e);
+    // // })
     axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=participants&fields=id,group_id,participant_id,pending,accepted,host_id&conditions=participant_id='${this.props.user.id}'`)
     .then(response => {
-      if (response.data.result.length > 1) {
+      // if (response.data.result.length > 0) {
+      //   var params = '';
+      //   for (var i = 0; i < response.data.result.length; i++) {
+      //     if (response.data.result[i].pending) {
+      //       params += `id='${response.data.result[i].group_id}' or `;
+      //     }
+      //   }
+      //   params = params.slice(0, params.length - 4);
+      //   if (params.length > -1) {
+      //     var url = `http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=group_event&fields=id,title,dates,meal_type,location,radius,cuisines,host_id,participants_id,restaurant_chosen,yelp_id&conditions=${params}`;
+      //   }
+      //   axios.get(url)
+      //   .then(resp => {
+      //     console.log(resp.data.result);
+      //   })
+      // }
+      if (response.data.result.length > 0) {
         var params = '';
-        for (var i = 0; i < response.data.result.length; i++) {
+        for (var i = 0; i  < response.data.result.length; i++) {
           if (response.data.result[i].pending) {
-              params += `id='${response.data.result[i].group_id}' or `;
+            params += `id='${response.data.result[i].group_id}' or `;
           }
         }
         params = params.slice(0, params.length - 4);
-        if (params.length >= 1) {
+        if (params.length > -1) {
           var url = `http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=group_event&fields=id,title,dates,meal_type,location,radius,cuisines,host_id,participants_id,restaurant_chosen,yelp_id&conditions=${params}`;
-
-          axios.get(url)
-          .then(resp => {
-            console.log(resp.data.result)
-            this.setState({
-              results: resp.data.result
-            });
-            console.log(this.state.results);
-          })
         }
-
+        axios.get(url)
+        .then(resp => {
+          this.setState({
+             results: resp.data.result
+           });
+        })
       }
     })
     .catch(e => {
-      console.log(e);
+      console.log(e)
     })
   }
 

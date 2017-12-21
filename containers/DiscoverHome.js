@@ -33,6 +33,17 @@ class DiscoverHome extends Component {
     }
   }
 
+  async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status === 'granted') {
+      // navigator.geolocation.getCurrentPosition());
+      let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
+      this.props.locationFetch(location.coords);
+    } else {
+      console.log("Access not granted")
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
