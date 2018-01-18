@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {StyleSheet,Text,View,Image,TouchableOpacity,TextInput} from 'react-native'; //Step 1
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
@@ -72,14 +72,13 @@ var styles = StyleSheet.create({
     height: verticalScale(30),
     width: scale(30),
     borderRadius: scale(30/2),
-    borderColor: 'black',
-    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   headShot: {
     height: verticalScale(30),
-    width: scale(30)
+    width: scale(30),
+    overflow: 'visible'
   },
   categoryText: {
     fontFamily: 'Futura',

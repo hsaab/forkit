@@ -6,13 +6,7 @@ import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 const { Location, Permissions } = Expo;
 import PropTypes from 'prop-types';
-import Swiper from 'react-native-swiper';
 import axios from 'axios';
-import DiscoverEats from '../components/DiscoverEats.js';
-import DiscoverExp from '../components/DiscoverExp.js';
-import DiscoverExpl from '../components/DiscoverExpl.js';
-import DiscoverPlay from '../components/DiscoverPlay.js';
-import DiscoverParty from '../components/DiscoverParty.js';
 
 class DiscoverHome extends Component {
 
@@ -38,13 +32,43 @@ class DiscoverHome extends Component {
 
   render() {
     return (
-      <Swiper dotColor={'rgba(255,255,255,.40)'} activeDotColor={'white'}>
-        <DiscoverEats/>
-        <DiscoverExp/>
-        <DiscoverExpl/>
-        <DiscoverPlay/>
-        <DiscoverParty/>
-      </Swiper>
+      <View style={styles.container}>
+        <View style={styles.background}>
+          <Image style={styles.backgroundColor} source={require("../assets/Discover_Play.png")}/>
+          <TouchableOpacity>
+            <View style={styles.addContainer}>
+              <Image style={styles.addIcon} source={require("../assets/addFriends.png")}/>
+            </View>
+          </TouchableOpacity>
+          <View style={styles.discoverHead}>
+            <Text style={styles.discoverText}>Play</Text>
+          </View>
+          <TouchableOpacity style={styles.playButton} onPress={Actions.myevents}>
+            <View style={styles.imageContainer}>
+              <Image style={styles.statusIcon} source={require("../assets/eventstatusWhite.png")}/>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.playText}>My Events</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.playButton} onPress={Actions.eventform} >
+            <View style={styles.imageContainer}>
+              <Image style={styles.multiIcon} source={require("../assets/groupWhite.png")}/>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.playText}>Multiplayer</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.playButton} onPress={(ev) => this.singlePlayerButton(ev)}>
+            <View style={styles.imageContainer}>
+              <Image style={styles.singleIcon} source={require("../assets/single.png")}/>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.playText}>Singleplayer</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
@@ -92,7 +116,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(80),
     fontFamily: 'Futura',
     color: 'white',
-    margin: moderateScale(10)
+    margin: moderateScale(18)
   },
   playButton: {
     width: scale(327),

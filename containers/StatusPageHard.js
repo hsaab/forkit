@@ -88,11 +88,13 @@ class StatusPage extends Component {
   }
 
   render() {
+    console.log('*******', this.props.multi, moment(this.props.multi.date).toString())
     let statusVal = this.props.multi.price.length > 0 ? "Pending" : "Open";
-    let dateVal = moment(this.props.multi.date).toString().length > 0 ? moment(this.props.multi.date).format('ddd') : "Date TBD";
-    let dateVal2 = moment(this.props.multi.date).toString().length > 0 ? moment(this.props.multi.date).format('ddd') : "";
-    let profVal = moment(this.props.multi.date).toString().length > 0 ? Hassan : null;
-    let buttonText = moment(this.props.multi.date).toString().length > 0 ? 'Pending' : 'Play';
+    let dateVal = moment(this.props.multi.date).toString() !== "Invalid date" ? "on " + moment(this.props.multi.date).format("dddd") : "";
+    let dateVal1 = moment(this.props.multi.date).toString() !== "Invalid date" ? moment(this.props.multi.date).format("MMMM D") : "Date TBD";
+    let dateVal2 = moment(this.props.multi.date).toString() !== "Invalid date" ? moment(this.props.multi.date).format("ddd, MMM D") : "";
+    let profVal = this.props.multi.price.length > 0 ? Hassan : null;
+    let buttonText = this.props.multi.price.length > 0 ? 'Pending' : 'Play';
     return (
       <View style={styles.container}>
         <Image style={styles.backgroundColor} source={require("../assets/MultiFormL.png")}/>
@@ -103,8 +105,8 @@ class StatusPage extends Component {
           <View style={styles.detailsContainer}>
             <View style={styles.detailsLeft}>
               <Text style={styles.title}>{this.props.form.title}</Text>
-              <Text style={styles.lightFont}>{this.props.form.meal}</Text>
-              <Text style={styles.lightFont}>{dateVal}</Text>
+              <Text style={styles.lightFont}>{this.props.form.meal} {dateVal}</Text>
+              <Text style={styles.lightFont}>{dateVal1}</Text>
             </View>
             <View style={styles.detailsRight}>
               <View style={styles.hostContainer}>
@@ -115,7 +117,7 @@ class StatusPage extends Component {
                 <Text style={styles.hostName}>{this.state.host.name}</Text>
               </View>
               <View style={styles.inviteContainer}>
-                <Text style={styles.hostName}>invited {this.props.friend.length} ppl</Text>
+                <Text style={styles.hostName}>invited {this.props.friend.length - 1}</Text>
                 <Image style={styles.addIcon} source={require("../assets/add2Grey.png")}/>
               </View>
             </View>
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
   },
   currentContainer: {
     width: scale(375),
-    height: verticalScale(60),
+    height: verticalScale(68),
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: "#EBEBEB",
@@ -236,14 +238,13 @@ const styles = StyleSheet.create({
   },
   headShot: {
     height: verticalScale(40),
-    width: scale(40)
+    width: scale(40),
+    overflow: 'visible'
   },
   guestCircle: {
     height: verticalScale(40),
     width: scale(40),
     borderRadius: scale(20),
-    // borderColor: 'black',
-    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     margin: scale(5)
@@ -311,7 +312,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,.5)',
     borderRadius: scale(55),
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: moderateScale(10)
   },
   resultContainer: {
     justifyContent: 'flex-end',

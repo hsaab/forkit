@@ -36,9 +36,9 @@ export default class Calendar extends React.Component {
           customDatesStyles={customDatesStyles}
           iconRight={iconRight}
           useIsoWeekday={false}
-          iconRightStyle={{width: scale(17), height: verticalScale(15), left: scale(3)}}
+          iconRightStyle={{width: scale(17), height: verticalScale(15), overflow: 'visible'}}
           iconLeft={iconLeft}
-          iconLeftStyle={{width: scale(17), height: verticalScale(15), right: scale(3)}}
+          iconLeftStyle={{width: scale(17), height: verticalScale(15), overflow: 'visible'}}
           calendarHeaderStyle={styles.calHeader}
           dateNameStyle={styles.dateName}
           dateNumberStyle={styles.dateNumber}

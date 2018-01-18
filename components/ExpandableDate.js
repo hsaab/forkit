@@ -122,18 +122,20 @@ var styles = StyleSheet.create({
       alignItems: 'center'
     },
     buttonImage: {
-      width: scale(35),
-      height: verticalScale(35)
+      width: scale(38),
+      height: verticalScale(38),
+      overflow: 'visible'
     },
     checkImage: {
-      width: scale(35),
-      height: verticalScale(35),
-      right: scale(5)
+      width: scale(25),
+      height: verticalScale(25),
+      right: scale(10),
+      overflow: 'visible'
     },
     body: {
-      height: verticalScale(360),
+      height: verticalScale(255),
       width: scale(375),
-      borderBottomWidth: 0.5,
+      borderBottomWidth: moderateScale(0.5),
       borderColor: 'gray',
       justifyContent: 'center',
       alignItems: 'center',
@@ -141,7 +143,8 @@ var styles = StyleSheet.create({
     downIcon: {
       width: scale(20),
       height: verticalScale(20),
-      right: verticalScale(28)
+      right: verticalScale(28),
+      overflow: 'visible'
     }
 });
 

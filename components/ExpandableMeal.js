@@ -122,24 +122,27 @@ var styles = StyleSheet.create({
     },
     buttonImage: {
       width: scale(35),
-      height: verticalScale(35)
+      height: verticalScale(35),
+      overflow: 'visible'
     },
     checkImage: {
-      width: scale(35),
-      height: verticalScale(35),
-      right: scale(5)
+      width: scale(25),
+      height: verticalScale(25),
+      right: scale(10),
+      overflow: 'visible'
     },
     body: {
       height: verticalScale(100),
       width: scale(375),
-      borderBottomWidth: 0.5,
+      borderBottomWidth: moderateScale(0.5),
       borderColor: 'gray',
       backgroundColor: 'rgba(255,255,255,.2)',
     },
     downIcon: {
       width: scale(20),
       height: verticalScale(20),
-      right: verticalScale(28)
+      right: verticalScale(28),
+      overflow: 'visible'
     }
 });
 

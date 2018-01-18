@@ -119,16 +119,18 @@ var styles = StyleSheet.create({
       alignItems: 'center'
     },
     buttonImage: {
-      width: 25,
-      height: 40
+      width: scale(25),
+      height: verticalScale(38),
+      overflow: 'visible'
     },
     checkImage: {
-      width: 35,
-      height: 35,
-      right: scale(5)
+      width: scale(25),
+      height: verticalScale(25),
+      right: scale(10),
+      overflow: 'visible'
     },
     body: {
-      height: verticalScale(515),
+      height: verticalScale(500),
       width: scale(375),
       backgroundColor: 'rgba(255,255,255,.2)'
     },

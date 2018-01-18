@@ -8,6 +8,7 @@ import MinibarResults from '../components/MinibarResults.js';
 import StarRating from 'react-native-star-rating';
 import RestResult from '../components/RestResult.js';
 import restImage from "../assets/burger.jpg";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -80,7 +81,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent'
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: 'transparent',
-    height: verticalScale(667-75-50),
+    height: verticalScale(667-75-60),
     width: scale(375)
   },
   backgroundColor: {
@@ -99,12 +100,8 @@ const styles = StyleSheet.create({
     width: scale(375)
   },
   listContainer: {
-    flex: 6,
+    flex: 5,
     justifyContent: 'center'
-  },
-  bottomContainer: {
-    flex: 1,
-    flexDirection: 'row'
   },
   textStyle: {
     fontFamily: 'Futura',
@@ -125,17 +122,23 @@ const styles = StyleSheet.create({
   dice: {
     height: verticalScale(35),
     width: scale(35),
-    left: scale(15)
+    left: scale(15),
+    overflow: 'visible'
+  },
+  bottomContainer: {
+    flex: 0.95,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   gamble: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "rgba(255,255,255,.5)",
     borderRadius: scale(75),
     margin: moderateScale(5),
-    width: scale(300),
+    width: '95%',
     bottom: verticalScale(3)
   },
   gambleText: {

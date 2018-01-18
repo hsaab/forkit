@@ -302,8 +302,10 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(30)
   },
   dice: {
-    height: verticalScale(35),
-    width: scale(35)
+    height: verticalScale(30),
+    width: scale(30),
+    overflow: 'visible',
+    left: scale(12)
   },
   mexican: {
     height: verticalScale(50),

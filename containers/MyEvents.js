@@ -10,20 +10,14 @@ import Calendar from '../components/Calendar.js';
 import ProfPic from '../assets/profile.png';
 import Tabbar from '../components/Tabbar.js';
 import axios from 'axios';
-import Fifty from '../assets/prof/50.png';
-import Alec from '../assets/prof/alec.png';
-import Andrew from '../assets/prof/andrew.png';
-import Ariana from '../assets/prof/ariana.png';
+import Arya from '../assets/prof/Arya.png';
+import Adil from '../assets/prof/Adil.png';
 import Brandon from '../assets/prof/Brandon.png';
+import Caroline from '../assets/prof/Caroline.png';
+import Etai from '../assets/prof/Etai.png';
 import Hassan from '../assets/prof/Hassan.png';
-import Kobe from '../assets/prof/kobe.png';
-import Luda from '../assets/prof/luda.png';
-import Megan from '../assets/prof/megan.png';
-import Natalie from '../assets/prof/natalie.png';
+import Jennifer from '../assets/prof/Jennifer.png';
 import Paul from '../assets/prof/Paul.png';
-import Pauly from '../assets/prof/pauly.png';
-import Queen from '../assets/prof/queen.png';
-import Shakira from '../assets/prof/shakira.png';
 import Vasish from '../assets/prof/Vasish.png';
 import EventItemHard from '../components/EventItemHard.js';
 
@@ -33,8 +27,8 @@ class MyEvents extends React.Component {
 
     this.state = {
       results: [
-        {title:'All You Can Eat Tacos', day:'Sunday', dates:'Dec 27 at 12:00 PM', meal_type: 'Lunch', guests: [Pauly, Alec], host: Fifty},
-        {title:'Christmas Brunch', day:'Monday', dates: 'Dec 25 at 11:00AM', meal_type: 'Brunch', guests: [Paul, Natalie], host: Ariana}
+        {title:'Post-Gym Protein', day:'Sunday', dates:'Jan 14 at 12:00 PM', meal_type: 'Lunch', guests: [Etai, Hassan], host: Arya},
+        {title:'Je Mange', day:'Monday', dates: 'Jan 15 at 11:00AM', meal_type: 'Brunch', guests: [Hassan, Adil], host: Caroline}
       ],
       oneResult: this.props.form,
       friends: this.props.friend
@@ -96,7 +90,7 @@ class MyEvents extends React.Component {
     //
     // let formData = this.props.form;
     // formData["guests"] = firstNames;
-    console.log('Form data', this.props.form);
+    // console.log('Form data', this.props.form);
     return (
       <View>
         <MyEventBar title={"Ongoing"} aLink={() => Actions.myevents()} bLink={() => Actions.myevents2()} cLink={() => Actions.myevents3()}/>

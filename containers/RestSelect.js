@@ -4,61 +4,33 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
-const { Location, Permissions } = Expo;
-import PropTypes from 'prop-types';
-import Swiper from 'react-native-swiper';
-import axios from 'axios';
-import DiscoverEats from '../components/DiscoverEats.js';
-import DiscoverExp from '../components/DiscoverExp.js';
-import DiscoverExpl from '../components/DiscoverExpl.js';
-import DiscoverPlay from '../components/DiscoverPlay.js';
-import DiscoverParty from '../components/DiscoverParty.js';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-class DiscoverHome extends Component {
-
-  async singlePlayerButton(ev) {
-    ev.preventDefault();
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status === 'granted') {
-      // navigator.geolocation.getCurrentPosition());
-      let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
-      this.props.locationFetch(location.coords);
-      let coords = {latitude: location.coords.latitude, longitude: location.coords.longitude};
-      axios.get(`https://guarded-dawn-44803.herokuapp.com/yelp/initialfetch?latitude=${coords.latitude}&longitude=${coords.longitude}&radius=1000`)
-      .then((resp) => {
-        let cuisines = {cuisines: resp.data};
-        this.props.initialYelp(cuisines);
-        Actions.eats1();
-      })
-      .catch((err) => console.log('Initial yelp error', err));
-    } else {
-      console.log("Access not granted")
-    }
-  }
+class RestSelect extends Component {
 
   render() {
     return (
-      <Swiper dotColor={'rgba(255,255,255,.40)'} activeDotColor={'white'}>
-        <DiscoverEats/>
-        <DiscoverExp/>
-        <DiscoverExpl/>
-        <DiscoverPlay/>
-        <DiscoverParty/>
-      </Swiper>
+      <View style={styles.container}>
+        <View style={styles.background}>
+          <Image style={styles.backgroundColor} source={require("../assets/Discover.png")}/>
+          <Image style={styles.confetti} source={require("../assets/confetti.png")}/>
+          <View style={styles.contentContainer}>
+            <Text style={styles.discoverText}>Restaurant has been selected!</Text>
+            <TouchableOpacity style={styles.playButton} onPress={Actions.myevents}>
+              <View style={styles.textContainer}>
+                <Text style={styles.playText}>Go to Restaurant</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     );
   }
 }
 
-DiscoverHome.propTypes = {
-  locationFetch: PropTypes.func,
-  initialYelp: PropTypes.func
-};
-
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
       locationInfo: state.area,
-      // searchArea: state.yelp
     };
 };
 
@@ -70,7 +42,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -79,29 +51,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    height: verticalScale(667-60),
+    height: verticalScale(667-50),
     width: scale(375)
+  },
+  confetti: {
+    bottom: verticalScale(100)
   },
   backgroundColor: {
     top: verticalScale(0),
     position: 'absolute',
-    height: verticalScale(667-60),
+    height: verticalScale(667-50),
     width: scale(375)
   },
+  contentContainer: {
+    bottom: verticalScale(100),
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   discoverText: {
-    fontSize: moderateScale(80),
+    fontSize: moderateScale(43),
     fontFamily: 'Futura',
     color: 'white',
-    margin: moderateScale(10)
+    margin: moderateScale(10),
+    textAlign: 'center'
   },
   playButton: {
-    width: scale(327),
-    height: verticalScale(100),
+    width: scale(299),
+    height: verticalScale(66),
     backgroundColor: 'rgba(255,255,255,.40)',
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderRadius: scale(327/2),
-    marginBottom: verticalScale(20),
+    marginTop: verticalScale(10)
   },
   imageContainer: {
     width: scale(100),
@@ -109,14 +91,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   textContainer: {
-    width: scale(327-100),
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'center'
   },
   playText: {
-    fontSize: moderateScale(35),
+    fontSize: moderateScale(28),
     fontFamily: 'Futura',
     color: 'white',
+    textAlign: 'center'
   },
   addContainer: {
     width: scale(375),
@@ -150,4 +132,4 @@ const styles = StyleSheet.create({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(DiscoverHome);
+)(RestSelect);

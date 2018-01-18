@@ -46,6 +46,7 @@ import FormBar from './components/FormBar.js';
 import Newsfeed from './containers/Newsfeed.js';
 import Search from './containers/Search.js';
 import StatusPageHard from './containers/StatusPageHard.js';
+import RestSelect from './containers/RestSelect.js';
 console.disableYellowBox = true;
 
 EStyleSheet.build();
@@ -53,7 +54,6 @@ EStyleSheet.build();
 const Scenes = Actions.create(
         <Lightbox>
           <Scene key="root">
-            {/* <Scene key="home" component={Home} initial={true} hideNavBar={true}/> */}
             <Scene key="login" component={Login} initial={true} hideNavBar={true}/>
             <Scene key="register" component={Register} hideNavBar={true}/>
             <Scene key="eats1" component={Eats1} hideNavBar={true} hideTabBar={true}/>
@@ -89,7 +89,7 @@ const Scenes = Actions.create(
               <Scene key="myevents" component={MyEvents} hideNavBar={true}/>
               <Scene key="myevents2" component={MyEvents2} hideNavBar={true}/>
               <Scene key="myevents3" component={MyEvents3} hideNavBar={true}/>
-              <Scene key="search" component={MyEvents3} hideNavBar={true}/>
+              <Scene key="restselect" component={RestSelect} hideNavBar={true}/>
             </Scene>
           </Scene>
           <Scene key="resultlightbox" component={ResultLightbox} hideNavBar={true}/>

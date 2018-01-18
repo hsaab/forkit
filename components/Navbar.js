@@ -17,7 +17,7 @@ export default class Navbar extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: verticalScale(70),
+    height: verticalScale(75),
     width: scale(375),
     backgroundColor: "#EBEBEB",
     alignItems: 'flex-end',

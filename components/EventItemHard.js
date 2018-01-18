@@ -57,9 +57,9 @@ class EventItem extends Component{
       // let day = moment(this.props.data.day);
       // let date = moment(this.props.data.dates[0])
       // console.log(day);
-      console.log(this.props.form, this.props.multi)
-      let date = moment(this.props.multi.date).format('ddd') === 'Invalid date' ? 'Date TBD!': moment(this.props.multi.date).format('ddd');
-      let day = moment(this.props.multi.date).format('ddd') === 'Invalid date' ? null : moment(this.props.multi.date).format('ddd');
+      // console.log(this.props.form, this.props.multi)
+      let date = moment(this.props.multi.date).format('ddd') === 'Invalid date' ? 'Date TBD!': moment(this.props.multi.date).format('dddd');
+      let day = moment(this.props.multi.date).format('ddd') === 'Invalid date' ? null : moment(this.props.multi.date).format('MMMM D');
       return (
         <View style={styles.container}>
           <TouchableOpacity style={styles.background} onPress={Actions.statuspagehard}>
@@ -88,7 +88,6 @@ class EventItem extends Component{
                       <View style={styles.circle}>
                         <Image style={styles.headShot} source={result}/>
                       </View> )}
-
                   </View>
                 </View>
               </View>
@@ -203,14 +202,13 @@ var styles = StyleSheet.create({
     height: verticalScale(30),
     width: scale(30),
     borderRadius: scale(30/2),
-    // borderColor: 'black',
-    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   headShot: {
     height: verticalScale(30),
-    width: scale(30)
+    width: scale(30),
+    overflow: 'visible'
   },
   guestContainer: {
     alignItems: 'center',

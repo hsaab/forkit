@@ -119,12 +119,15 @@ var styles = StyleSheet.create({
       alignItems: 'center'
     },
     buttonImage: {
-      width: scale(35),
-      height: verticalScale(25)
+      width: scale(23),
+      height: verticalScale(23),
+      overflow: 'visible'
     },
     checkImage: {
-      width: scale(35),
-      height: verticalScale(35)
+      width: scale(25),
+      height: verticalScale(25),
+      right: scale(10),
+      overflow: 'visible'
     },
     body: {
       height: verticalScale(75),
@@ -132,8 +135,7 @@ var styles = StyleSheet.create({
       backgroundColor: 'rgba(255,255,255,.2)',
       justifyContent: 'center',
       alignItems: 'center',
-      borderTopWidth: 0.5,
-      borderBottomWidth: 0.5,
+      borderBottomWidth: moderateScale(0.5),
       borderColor: 'gray',
     },
     rowContainer: {
@@ -143,7 +145,8 @@ var styles = StyleSheet.create({
     downIcon: {
       width: scale(20),
       height: verticalScale(20),
-      right: verticalScale(28)
+      right: verticalScale(28),
+      overflow: 'visible'
     }
 });
 

@@ -19,10 +19,14 @@ class Login extends React.Component{
   }
 
   async componentWillMount() {
-    let emailObj = await AsyncStorage.getItem('email');
-    let email = JSON.parse(emailObj);
+    // let emailObj = await AsyncStorage.getItem('email');
+    // let email = JSON.parse(emailObj);
+    let email = {
+      email: 'hsaab310@gmail.com',
+      type: 'regular'
+    }
     var userObj = {};
-    console.log(email);
+    // console.log(email);
     if (email) {
       if (email.type === 'regular') {
         axios.get(`http://localhost:3000/db/search?password=$BIG_SHAQ103$&tableName=users&fields=id,token,email,firstname,lastname,friends,forks,wishlist,os,number&conditions=email='${email.email}'`)
@@ -218,7 +222,7 @@ class Login extends React.Component{
             </TouchableOpacity>
           </View>
           <View style={styles.buttonForm}>
-            <TouchableOpacity style={styles.loginButton} onPress={(ev) => {this.login(ev)}}>
+            <TouchableOpacity style={styles.loginButton} onPress={Actions.discover}>
               <Text style={styles.loginText}> SIGN IN </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.fbButton} onPress={() => this.facebookLogin()}>
@@ -272,7 +276,8 @@ const styles = StyleSheet.create({
   },
   logotext: {
     height: verticalScale(175),
-    width: scale(250)
+    width: scale(250),
+    overflow: 'visible'
   },
   inputForm: {
     height: verticalScale(130),

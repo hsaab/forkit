@@ -6,6 +6,7 @@ import { scale, verticalScale, moderateScale } from '../scaler.js';
 import Navbar from '../components/Navbar.js';
 import Dash from 'react-native-dash';
 import PropTypes from 'prop-types';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 class Eats1 extends Component {
   constructor(props) {
@@ -84,26 +85,20 @@ class Eats1 extends Component {
           </View>
           <View style={styles.colSubContainer}>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleLow(ev)}>
-              <View style={styles.dollarCols}>
+              <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.option}>
+              <View style={styles.dolContainer2}>
+                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
                 <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.option}>
-              <View style={styles.dollarCols}>
-                <View style={styles.rowSubContainer}>
-                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                </View>
-              </View>
-            </TouchableOpacity>
             <TouchableOpacity style={styles.option} onPress={(ev) => this.handleHigh(ev)}>
-              <View style={styles.dollarCols}>
-                <View style={styles.rowSubContainer3}>
-                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                  <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
-                  <Text style={styles.plus}>+</Text>
-                </View>
+              <View style={styles.dolContainer3}>
+                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                <Image style={styles.dollarSigns} source={require("../assets/dollarsigns-white.png")}/>
+                <Text style={styles.plus}>+</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.option, styles.rowSubContainer]} onPress={() => this.handleGamble()}>
@@ -133,7 +128,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -170,11 +165,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  rowSubContainer3: {
+  dolContainer3: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    left: scale(15)
+    justifyContent: 'space-around',
+    left: scale(15),
+    width: '72%'
+  },
+  dolContainer2: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '39%'
   },
   colSubContainer: {
     flexDirection: 'column',
@@ -207,7 +209,8 @@ const styles = StyleSheet.create({
   },
   dollarSigns: {
     height: verticalScale(50),
-    width: scale(50)
+    width: scale(50),
+    overflow: 'visible'
   },
   dollarCols: {
     flexDirection: 'column',
@@ -220,15 +223,17 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(30)
   },
   dice: {
-    height: verticalScale(35),
-    width: scale(35)
+    height: verticalScale(30),
+    width: scale(30),
+    overflow: 'visible',
+    left: scale(12)
   },
   plus: {
     fontFamily: 'Futura',
     color: 'white',
     fontSize: moderateScale(45),
     fontWeight: 'bold',
-    left: scale(5)
+    right: scale(5)
   }
 });
 

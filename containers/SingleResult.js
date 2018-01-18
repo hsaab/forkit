@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import fourStars from "../assets/yelp_stars/web_and_ios/small/small_4.png";
 import fourHalfStars from "../assets/yelp_stars/web_and_ios/small/small_4_half.png";
 import fiveStars from "../assets/yelp_stars/web_and_ios/small/small_5.png";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 class SingleResult extends Component {
   imageMatch(rating) {
@@ -90,8 +91,8 @@ class SingleResult extends Component {
             <View style={styles.left}>
               <Text style={styles.textStyle}>{this.props.single.singleResult.categories[0].title}</Text>
               <Image style={styles.starMe} source={this.imageMatch(this.props.single.singleResult.rating)}/>
-                <Text style={styles.detailText}>{this.props.single.singleResult.review_count} Yelp reviews</Text>
-                <Text style={styles.detailText}>{(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
+              <Text style={styles.detailText}>{this.props.single.singleResult.review_count} Yelp reviews</Text>
+              <Text style={styles.detailText}>{(this.props.single.singleResult.distance*0.000621371).toPrecision(3)} miles away</Text>
             </View>
           </View>
           <View style={styles.actionBar}>
@@ -168,7 +169,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent'
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: 'transparent',
-    height: verticalScale(667-50),
+    height: verticalScale(667-60),
     width: scale(375)
   },
   backgroundColor: {
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
     width: scale(375),
-    padding: scale(12)
+    padding: scale(25)
   },
   detailsContainer: {
     flex: 3,
@@ -206,9 +207,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   nameContainer: {
-    flex: 1,
+    flex: 0.75,
     width: scale(375),
-    paddingLeft: scale(15),
+    paddingLeft: scale(20),
     bottom: verticalScale(5),
     alignItems: 'flex-start'
   },
@@ -224,7 +225,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    paddingLeft: scale(15),
+    paddingLeft: scale(20),
   },
   right: {
     flex: 1,
@@ -232,16 +233,17 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   leftAction: {
-    flex: 1,
+    flex: 1.2,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingLeft: scale(10),
   },
   rightAction: {
     flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    paddingRight: scale(10)
+    paddingRight: scale(18)
   },
   details: {
     flex: 6,
@@ -250,30 +252,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   yelp: {
-    width: scale(50),
-    height: verticalScale(50),
+    width: scale(55),
+    height: scale(55),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#d32323',
-    borderRadius: moderateScale(25),
+    borderRadius: moderateScale(55/2),
     margin: moderateScale(2)
   },
   openTable: {
-    width: scale(50),
-    height: verticalScale(50),
+    width: scale(55),
+    height: scale(55),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    borderRadius: moderateScale(25),
+    borderRadius: scale(55/2),
     margin: moderateScale(2)
   },
   call: {
-    width: scale(50),
-    height: verticalScale(50),
+    width: scale(55),
+    height: scale(55),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    borderRadius: moderateScale(25),
+    borderRadius: scale(55/2),
     margin: moderateScale(2)
   },
   textStyle: {
@@ -297,16 +299,19 @@ const styles = StyleSheet.create({
     color: '#646464',
   },
   yelpIcon: {
-    height: verticalScale(16),
+    height: verticalScale(17),
     width: scale(40),
+    overflow: 'visible'
   },
   openTableIcon: {
-    height: verticalScale(20),
+    height: verticalScale(15),
     width: scale(45),
+    overflow: 'visible'
   },
   phoneIcon: {
     height: verticalScale(25),
-    width: scale(19)
+    width: scale(19),
+    overflow: 'visible'
   },
   forkit: {
     flex: 1,
@@ -345,7 +350,7 @@ const styles = StyleSheet.create({
     width: scale(150)
   },
   starMe: {
-    width: scale(120),
+    width: scale(140),
     height: verticalScale(20),
     overflow: 'visible'
   },

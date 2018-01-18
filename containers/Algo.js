@@ -145,8 +145,9 @@ const styles = StyleSheet.create({
     width: scale(375)
   },
   logotext: {
-    height: verticalScale(200),
-    width: scale(300)
+    height: verticalScale(175),
+    width: scale(175),
+    overflow: 'visible'
   },
 });
 

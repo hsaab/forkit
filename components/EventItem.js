@@ -193,14 +193,13 @@ var styles = StyleSheet.create({
     height: verticalScale(30),
     width: scale(30),
     borderRadius: scale(30/2),
-    // borderColor: 'black',
-    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   headShot: {
     height: verticalScale(30),
-    width: scale(30)
+    width: scale(30),
+    overflow: 'visible'
   },
   guestContainer: {
     alignItems: 'center',

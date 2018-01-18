@@ -22,7 +22,6 @@ export default class CalendarTrivia extends React.Component {
   }
 
   dayItem(selDay, i) {
-    console.log(selDay)
     const possible = this.props.dates.map((each) => {return each.day});
     const select = possible.includes(selDay.num);
     if(select){
@@ -99,7 +98,7 @@ const styles = EStyleSheet.create({
   numContainer: {
     width: scale(37),
     height: verticalScale(37),
-    borderRadius: scale(37/2),
+    borderRadius: verticalScale(37/2),
     backgroundColor: '#EAEAEA',
     alignItems: 'center',
     justifyContent: 'center'

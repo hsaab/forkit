@@ -32,13 +32,13 @@ class ResultLightbox extends Component {
       <View style={styles.container}>
         <View style={styles.transportContainer}>
           <TouchableOpacity style={styles.button} onPress={this.handleGetDirections}>
-            <Image style={styles.icon} source={require("../assets/google-maps.png")}/>
+            <Image style={styles.maps} source={require("../assets/google-maps.png")}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={ ()=>{ Linking.openURL(`https://m.uber.com/ul/?action=setPickup&client_id=MiKDUcSdVp1h38ZYjiK98BpmRSx7jB1w&product_id=26546650-e557-4a7b-86e7-6a3942445247&pickup[latitude]=${this.props.location.latitude}&pickup[longitude]=${this.props.location.longitude}&dropoff[latitude]=${this.props.destination.singleResult.coordinates.latitude}&dropoff[longitude]=${this.props.destination.singleResult.coordinates.longitude}`)}}>
-            <Image style={styles.icon} source={require("../assets/uber.png")}/>
+            <Image style={styles.uber} source={require("../assets/uber.png")}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={ ()=>{ Linking.openURL(`https://lyft.com/ride?id=lyft_line&pickup[latitude]=${this.props.location.latitude}&pickup[longitude]=${this.props.location.longitude}&partner=BfID2Tz9GlS5&destination[latitude]=${this.props.destination.singleResult.coordinates.latitude}&destination[longitude]=${this.props.destination.singleResult.coordinates.longitude}`)}}>
-            <Image style={styles.icon} source={require("../assets/lyft.png")}/>
+            <Image style={styles.lyft} source={require("../assets/lyft.png")}/>
           </TouchableOpacity>
         </View>
         <View style={styles.closeContainer}>
@@ -98,8 +98,26 @@ const styles = StyleSheet.create({
   },
   icon: {
     borderRadius: 20,
-    height: verticalScale(100),
-    width: scale(100)
+    height: verticalScale(90),
+    width: scale(90),
+    overflow: 'visible'
+  },
+  maps: {
+    borderRadius: 20,
+    height: verticalScale(97),
+    width: scale(97),
+    overflow: 'visible'
+  },
+  uber: {
+    borderRadius: 10,
+    height: verticalScale(83),
+    width: scale(105),
+  },
+  lyft: {
+    borderRadius: 20,
+    height: verticalScale(85),
+    width: scale(85),
+    overflow: 'visible'
   }
 });
 

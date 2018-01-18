@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     fontSize: scale(45),
     fontFamily: 'Futura',
     color: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    bottom: verticalScale(10)
   },
   rowSubContainer: {
     flexDirection: 'row',

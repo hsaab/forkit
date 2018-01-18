@@ -58,11 +58,11 @@ export default class Tabbar extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={{
-          height: verticalScale(50),
+          height: verticalScale(60),
           width: scale(375/4),
           backgroundColor: this.state.newsfeedColor,
           borderColor: '#95989A',
-          borderTopWidth: 0.5,
+          borderTopWidth: moderateScale(1),
           alignItems: 'center',
           justifyContent: 'center'
           }}
@@ -70,11 +70,11 @@ export default class Tabbar extends React.Component {
           <Image style={styles.logoNewsfeed} source={require("../assets/newsfeed.png")}/>
         </TouchableOpacity>
         <TouchableOpacity style={{
-          height: verticalScale(50),
+          height: verticalScale(60),
           width: scale(375/4),
           backgroundColor: this.state.discoverColor,
           borderColor: '#95989A',
-          borderTopWidth: 0.5,
+          borderTopWidth: moderateScale(1),
           alignItems: 'center',
           justifyContent: 'center'
           }}
@@ -82,11 +82,11 @@ export default class Tabbar extends React.Component {
           <Image style={styles.logoDiscover} source={require("../assets/discoverIcon.png")}/>
         </TouchableOpacity>
         <TouchableOpacity style={{
-          height: verticalScale(50),
+          height: verticalScale(60),
           width: scale(375/4),
           backgroundColor: this.state.profileColor,
           borderColor: '#95989A',
-          borderTopWidth: 0.5,
+          borderTopWidth: moderateScale(1),
           alignItems: 'center',
           justifyContent: 'center'
           }}
@@ -94,15 +94,15 @@ export default class Tabbar extends React.Component {
           <Image style={styles.logoProfile} source={require("../assets/profile.png")}/>
         </TouchableOpacity>
         <TouchableOpacity style={{
-          height: verticalScale(50),
+          height: verticalScale(60),
           width: scale(375/4),
           backgroundColor: this.state.searchColor,
           borderColor: '#95989A',
-          borderTopWidth: 0.5,
+          borderTopWidth: moderateScale(1),
           alignItems: 'center',
           justifyContent: 'center'
           }}
-          onPress={() => this.selectSearch(Actions.search)}>
+          onPress={() => this.selectSearch(Actions.restselect)}>
           <Image style={styles.logoSearch} source={require("../assets/search.png")}/>
         </TouchableOpacity>
       </View>
@@ -112,7 +112,7 @@ export default class Tabbar extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: verticalScale(50),
+    height: verticalScale(60),
     width: scale(375),
     flexDirection: 'row',
     alignItems: 'center',
@@ -121,21 +121,25 @@ const styles = StyleSheet.create({
   logoNewsfeed: {
     height: verticalScale(23),
     width: scale(23),
-    opacity: 0.52
+    opacity: 0.52,
+    overflow: 'visible'
   },
   logoDiscover: {
     height: verticalScale(27),
     width: scale(27),
-    opacity: 0.52
+    opacity: 0.52,
+    overflow: 'visible'
   },
   logoProfile: {
     height: verticalScale(25),
     width: scale(25),
-    opacity: 0.52
+    opacity: 0.52,
+    overflow: 'visible'
   },
   logoSearch: {
     height: verticalScale(25),
     width: scale(25),
-    opacity: 0.52
+    opacity: 0.52,
+    overflow: 'visible'
   }
 });

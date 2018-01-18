@@ -114,7 +114,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: verticalScale(145),
+    height: verticalScale(140),
     backgroundColor: 'transparent',
     width: scale(375),
     justifyContent: 'center',
@@ -145,9 +145,9 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   restaurantIcon: {
-    height: verticalScale(90),
-    width: scale(90),
-    borderRadius: scale(90/2),
+    height: moderateScale(90),
+    width: moderateScale(90),
+    borderRadius: moderateScale(45),
     borderColor: 'black',
     borderWidth: scale(0.2)
   },
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
   restaurantNameContainer: {
     flex: 2,
     flexDirection: 'row',
+    top: verticalScale(5)
   },
   restaurantName: {
     flex: 3,
@@ -184,7 +185,8 @@ const styles = StyleSheet.create({
   },
   starRating: {
     width: scale(150),
-    marginBottom: verticalScale(10)
+    left: scale(12),
+    marginBottom: verticalScale(10),
   },
   textDetails: {
     fontFamily: 'Futura',
