@@ -20,7 +20,6 @@ class DiscoverHome extends Component {
     ev.preventDefault();
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status === 'granted') {
-      // navigator.geolocation.getCurrentPosition());
       let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
       this.props.locationFetch(location.coords);
       let coords = {latitude: location.coords.latitude, longitude: location.coords.longitude};
