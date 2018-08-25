@@ -10,7 +10,7 @@ Singleplayer mode asks 5 simple question and intelligently narrows the user's fi
 
 Users are able to easily register via facebook or email. Their data is stored as future plans exist to retain user preferences, favorite locations/events, as well as friends.
 
-<img width=175 src="/assets/screens/login-iphone.png"/>
+<img width=400 src="/assets/screens/login-iphone.png"/>
 
 # Step 2: Discover Home
 
