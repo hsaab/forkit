@@ -10,6 +10,8 @@ Singleplayer mode asks 5 simple question and intelligently narrows the user's fi
 
 Users are able to easily register via facebook or email. Their data is stored as future plans exist to retain user preferences, favorite locations/events, as well as friends.
 
+<img width=175 src="/assets/screens/login-iphone.png"/>
+
 # Step 2: Discover Home
 
 Here the user is able to pick which activity they'd like to engage in by swiping the screen. Currently there are five options (Eat, Experience, Explore, Play, Party). The My Events button will show you your upcoming events. The Multiplayer button will allow you to create a new plan with friends, while the Singleplayer button will allow you to find something to do.
@@ -39,7 +41,7 @@ The game for Eats mode includes three questions based on price, cuisine and date
 
 <div style="display: flex; flex-direction: row;">
   <img width=200 src="/assets/screens/Price-iphone.png"/>
-  <img width=200 style="margin-left: 100;" src="/assets/screens/Cuisine-iphone.png"/>
+  <img width=200 style="margin-left: 10;" src="/assets/screens/Cuisine-iphone.png"/>
   <img width=200 style="margin-left: 10;" src="/assets/screens/Date-iphone.png"/>
   <img width=200 style="margin-left: 10;" src="/assets/screens/Status2-iphone.png"/>
 </div>
