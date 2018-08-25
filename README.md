@@ -39,7 +39,7 @@ The game for Eats mode includes three questions based on price, cuisine and date
 
 <div style="display: flex; flex-direction: row;">
   <img width=200 src="/assets/screens/Price-iphone.png"/>
-  <img width=200 style="margin-left: 10;" src="/assets/screens/Cuisine-iphone.png"/>
+  <img width=200 style="margin-left: 100;" src="/assets/screens/Cuisine-iphone.png"/>
   <img width=200 style="margin-left: 10;" src="/assets/screens/Date-iphone.png"/>
   <img width=200 style="margin-left: 10;" src="/assets/screens/Status2-iphone.png"/>
 </div>
