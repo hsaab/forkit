@@ -4,13 +4,13 @@ Fork It is a social mobile app designed to "gamify" the planning process for fun
 
 # How It Works
 
-Singleplayer mode asks 5 simple question and intelligently narrows the user's final decision to three choices. Each of the options has details on the restaurant as well the option to map, Uber, or Lyft to the destination immediately. Multiplayer mode allows the planning user to create an event based on information inputs, invite friends and allow the group to decide on the activity specifics through a trivia game. Future features of the project will include discovery tools for nightlife, arts/culture, and live events. Please see below for typical user flow and screenshots from the app!
+Singleplayer mode asks 5 simple question and intelligently narrows the user's final decision to three choices. Each of the options has details on the restaurant as well the option to map, Uber, or Lyft to the destination immediately. Multiplayer mode allows the planning user to create an event based on information inputs, invite friends and allow the group to decide on the activity specifics through a trivia game. Future features of the project will include discovery tools for nightlife, arts/culture, and live events. Below, we will go through typical user flow for Multiplayer mode!
 
 # Step 1: Sign Up & Login
 
 Users are able to easily register via facebook or email. Their data is stored as future plans exist to retain user preferences, favorite locations/events, as well as friends.
 
-<img width=400 src="/assets/screens/login-iphone.png"/>
+<img width=450 src="/assets/screens/login-iphone.png"/>
 
 # Step 2: Discover Home
 
