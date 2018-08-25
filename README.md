@@ -24,10 +24,10 @@ Here the user is able to pick which activity they'd like to engage in by swiping
 
 The user can start a game with friends by inputting information on the type of event they'd like (title, date, meal, location and cuisine). Once the user inputs that information, they can add friends and create a game to decide specifics. After creating the game, the planning user will be sent back to the event status page in order to play the game themselves. The user can also check for other events by hitting the My Events button on the previous page. For now, let's continue with playing the game.
 
-<img width=300 src="/assets/screens/Facts-iphone.png"/>
-<img width=300 src="/assets/screens/Friends-iphone.png"/>
-<img width=300 src="/assets/screens/Status1-iphone.png"/>
-<img width=300 src="/assets/screens/MyEvents-iphone.png"/>
+<img width=100 src="/assets/screens/Facts-iphone.png"/>
+<img width=100 src="/assets/screens/Friends-iphone.png"/>
+<img width=100 src="/assets/screens/Status1-iphone.png"/>
+<img width=100 src="/assets/screens/MyEvents-iphone.png"/>
 
 # Step 4: Playing the Game
 
