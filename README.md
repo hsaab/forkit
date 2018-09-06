@@ -1,5 +1,16 @@
 # Fork It
 
+App can be viewed by using [Expo CLI](https://docs.expo.io/versions/latest/guides/exp-cli.html) and the [Xcode](https://developer.apple.com/xcode/). To start the app, please do the following:
+
+1) Download the Expo CLI through the link above
+2) Download Xcode, which should come with the iOS simulator that displays the app
+3) `git clone` this repository
+4) `npm install`
+5) Login to your expo account by typing in `exp login` in the terminal
+6) Navigate to this project directory and type `exp start` in the terminal
+7) Then open the iOS Simulator and navigate to the Expo app (if you don't have it you can download it)
+8) The project should appear as "Recently in development". If you click on the project and Expo gives you an error, try restarting the application by running `exp start --tunnel` and retrying step 7
+
 Fork It is a social mobile app designed to "gamify" the planning process for fun activities, such as going out to eat, seeing a concert, etc. The app was first created at a hackathon as a simple decision maker where users could enter certain parameters (type of cuisine, priciness, etc.) to find restaurants nearby (think of this as "singleplayer"). After the hackathon, my team was excited about the idea, so we continued to work on the app for a few months and added a "multiplayer" mode, which was designed to streamline the entire planning process for various activities with friends. We first focused on creating the "Eats" feature for going out to eat with friends and presented this prototype at a Demo Day for the SF community.
 
 # How It Works
