@@ -1,6 +1,6 @@
 # Fork It
 
-App can be viewed by using [Expo CLI](https://docs.expo.io/versions/latest/guides/exp-cli.html) and the [Xcode](https://developer.apple.com/xcode/). To start the app, please do the following:
+App can be viewed by using [Expo CLI](https://docs.expo.io/versions/latest/guides/exp-cli.html) and [Xcode](https://developer.apple.com/xcode/). To start the app, please do the following:
 
 1) Download the Expo CLI through the link above
 2) Download Xcode, which should come with the iOS simulator that displays the app
