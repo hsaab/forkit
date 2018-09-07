@@ -28,11 +28,11 @@ Users are able to easily register via facebook or email. Their data is stored as
 Here the user is able to pick which activity they'd like to engage in by swiping the screen. Currently there are five options (Eat, Experience, Explore, Play, Party). The My Events button will show you your upcoming events. The Multiplayer button will allow you to create a new plan with friends, while the Singleplayer button will allow you to find something to do.
 
 <div style="display: flex; flex-direction: row;">
-  <img width=175 src="/assets/screens/Eat-iphone.png"/>
-  <img width=175 style="margin-left: 8;" src="/assets/screens/Experience-iphone.png"/>
-  <img width=175 style="margin-left: 8;" src="/assets/screens/Explore-iphone.png"/>
-  <img width=175 style="margin-left: 8;" src="/assets/screens/Play-iphone.png"/>
-  <img width=175 style="margin-left: 8;" src="/assets/screens/Party-iphone.png"/>
+  <img width=160 src="/assets/screens/Eat-iphone.png"/>
+  <img width=160 style="margin-left: 8;" src="/assets/screens/Experience-iphone.png"/>
+  <img width=160 style="margin-left: 8;" src="/assets/screens/Explore-iphone.png"/>
+  <img width=160 style="margin-left: 8;" src="/assets/screens/Play-iphone.png"/>
+  <img width=160 style="margin-left: 8;" src="/assets/screens/Party-iphone.png"/>
 </div>
 
 # Step 3: Start a Multiplayer Game in Eats
